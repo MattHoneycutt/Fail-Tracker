@@ -1,0 +1,10 @@
+﻿@model TryCatchFail.CodeStock2011.FailTracker.Web.Models.Issues.AddIssueForm
+@{
+    ViewBag.Title = "Add Issue";
+}
+
+<h2>Add Issue</h2>
+@using(Html.BeginForm()){
+	@Html.EditorForModel()
+	<p><input type="submit" value"Add Issue" /></p>
+}

@@ -1,0 +1,26 @@
+﻿@model IEnumerable<TryCatchFail.CodeStock2011.FailTracker.Web.Models.Issues.IssueViewModel>
+@{
+    ViewBag.Title = "View Issues";
+}
+
+<h2>Issues</h2>
+<table>
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Title</th>
+			<th>Assigned To</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach(var issue in Model){
+		<tr>
+			<td>@issue.ID</td>
+			<td>@issue.Title</td>
+			<td>@Html.Mailto(@issue.AssignedTo, @issue.AssignedTo)</td>
+		</tr>
+		}
+	</tbody>
+</table>
+<p>@(Html.ActionLink<IssuesController>(c => c.AddIssue(), "Add New Issues"))</p>
+
