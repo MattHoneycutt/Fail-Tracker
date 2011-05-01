@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using TryCatchFail.CodeStock2011.FailTracker.Core.Data;
 
 namespace TryCatchFail.CodeStock2011.FailTracker.Web
 {
@@ -35,6 +36,9 @@ namespace TryCatchFail.CodeStock2011.FailTracker.Web
 
 			RegisterGlobalFilters(GlobalFilters.Filters);
 			RegisterRoutes(RouteTable.Routes);
+
+			NHibernateBootstrapper.Bootstrap();
+			NHibernateBootstrapper.UpdateSchema();
 		}
 	}
 }
