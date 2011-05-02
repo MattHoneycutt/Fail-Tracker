@@ -1,0 +1,10 @@
+﻿@{
+    ViewBag.Title = "ResetDatabase";
+}
+
+<h2>Reset Database</h2>
+<p>Click the button below to reset the database.</p>
+<p style="warning">All existing data will be lost!</p>
+@using(Html.BeginForm()) {
+	<input type="submit" value="Reset Database" />
+}
