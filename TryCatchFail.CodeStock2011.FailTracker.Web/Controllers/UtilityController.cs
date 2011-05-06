@@ -1,6 +1,5 @@
 using System.Web.Mvc;
 using Microsoft.Web.Mvc;
-using NHibernate;
 using TryCatchFail.CodeStock2011.FailTracker.Core.Data;
 using TryCatchFail.CodeStock2011.FailTracker.Core.Domain;
 
@@ -8,6 +7,11 @@ namespace TryCatchFail.CodeStock2011.FailTracker.Web.Controllers
 {
 	public class UtilityController : Controller
 	{
+		public ActionResult Layout()
+		{
+			return View();
+		}
+
 		[HttpGet]
 		public ActionResult ResetDatabase()
 		{

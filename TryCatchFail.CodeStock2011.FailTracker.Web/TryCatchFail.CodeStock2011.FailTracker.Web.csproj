@@ -83,6 +83,21 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\FailTrackerData.sdf" />
+    <Content Include="Content\Shared\TransdminTheme\css\layout.css" />
+    <Content Include="Content\Shared\TransdminTheme\css\reset.css" />
+    <Content Include="Content\Shared\TransdminTheme\css\transdmin.css" />
+    <Content Include="Content\Shared\TransdminTheme\img\btn_left.gif" />
+    <Content Include="Content\Shared\TransdminTheme\img\btn_right.gif" />
+    <Content Include="Content\Shared\TransdminTheme\img\button-submit.gif" />
+    <Content Include="Content\Shared\TransdminTheme\img\content.gif" />
+    <Content Include="Content\Shared\TransdminTheme\img\input-shaddow-hover.gif" />
+    <Content Include="Content\Shared\TransdminTheme\img\input-shaddow.gif" />
+    <Content Include="Content\Shared\TransdminTheme\img\left-menu-bg.gif" />
+    <Content Include="Content\Shared\TransdminTheme\img\select_left.gif" />
+    <Content Include="Content\Shared\TransdminTheme\img\select_right.gif" />
+    <Content Include="Content\Shared\TransdminTheme\img\top-menu-bg.gif" />
+    <Content Include="Content\Shared\TransdminTheme\img\top-menu-item-bg.gif" />
+    <Content Include="Content\Shared\TransdminTheme\img\transdmin-light.gif" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\themes\base\jquery-ui.css" />
@@ -146,6 +161,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Issues\AddIssue.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Utility\Layout.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
