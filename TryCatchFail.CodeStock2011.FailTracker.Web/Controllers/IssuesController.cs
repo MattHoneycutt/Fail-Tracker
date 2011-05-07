@@ -2,26 +2,29 @@
 using System.Linq;
 using System.Web.Mvc;
 using NHibernate;
+using TryCatchFail.CodeStock2011.FailTracker.Core.Data;
 using TryCatchFail.CodeStock2011.FailTracker.Core.Domain;
+using TryCatchFail.CodeStock2011.FailTracker.Core.Features.Dashboard;
 using TryCatchFail.CodeStock2011.FailTracker.Web.Models.Issues;
 using Microsoft.Web.Mvc;
-using NHibernate.Linq;
 
 namespace TryCatchFail.CodeStock2011.FailTracker.Web.Controllers
 {
 	public class IssuesController : Controller
 	{
 		private readonly ISession _session;
+		private readonly IProvideQueries _queries;
 
-		public IssuesController(ISession session)
+		public IssuesController(ISession session, IProvideQueries queries)
 		{
 			_session = session;
+			_queries = queries;
 		}
 
 		public ActionResult Index()
 		{
-			var issues = from i in _session.Query<Issue>()
-			             select new IssueViewModel {ID = i.ID, Title = i.Title, AssignedTo = i.AssignedTo};
+			var issues = (from i in _queries.PrepareQuery<GetIssueHeadersQuery>().Run(new GetIssueHeadersQuery.Options())
+			              select new IssueViewModel {ID = i.ID, Title = i.Title, AssignedTo = i.AssignedTo}).ToArray();
 
 			return View(issues);
 		}
@@ -41,7 +44,7 @@ namespace TryCatchFail.CodeStock2011.FailTracker.Web.Controllers
 
 			_session.Flush();
 
-			return this.RedirectToAction(c => c.Index());
+			return this.RedirectToAction(c => c.View(issue.ID));
 		}
 
 		public ActionResult View(Guid id)

@@ -13,10 +13,13 @@ namespace TryCatchFail.CodeStock2011.FailTracker.Web.Infrastructure.DependencyRe
 							x.Scan(scan =>
 									{
 										scan.TheCallingAssembly();
+										scan.AssembliesFromApplicationBaseDirectory(assembly => assembly.FullName.Contains("FailTracker"));
+										scan.AddAllTypesOf(typeof (QueryBase<,>));
 										scan.WithDefaultConventions();
 									});
 
 							x.For<ISession>().Use(NHibernateBootstrapper.GetSession);
+							x.For<IProvideQueries>().Use<NHibernateQueryProvider>();
 						});
 
 			return ObjectFactory.Container;
