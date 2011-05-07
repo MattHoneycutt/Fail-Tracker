@@ -1,0 +1,15 @@
+﻿@{
+    Layout = null;
+}
+<p>
+	@Html.LabelForModel()
+	@RenderBody()
+	@Html.ValidationMessage("")
+	@* Trying to get jQuery UI styling...
+	<span class="ui-widget" style="display:inline-block; vertical-align: middle">
+		<span class="ui-state-error ui-corner-all" style="display:inline-block; padding: 0.25em">
+			<span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
+			<span class="field-validation-valid" data-valmsg-for="@Html.IdForModel()" data-valmsg-replace="true"></span>
+		</span>
+	</span>*@
+</p>

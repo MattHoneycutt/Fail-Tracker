@@ -22,19 +22,35 @@ legend
     font-weight: bold;
 }
 
-textarea 
+label
 {
-    min-height: 75px;
+	width: 10em;
+	display: inline-block;
+	text-align: right;
 }
 
-.editor-label 
+label:after
 {
-    margin: 1em 0 0 0;
+	content: ":"
 }
 
-.editor-field 
+input[type=text]
 {
-    margin:0.5em 0 0 0;
+    width: 15em;
+}
+
+textarea
+{
+	width: 14.8em;
+    min-height: 5em;
+    vertical-align: text-top;
+    resize: vertical;
+}
+
+div.control-box
+{
+	padding-left: 10em;
+	width: 20em;
 }
 
 
@@ -42,7 +58,11 @@ textarea
 -----------------------------------------------------------*/
 .field-validation-error
 {
-    color: #ff0000;
+	border: 1px solid #CD0A0A;
+	background-color: #FEF1EC;
+	color: #CD0A0A;
+	padding: 0.25em;
+	border-radius: 4px;
 }
 
 .field-validation-valid
@@ -52,8 +72,8 @@ textarea
 
 .input-validation-error
 {
-    border: 1px solid #ff0000;
-    background-color: #ffeeee;
+	border: 1px solid #CD0A0A;
+	background-color: #FEF1EC;
 }
 
 .validation-summary-errors
