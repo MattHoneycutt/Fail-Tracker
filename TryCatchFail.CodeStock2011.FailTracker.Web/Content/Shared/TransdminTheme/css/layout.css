@@ -51,6 +51,7 @@ h1 strong
 	padding: 6px;
 	margin: 0 0 30px 0;
 	background: url(../img/top-menu-bg.gif) no-repeat left top; 
+	text-transform: uppercase;
 	/* We used a background image making the thick border and the thin one to keep the html structure simple */
 }
 
@@ -71,7 +72,7 @@ h1 strong
 	padding: 0 20px;
 }
 
-#mainNav li.logout {
+#mainNav li.right {
 	float: right;
 	border-left: 1px solid #ddd;
 	border-right: none;
@@ -92,17 +93,21 @@ h1 strong
 }
 
 
-#container {
-	background: #fff url(../img/content.gif) repeat-y left top;
-	border: 1px solid #ddd;
+#container 
+{
+	background: #FFF;
+	border: 1px solid #DDD;
 	width: 918px;
+	display: table;
 }
 
 /* Sidebar ---------------------------------------- */
 
-#sidebar {
+#sidebar 
+{
 	width: 179px;
-	float: left;
+	display: table-cell;
+	border-right: 1px solid #EEE;
 }
 
 #sidebar .sideNav { width: 179px; }
@@ -152,10 +157,10 @@ h1 strong
 
 /* Content ---------------------------------------- */
 
-#main {
-	width: 700px;
-	float: right;
-	padding: 0 19px 0 0;
+#main 
+{
+	padding: 0 1em;
+	display: table-cell;
 }
 
 h2 {
@@ -163,8 +168,7 @@ h2 {
 	line-height: 18px;
 	font-weight: bold;
 	color: #5494af;
-	padding: 0 0 0 10px;
-	margin: 20px 0 10px;
+	line-height: 2em;
 }
 
 h3 {
@@ -172,21 +176,26 @@ h3 {
 	line-height: 14px;
 	font-weight: bold;
 	color: #5494af;
-	padding: 0 0 0 10px;
-	margin: 20px 0 10px;
+	line-height: 2em;
 }
 
-#main table {
+#main table 
+{
 	border-top: 1px solid #ddd;
-	width: 700px;
+	width: 100%;
 }
 
-#main table tr td {
+#main table tr td, #main table tr th {
 	background: #f6f6f6;
-	padding: 0px 20px;
-	height: 29px;
-	line-height: 29px;
+	padding: 0.5em;
 	border-bottom: 1px solid #ddd;
+}
+
+#main table tr th
+{
+	background-color: #808080;
+	color: white;
+	font-size: 1.1em;
 }
 
 #main table tr.odd td {
@@ -282,6 +291,11 @@ h3 {
 	cursor: pointer;
 	border: none;
 	background: url(../img/button-submit.gif) no-repeat left top;
+}
+
+p 
+{
+	margin: 1em 0;
 }
 
 /* Footer ---------------------------------------- */

@@ -16,28 +16,23 @@
 		</h1>
         <!-- You can name the links with lowercase, they will be transformed to uppercase by CSS, we prefered to name them with uppercase to have the same effect with disabled stylesheet -->
         <ul id="mainNav">
-        	<li><a href="#" class="active">DASHBOARD</a></li> <!-- Use the "active" class for the active menu item  -->
+			@*TODO: Render links to actions! *@
+			<li>@(Html.ActionLink<IssuesController>(c => c.Index(), "Dashboard", new { @class="active"}))</li>
         	<li><a href="#">ADMINISTRATION</a></li>
         	<li><a href="#">DESIGN</a></li>
         	<li><a href="#">OPTION</a></li>
-        	<li class="logout"><a href="#">LOGOUT</a></li>
+        	<li class="right"><a href="#">LOGOUT</a></li>
+        	<li class="right">@(Html.ActionLink<IssuesController>(c => c.AddIssue(), "Add Issue"))</li>
         </ul>
         <!-- // #end mainNav -->
         
         <div id="containerHolder">
 			<div id="container">
+				@if(IsSectionDefined("SideBar")){
         		<div id="sidebar">
-                	<ul class="sideNav">
-                    	<li><a href="#">Exchange</a></li>
-                    	<li><a href="#" class="active">Print resources</a></li>
-                    	<li><a href="#">Training &amp; Support</a></li>
-                    	<li><a href="#">Books</a></li>
-                    	<li><a href="#">Safari books online</a></li>
-                    	<li><a href="#">Events</a></li>
-                    </ul>
-                    <!-- // .sideNav -->
+					@RenderSection("SideBar")
                 </div>    
-                <!-- // #sidebar -->
+				}
                 
                 <div id="main">
 					@* TODO: Implement or remove? 

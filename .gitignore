@@ -4,6 +4,7 @@
 obj/
 bin/
 _Resharper*/
+_ReSharper*/
 
 # Compiled source #
 ###################
