@@ -23,13 +23,12 @@ namespace TryCatchFail.CodeStock2011.UnitTests.Web.Controllers
 			{
 				GetMockFor<IRepository<Issue>>()
 					.Setup(s => s.Query())
-					.Returns((new[] {new Issue()}).AsQueryable());
+					.Returns((new[] {Issue.Create("Test1", "blah", "blah")}).AsQueryable());
 			}
 
 			protected override void When()
 			{
-				//TODO: Rename to dashboard? 
-				_result = SUT.Index();
+				_result = SUT.Dashboard();
 			}
 
 			[Test]
@@ -47,8 +46,9 @@ namespace TryCatchFail.CodeStock2011.UnitTests.Web.Controllers
 			protected override void Given()
 			{
 				GetMockFor<IRepository<Issue>>()
-					.Setup(s => s.Save(It.IsAny<Issue>()))
-					.Callback<Object>(i => ((Issue)i).ID = TestIssueID);
+					.Setup(s => s.Save(Issue.Create("Test Title", "Matt", "Content")))
+					.Callback<Object>(i => ((Issue) i).ID = TestIssueID)
+					.Verifiable();
 			}
 
 			protected override void When()
@@ -59,8 +59,7 @@ namespace TryCatchFail.CodeStock2011.UnitTests.Web.Controllers
 			[Test]
 			public void then_it_will_send_an_add_issue_command()
 			{
-				GetMockFor<IRepository<Issue>>()
-					.Verify(s => s.Save(new Issue {ID = TestIssueID, AssignedTo = "Matt", Title = "Test Title", Body = "Content"}));
+				GetMockFor<IRepository<Issue>>().Verify();
 			}
 
 			[Test]

@@ -154,7 +154,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Issues\Index.cshtml" />
+    <Content Include="Views\Issues\Dashboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

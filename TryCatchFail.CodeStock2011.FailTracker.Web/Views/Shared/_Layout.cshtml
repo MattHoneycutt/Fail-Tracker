@@ -19,13 +19,13 @@
 	<div id="wrapper">
     	<!-- h1 tag stays for the logo, you can use the a tag for linking the index page -->
     	<h1>
-			@(Html.ActionLink<IssuesController>(c => c.Index(), "Fail Tracker"))
+			@(Html.ActionLink<IssuesController>(c => c.Dashboard(), "Fail Tracker"))
 			<strong>Because failure is everywhere...</strong>
 		</h1>
         <!-- You can name the links with lowercase, they will be transformed to uppercase by CSS, we prefered to name them with uppercase to have the same effect with disabled stylesheet -->
         <ul id="mainNav">
 			@*TODO: Render links to actions! *@
-			<li>@(Html.ActionLink<IssuesController>(c => c.Index(), "Dashboard", new { @class="active"}))</li>
+			<li>@(Html.ActionLink<IssuesController>(c => c.Dashboard(), "Dashboard", new { @class="active"}))</li>
         	<li><a href="#">ADMINISTRATION</a></li>
         	<li><a href="#">DESIGN</a></li>
         	<li><a href="#">OPTION</a></li>

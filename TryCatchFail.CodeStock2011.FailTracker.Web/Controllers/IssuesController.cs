@@ -17,7 +17,7 @@ namespace TryCatchFail.CodeStock2011.FailTracker.Web.Controllers
 			_repository = repository;
 		}
 
-		public ActionResult Index()
+		public ActionResult Dashboard()
 		{
 			var issues = (from i in _repository.Query()
 			              select new IssueViewModel {ID = i.ID, Title = i.Title, AssignedTo = i.AssignedTo}).ToArray();
@@ -34,7 +34,7 @@ namespace TryCatchFail.CodeStock2011.FailTracker.Web.Controllers
 		[HttpPost]
 		public ActionResult AddIssue(AddIssueForm form)
 		{
-			var issue = new Issue {Title = form.Title, AssignedTo = form.AssignedTo, Body = form.Body};
+			var issue = Issue.Create(form.Title, form.AssignedTo, form.Body);
 
 			_repository.Save(issue);
 

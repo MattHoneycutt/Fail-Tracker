@@ -12,7 +12,7 @@ namespace TryCatchFail.CodeStock2011.FailTracker.Web.Infrastructure
 			routes.MapRoute(
 				"Default", // Route name
 				"{controller}/{action}/{id}", // URL with parameters
-				new { controller = "Issues", action = "Index", id = UrlParameter.Optional } // Parameter defaults
+				new { controller = "Issues", action = "Dashboard", id = UrlParameter.Optional } // Parameter defaults
 			);
 		}
 	}

@@ -26,10 +26,10 @@ namespace TryCatchFail.CodeStock2011.FailTracker.Web.Controllers
 			{
 				var issues = new[]
 				             	{
-				             		new Issue{Title = "Something doesn't work", AssignedTo = "mbhoneycutt@gmail.com"},
-				             		new Issue{Title = "Something doesn't work", AssignedTo = "mbhoneycutt@gmail.com"},
-				             		new Issue{Title = "Something doesn't work", AssignedTo = "mbhoneycutt@gmail.com"},
-				             		new Issue{Title = "Something doesn't work", AssignedTo = "mbhoneycutt@gmail.com"},
+									Issue.Create("Something doesn't work", "mbhoneycutt@gmail.com", "Body 12345"),
+									Issue.Create("Something doesn't work", "mbhoneycutt@gmail.com", "Body 12345"),
+									Issue.Create("Something doesn't work", "mbhoneycutt@gmail.com", "Body 12345"),
+									Issue.Create("Something doesn't work", "mbhoneycutt@gmail.com", "Body 12345"),
 				             	};
 
 				foreach (var issue in issues)
@@ -40,7 +40,7 @@ namespace TryCatchFail.CodeStock2011.FailTracker.Web.Controllers
 				session.Flush();
 			}
 
-			return this.RedirectToAction<IssuesController>(c => c.Index());
+			return this.RedirectToAction<IssuesController>(c => c.Dashboard());
 		}
 	}
 }

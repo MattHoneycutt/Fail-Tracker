@@ -12,6 +12,17 @@ namespace TryCatchFail.CodeStock2011.FailTracker.Core.Domain
 
 		public virtual string Body { get; set; }
 
+		public static Issue Create(string title, string assignedTo, string body)
+		{
+			return new Issue { Title = title, AssignedTo = assignedTo, Body = body };
+		}
+
+		//Required for NHibernate
+		protected Issue()
+		{
+			
+		}
+
 		#region Equals Implementation 
 
 		public virtual bool Equals(Issue other)
