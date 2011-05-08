@@ -1,16 +1,15 @@
 using System;
 using System.Web.Mvc;
 using Moq;
-using NHibernate;
 using NUnit.Framework;
 using SpecsFor;
+using TryCatchFail.CodeStock2011.FailTracker.Core.Data;
 using TryCatchFail.CodeStock2011.FailTracker.Core.Domain;
-using TryCatchFail.CodeStock2011.FailTracker.Core.Features.Dashboard;
 using TryCatchFail.CodeStock2011.FailTracker.Web.Controllers;
 using MvcContrib.TestHelper;
 using TryCatchFail.CodeStock2011.FailTracker.Web.Models.Issues;
 using Should;
-using TryCatchFail.CodeStock2011.UnitTests.Util;
+using System.Linq;
 
 namespace TryCatchFail.CodeStock2011.UnitTests.Web.Controllers
 {
@@ -22,9 +21,9 @@ namespace TryCatchFail.CodeStock2011.UnitTests.Web.Controllers
 
 			protected override void Given()
 			{
-				this.GetQueryMockFor<GetIssueHeadersQuery>()
-					.Setup(q => q.Run(It.IsAny<GetIssueHeadersQuery.Options>()))
-					.Returns(new[] {new GetIssueHeadersQuery.Result()});
+				GetMockFor<IRepository<Issue>>()
+					.Setup(s => s.Query())
+					.Returns((new[] {new Issue()}).AsQueryable());
 			}
 
 			protected override void When()
@@ -43,11 +42,11 @@ namespace TryCatchFail.CodeStock2011.UnitTests.Web.Controllers
 		public class when_adding_a_new_issue : SpecsFor<IssuesController>
 		{
 			private ActionResult _result;
-			private Guid TestIssueID = Guid.NewGuid();
+			private readonly Guid TestIssueID = Guid.NewGuid();
 
 			protected override void Given()
 			{
-				GetMockFor<ISession>()
+				GetMockFor<IRepository<Issue>>()
 					.Setup(s => s.Save(It.IsAny<Issue>()))
 					.Callback<Object>(i => ((Issue)i).ID = TestIssueID);
 			}
@@ -60,7 +59,7 @@ namespace TryCatchFail.CodeStock2011.UnitTests.Web.Controllers
 			[Test]
 			public void then_it_will_send_an_add_issue_command()
 			{
-				GetMockFor<ISession>()
+				GetMockFor<IRepository<Issue>>()
 					.Verify(s => s.Save(new Issue {ID = TestIssueID, AssignedTo = "Matt", Title = "Test Title", Body = "Content"}));
 			}
 

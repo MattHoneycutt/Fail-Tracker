@@ -66,17 +66,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\FailTrackerConfig.cs" />
-    <Compile Include="Data\IProvideQueries.cs" />
+    <Compile Include="Data\IRepository.cs" />
     <Compile Include="Data\NHibernateBootstrapper.cs" />
-    <Compile Include="Data\NHibernateQueryProvider.cs" />
+    <Compile Include="Data\NHibernateRepository.cs" />
     <Compile Include="Domain\Issue.cs" />
-    <Compile Include="Features\Dashboard\GetIssueHeadersQuery.cs" />
-    <Compile Include="Data\QueryBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

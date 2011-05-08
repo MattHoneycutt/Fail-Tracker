@@ -14,7 +14,7 @@ namespace TryCatchFail.CodeStock2011.FailTracker.Core.Domain
 
 		#region Equals Implementation 
 
-		public bool Equals(Issue other)
+		public virtual bool Equals(Issue other)
 		{
 			if (ReferenceEquals(null, other)) return false;
 			if (ReferenceEquals(this, other)) return true;
