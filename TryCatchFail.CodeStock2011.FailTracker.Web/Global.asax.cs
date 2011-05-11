@@ -20,6 +20,8 @@ namespace TryCatchFail.CodeStock2011.FailTracker.Web
 		{
 			AreaRegistration.RegisterAllAreas();
 
+			FilterBootstrapper.RegisterGlobalFilters(GlobalFilters.Filters);
+
 			RegisterGlobalFilters(GlobalFilters.Filters);
 			
 			RouteBootstrapper.RegisterRoutes(RouteTable.Routes);
@@ -27,6 +29,16 @@ namespace TryCatchFail.CodeStock2011.FailTracker.Web
 			NHibernateBootstrapper.Bootstrap();
 			//TODO: Turn this off once major development is finished. 
 			NHibernateBootstrapper.UpdateSchema();
+		}
+	}
+
+	public static class FilterBootstrapper
+	{
+		public static void RegisterGlobalFilters(GlobalFilterCollection filters)
+		{
+			//TODO: Refactor this to use the IoC container and some sort of filter provider method. 
+
+			filters.Add(new HandleErrorAttribute());
 		}
 	}
 }

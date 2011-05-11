@@ -22,7 +22,7 @@
 			@(Html.ActionLink<IssuesController>(c => c.Dashboard(), "Fail Tracker"))
 			<strong>Because failure is everywhere...</strong>
 		</h1>
-        <!-- You can name the links with lowercase, they will be transformed to uppercase by CSS, we prefered to name them with uppercase to have the same effect with disabled stylesheet -->
+		@if(Request.IsAuthenticated) {
         <ul id="mainNav">
 			@*TODO: Render links to actions! *@
 			<li>@(Html.ActionLink<IssuesController>(c => c.Dashboard(), "Dashboard", new { @class="active"}))</li>
@@ -32,6 +32,7 @@
         	<li class="right"><a href="#">LOGOUT</a></li>
         	<li class="right">@(Html.ActionLink<IssuesController>(c => c.AddIssue(), "Add Issue"))</li>
         </ul>
+		}
         <!-- // #end mainNav -->
         
         <div id="containerHolder">

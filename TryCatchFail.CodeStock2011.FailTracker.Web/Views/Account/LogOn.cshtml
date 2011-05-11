@@ -1,0 +1,11 @@
+﻿@model TryCatchFail.CodeStock2011.FailTracker.Web.Models.Account.LogOnForm
+@{
+    ViewBag._Title = "Log On";
+}
+
+<h2>Log On</h2>
+@using (Html.BeginForm())
+{
+	@Html.EditorForModel();
+	@MyHelpers.ControlBox("Log On")
+}

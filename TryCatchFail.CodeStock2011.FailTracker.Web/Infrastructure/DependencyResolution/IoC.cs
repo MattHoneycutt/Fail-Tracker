@@ -1,3 +1,4 @@
+using System.Web.Mvc;
 using NHibernate;
 using StructureMap;
 using TryCatchFail.CodeStock2011.FailTracker.Core.Data;
@@ -19,6 +20,7 @@ namespace TryCatchFail.CodeStock2011.FailTracker.Web.Infrastructure.DependencyRe
 
 							x.For<ISession>().Use(NHibernateBootstrapper.GetSession);
 							x.For(typeof (IRepository<>)).Use(typeof (NHibernateRepository<>));
+							x.For<IFilterProvider>().Use<FailTrackerFilterProvider>();
 						});
 
 			return ObjectFactory.Container;

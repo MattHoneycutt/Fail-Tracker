@@ -9,6 +9,10 @@ namespace TryCatchFail.CodeStock2011.FailTracker.Web.Infrastructure
 		{
 			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+			routes.MapRoute("LogOn",
+			                "LogOn",
+			                new {controller = "Account", action = "LogOn"});
+
 			routes.MapRoute(
 				"Default", // Route name
 				"{controller}/{action}/{id}", // URL with parameters

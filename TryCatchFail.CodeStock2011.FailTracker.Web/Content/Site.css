@@ -34,7 +34,7 @@ label:after
 	content: ":"
 }
 
-input[type=text]
+input[type=text], input[type=password]
 {
     width: 15em;
 }
