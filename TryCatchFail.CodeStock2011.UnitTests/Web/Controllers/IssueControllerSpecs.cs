@@ -1,6 +1,5 @@
 using System;
 using System.Web.Mvc;
-using Moq;
 using NUnit.Framework;
 using SpecsFor;
 using TryCatchFail.CodeStock2011.FailTracker.Core.Data;
