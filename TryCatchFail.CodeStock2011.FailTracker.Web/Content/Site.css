@@ -86,3 +86,32 @@ div.control-box
 {
     display: none;
 }
+
+/* Status Messages
+-----------------------------------------------------------*/
+
+#status-message
+{
+	font-weight: bold;
+	line-height: 1em;
+	margin: 1em auto;
+	padding: 0.5em;
+	text-align: center;
+	width: 20em;
+	position: absolute;
+	display: none;
+	clear: both;
+}
+
+#status-message.success
+{
+	background-color: #C8FFC8;
+	border: 1px solid green;
+}
+
+#status-message.error
+{
+	background-color: #FEF1EC;
+	border: 1px solid #CD0A0A;
+	color: #CD0A0A;
+}

@@ -12,7 +12,7 @@ using System.Linq;
 
 namespace TryCatchFail.CodeStock2011.UnitTests.Web.Controllers
 {
-	public class IssueControllerSpecs
+	public class IssuesControllerSpecs
 	{
 		public class when_requesting_the_list_of_issues : SpecsFor<IssuesController>
 		{

@@ -47,8 +47,8 @@
     <Reference Include="Should">
       <HintPath>..\packages\Should.1.1.12.0\lib\Should.dll</HintPath>
     </Reference>
-    <Reference Include="SpecsFor">
-      <HintPath>..\packages\SpecsFor.1.0.66485\lib\SpecsFor.dll</HintPath>
+    <Reference Include="SpecsFor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SpecsFor.1.0.66793\lib\SpecsFor.dll</HintPath>
     </Reference>
     <Reference Include="StructureMap, Version=2.6.2.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
       <HintPath>..\packages\structuremap.2.6.2\lib\StructureMap.dll</HintPath>
@@ -63,7 +63,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Web\Controllers\AccountControllerSpecs.cs" />
-    <Compile Include="Web\Controllers\IssueControllerSpecs.cs" />
+    <Compile Include="Web\Controllers\IssuesControllerSpecs.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TryCatchFail.CodeStock2011.FailTracker.Core\TryCatchFail.CodeStock2011.FailTracker.Core.csproj">
@@ -76,9 +76,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="TryCatchFail.CodeStock2011.UnitTests.dll.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
