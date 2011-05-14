@@ -38,7 +38,7 @@ namespace TryCatchFail.CodeStock2011.UnitTests.Web.Controllers
 			{
 				GetMockFor<IRepository<User>>()
 					.Setup(r => r.Query())
-					.Returns((new[] {new User {EmailAddress = "test@user.com", Password = "12345"}}).AsQueryable());
+					.Returns((new[] {User.CreateNewUser("test@user.com", "12345")}).AsQueryable());
 			}
 
 			protected override void When()
@@ -88,7 +88,7 @@ namespace TryCatchFail.CodeStock2011.UnitTests.Web.Controllers
 			{
 				GetMockFor<IRepository<User>>()
 					.Setup(r => r.Query())
-					.Returns((new[] {new User {EmailAddress = "test@user.com", Password = "Good"}}).AsQueryable());
+					.Returns((new[] { User.CreateNewUser("test@user.com", "Good")}).AsQueryable());
 			}
 
 			protected override void When()

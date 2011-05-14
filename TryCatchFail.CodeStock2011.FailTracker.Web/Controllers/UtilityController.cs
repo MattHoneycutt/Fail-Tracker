@@ -34,7 +34,7 @@ namespace TryCatchFail.CodeStock2011.FailTracker.Web.Controllers
 
 				(new[]
 				 	{
-				 		new User {EmailAddress = "admin@failtracker.foo", Password = "admin"}
+				 		Core.Domain.User.CreateNewUser("admin@failtracker.com", "admin")
 				 	}).ForEach(u => session.Save(u));
 
 				session.Flush();

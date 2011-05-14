@@ -27,11 +27,10 @@ namespace TryCatchFail.CodeStock2011.FailTracker.Web.Controllers
 		public ActionResult LogOn(LogOnForm form)
 		{
 			var user = (from u in _repository.Query()
-			            where u.EmailAddress == form.EmailAddress &&
-			                  u.Password == form.Password
+			            where u.EmailAddress == form.EmailAddress
 			            select u).SingleOrDefault();
 
-			if (user == null)
+			if (user == null || !user.IsThisTheUsersPassword(form.Password))
 			{
 				return View(new LogOnForm {EmailAddress = form.EmailAddress})
 						.WithErrorMessage("Invalid username or password.");
