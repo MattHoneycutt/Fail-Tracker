@@ -4,6 +4,7 @@ using Should;
 using SpecsFor;
 using TryCatchFail.CodeStock2011.FailTracker.Core.Data;
 using TryCatchFail.CodeStock2011.FailTracker.Core.Domain;
+using TryCatchFail.CodeStock2011.FailTracker.Web.ActionResults;
 using TryCatchFail.CodeStock2011.FailTracker.Web.Controllers;
 using MvcContrib.TestHelper;
 using TryCatchFail.CodeStock2011.FailTracker.Web.Models.Account;
@@ -46,9 +47,10 @@ namespace TryCatchFail.CodeStock2011.UnitTests.Web.Controllers
 			}
 
 			[Test]
-			public void then_it_should_redirect_to_the_dashboard()
+			public void then_it_should_log_the_user_in()
 			{
-				_result.AssertActionRedirect().ToAction<IssuesController>(c => c.Dashboard());
+				_result.ShouldBeType<LogOnResult>()
+					.UserName.ShouldEqual("test@user.com");
 			}
 		}
 
@@ -108,6 +110,22 @@ namespace TryCatchFail.CodeStock2011.UnitTests.Web.Controllers
 				var status = _result.ShouldBeType<StatusResult>();
 				status.Message.ShouldEqual("Invalid username or password.");
 				status.Type.ShouldEqual(StatusType.Error);
+			}
+		}
+
+		public class when_logging_out : SpecsFor<AccountController>
+		{
+			private ActionResult _result;
+
+			protected override void When()
+			{
+				_result = SUT.LogOff();
+			}
+
+			[Test]
+			public void then_it_returns_a_logout_result()
+			{
+				_result.ShouldBeType<LogOffResult>();
 			}
 		}
 	}	

@@ -68,10 +68,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionResults\LogOffResult.cs" />
     <Compile Include="App_Start\StructuremapMvc.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\IssuesController.cs" />
-    <Compile Include="Controllers\StatusResult.cs" />
+    <Compile Include="ActionResults\LogOnResult.cs" />
+    <Compile Include="ActionResults\StatusResult.cs" />
     <Compile Include="Models\Account\LogOnForm.cs" />
     <Compile Include="Controllers\UtilityController.cs" />
     <Compile Include="Infrastructure\DependencyResolution\IoC.cs" />

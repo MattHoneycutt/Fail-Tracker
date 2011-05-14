@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace TryCatchFail.CodeStock2011.FailTracker.Web.Controllers
+namespace TryCatchFail.CodeStock2011.FailTracker.Web.ActionResults
 {
 	public static class StatusMessageExtensions
 	{

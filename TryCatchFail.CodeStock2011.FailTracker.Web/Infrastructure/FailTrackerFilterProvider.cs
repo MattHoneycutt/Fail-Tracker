@@ -9,8 +9,9 @@ namespace TryCatchFail.CodeStock2011.FailTracker.Web.Infrastructure
 	{
 		public IEnumerable<Filter> GetFilters(ControllerContext controllerContext, ActionDescriptor actionDescriptor)
 		{
-			if (controllerContext.Controller.GetType() != typeof(AccountController) ||
-				actionDescriptor.ActionName != "LogOn")
+			var controllerType = controllerContext.Controller.GetType();
+			if (!((controllerType == typeof(AccountController) && actionDescriptor.ActionName == "LogOn") ||
+				controllerType == typeof(UtilityController)))
 			{
 				yield return new Filter(new AuthorizeAttribute(), FilterScope.First, 0);				
 			}

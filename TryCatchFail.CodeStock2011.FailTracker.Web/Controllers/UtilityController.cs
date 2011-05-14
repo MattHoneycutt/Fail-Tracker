@@ -2,6 +2,7 @@ using System.Web.Mvc;
 using Microsoft.Web.Mvc;
 using TryCatchFail.CodeStock2011.FailTracker.Core.Data;
 using TryCatchFail.CodeStock2011.FailTracker.Core.Domain;
+using NHibernate.Linq;
 
 namespace TryCatchFail.CodeStock2011.FailTracker.Web.Controllers
 {
@@ -24,18 +25,17 @@ namespace TryCatchFail.CodeStock2011.FailTracker.Web.Controllers
 			NHibernateBootstrapper.CreateSchema();
 			using (var session = NHibernateBootstrapper.GetSession())
 			{
-				var issues = new[]
-				             	{
-									Issue.Create("Something doesn't work", "mbhoneycutt@gmail.com", "Body 12345"),
-									Issue.Create("Something doesn't work", "mbhoneycutt@gmail.com", "Body 12345"),
-									Issue.Create("Something doesn't work", "mbhoneycutt@gmail.com", "Body 12345"),
-									Issue.Create("Something doesn't work", "mbhoneycutt@gmail.com", "Body 12345"),
-				             	};
+				(new[] {
+				 		Issue.Create("Something doesn't work", "mbhoneycutt@gmail.com", "Body 12345"),
+				 		Issue.Create("Something doesn't work", "mbhoneycutt@gmail.com", "Body 12345"),
+				 		Issue.Create("Something doesn't work", "mbhoneycutt@gmail.com", "Body 12345"),
+				 		Issue.Create("Something doesn't work", "mbhoneycutt@gmail.com", "Body 12345"),
+				 	}).ForEach(i => session.Save(i));
 
-				foreach (var issue in issues)
-				{
-					session.Save(issue);
-				}
+				(new[]
+				 	{
+				 		new User {EmailAddress = "admin@failtracker.foo", Password = "admin"}
+				 	}).ForEach(u => session.Save(u));
 
 				session.Flush();
 			}

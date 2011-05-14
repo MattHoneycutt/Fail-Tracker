@@ -43,6 +43,15 @@ h1 strong
 	text-shadow: 1px 1px 1px #DDD;
 }
 
+div.logon-status
+{
+	color: #888;
+	font-size: 1.2em;
+	text-align: right;
+	padding: 0.5em;
+	margin-top: -2em;
+}
+
 /* Main Navigation ---------------------------------------- */
 
 #mainNav {

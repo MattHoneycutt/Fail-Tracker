@@ -8,6 +8,6 @@ namespace TryCatchFail.CodeStock2011.FailTracker.Core.Domain
 
 		public virtual string EmailAddress { get; set; }
 
-		public string Password { get; set; }
+		public virtual string Password { get; set; }
 	}
 }

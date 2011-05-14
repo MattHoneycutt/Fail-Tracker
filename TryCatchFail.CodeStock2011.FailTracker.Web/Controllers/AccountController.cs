@@ -2,6 +2,7 @@ using System.Linq;
 using System.Web.Mvc;
 using TryCatchFail.CodeStock2011.FailTracker.Core.Data;
 using TryCatchFail.CodeStock2011.FailTracker.Core.Domain;
+using TryCatchFail.CodeStock2011.FailTracker.Web.ActionResults;
 using TryCatchFail.CodeStock2011.FailTracker.Web.Models.Account;
 using Microsoft.Web.Mvc;
 
@@ -35,10 +36,13 @@ namespace TryCatchFail.CodeStock2011.FailTracker.Web.Controllers
 				return View(new LogOnForm {EmailAddress = form.EmailAddress})
 						.WithErrorMessage("Invalid username or password.");
 			}
+			
+			return new LogOnResult(form.EmailAddress);
+		}
 
-			//TODO: Add a WithAuthentication method? 
-
-			return this.RedirectToAction<IssuesController>(c => c.Dashboard());
+		public ActionResult LogOff()
+		{
+			return new LogOffResult();
 		}
 	}
 }
