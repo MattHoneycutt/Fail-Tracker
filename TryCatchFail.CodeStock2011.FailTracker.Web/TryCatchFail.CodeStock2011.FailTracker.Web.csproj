@@ -74,6 +74,7 @@
     <Compile Include="Controllers\IssuesController.cs" />
     <Compile Include="ActionResults\LogOnResult.cs" />
     <Compile Include="ActionResults\StatusResult.cs" />
+    <Compile Include="Helpers\DataExtensions.cs" />
     <Compile Include="Models\Account\LogOnForm.cs" />
     <Compile Include="Controllers\UtilityController.cs" />
     <Compile Include="Infrastructure\DependencyResolution\IoC.cs" />
@@ -194,6 +195,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\StatusMessage.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\EditorTemplates\UserDropDown.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

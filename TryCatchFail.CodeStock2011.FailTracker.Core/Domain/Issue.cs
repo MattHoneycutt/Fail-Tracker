@@ -8,11 +8,11 @@ namespace TryCatchFail.CodeStock2011.FailTracker.Core.Domain
 
 		public virtual string Title { get; set; }
 
-		public virtual string AssignedTo { get; set; }
+		public virtual User AssignedTo { get; set; }
 
 		public virtual string Body { get; set; }
 
-		public static Issue Create(string title, string assignedTo, string body)
+		public static Issue Create(string title, User assignedTo, string body)
 		{
 			return new Issue { Title = title, AssignedTo = assignedTo, Body = body };
 		}

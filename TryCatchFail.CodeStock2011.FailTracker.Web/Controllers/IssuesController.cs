@@ -10,17 +10,19 @@ namespace TryCatchFail.CodeStock2011.FailTracker.Web.Controllers
 {
 	public class IssuesController : Controller
 	{
-		private readonly IRepository<Issue> _repository;
+		private readonly IRepository<Issue> _issues;
+		private readonly IRepository<User> _users;
 
-		public IssuesController(IRepository<Issue> repository)
+		public IssuesController(IRepository<Issue> issues, IRepository<User> users)
 		{
-			_repository = repository;
+			_issues = issues;
+			_users = users;
 		}
 
 		public ActionResult Dashboard()
 		{
-			var issues = (from i in _repository.Query()
-			              select new IssueViewModel {ID = i.ID, Title = i.Title, AssignedTo = i.AssignedTo}).ToArray();
+			var issues = (from i in _issues.Query()
+			              select new IssueViewModel {ID = i.ID, Title = i.Title, AssignedTo = i.AssignedTo.EmailAddress}).ToArray();
 
 			return View(issues);
 		}
@@ -34,9 +36,10 @@ namespace TryCatchFail.CodeStock2011.FailTracker.Web.Controllers
 		[HttpPost]
 		public ActionResult AddIssue(AddIssueForm form)
 		{
-			var issue = Issue.Create(form.Title, form.AssignedTo, form.Body);
+			var user = _users.Query().Where(u => u.ID == form.AssignedTo).Single();
+			var issue = Issue.Create(form.Title, user, form.Body);
 
-			_repository.Save(issue);
+			_issues.Save(issue);
 
 			return this.RedirectToAction(c => c.View(issue.ID));
 		}

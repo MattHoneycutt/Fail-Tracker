@@ -25,17 +25,19 @@ namespace TryCatchFail.CodeStock2011.FailTracker.Web.Controllers
 			NHibernateBootstrapper.CreateSchema();
 			using (var session = NHibernateBootstrapper.GetSession())
 			{
+				var users = new[]
+				            	{
+				            		Core.Domain.User.CreateNewUser("admin@failtracker.com", "admin"),
+				            		Core.Domain.User.CreateNewUser("user@failtracker.com", "user")
+				            	};
+				users.ForEach(u => session.Save(u));
+				
 				(new[] {
-				 		Issue.Create("Something doesn't work", "mbhoneycutt@gmail.com", "Body 12345"),
-				 		Issue.Create("Something doesn't work", "mbhoneycutt@gmail.com", "Body 12345"),
-				 		Issue.Create("Something doesn't work", "mbhoneycutt@gmail.com", "Body 12345"),
-				 		Issue.Create("Something doesn't work", "mbhoneycutt@gmail.com", "Body 12345"),
+				 		Issue.Create("Something doesn't work", users[0], "Body 12345"),
+				 		Issue.Create("Something doesn't work", users[1], "Body 12345"),
+				 		Issue.Create("Something doesn't work", users[0], "Body 12345"),
+				 		Issue.Create("Something doesn't work", users[1], "Body 12345"),
 				 	}).ForEach(i => session.Save(i));
-
-				(new[]
-				 	{
-				 		Core.Domain.User.CreateNewUser("admin@failtracker.com", "admin")
-				 	}).ForEach(u => session.Save(u));
 
 				session.Flush();
 			}

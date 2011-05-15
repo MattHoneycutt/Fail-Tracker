@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TryCatchFail.CodeStock2011.FailTracker.Core.Domain
 {
-	public class User
+	public class User : IEquatable<User>
 	{
 		public virtual Guid ID { get; set; }
 
@@ -54,5 +54,39 @@ namespace TryCatchFail.CodeStock2011.FailTracker.Core.Domain
 			cryptoService.GetBytes(buffer);
 			PasswordSalt = Encoding.UTF8.GetString(buffer);
 		}
+
+		#region Equality
+
+		public virtual bool Equals(User other)
+		{
+			if (ReferenceEquals(null, other)) return false;
+			if (ReferenceEquals(this, other)) return true;
+			return Equals(other.EmailAddress, EmailAddress);
+		}
+
+		public override bool Equals(object obj)
+		{
+			if (ReferenceEquals(null, obj)) return false;
+			if (ReferenceEquals(this, obj)) return true;
+			if (obj.GetType() != typeof (User)) return false;
+			return Equals((User) obj);
+		}
+
+		public override int GetHashCode()
+		{
+			return (EmailAddress != null ? EmailAddress.GetHashCode() : 0);
+		}
+
+		public static bool operator ==(User left, User right)
+		{
+			return Equals(left, right);
+		}
+
+		public static bool operator !=(User left, User right)
+		{
+			return !Equals(left, right);
+		}
+
+		#endregion
 	}
 }

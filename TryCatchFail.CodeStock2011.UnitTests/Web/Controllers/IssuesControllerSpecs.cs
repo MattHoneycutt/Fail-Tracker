@@ -22,7 +22,7 @@ namespace TryCatchFail.CodeStock2011.UnitTests.Web.Controllers
 			{
 				GetMockFor<IRepository<Issue>>()
 					.Setup(s => s.Query())
-					.Returns((new[] {Issue.Create("Test1", "blah", "blah")}).AsQueryable());
+					.Returns((new[] {Issue.Create("Test1", User.CreateNewUser("test@user.com", "Blah"), "blah")}).AsQueryable());
 			}
 
 			protected override void When()
@@ -36,23 +36,32 @@ namespace TryCatchFail.CodeStock2011.UnitTests.Web.Controllers
 				_result.AssertViewRendered().WithViewData<IssueViewModel[]>().ShouldNotBeEmpty();
 			}
 		}
-		
+
 		public class when_adding_a_new_issue : SpecsFor<IssuesController>
 		{
-			private ActionResult _result;
 			private readonly Guid TestIssueID = Guid.NewGuid();
+			private User TestUser;
+
+			private ActionResult _result;
 
 			protected override void Given()
 			{
+				TestUser = User.CreateNewUser("test@user.com", "blah");
+				TestUser.ID = Guid.NewGuid();
+
 				GetMockFor<IRepository<Issue>>()
-					.Setup(s => s.Save(Issue.Create("Test Title", "Matt", "Content")))
+					.Setup(s => s.Save(Issue.Create("Test Title", TestUser, "Content")))
 					.Callback<Object>(i => ((Issue) i).ID = TestIssueID)
 					.Verifiable();
+
+				GetMockFor<IRepository<User>>()
+					.Setup(s => s.Query())
+					.Returns((new[] {User.CreateNewUser("some@user.com", "blah"), TestUser}).AsQueryable());
 			}
 
 			protected override void When()
 			{
-				_result = SUT.AddIssue(new AddIssueForm {AssignedTo = "Matt", Title = "Test Title", Body = "Content"});
+				_result = SUT.AddIssue(new AddIssueForm {AssignedTo = TestUser.ID, Title = "Test Title", Body = "Content"});
 			}
 
 			[Test]
