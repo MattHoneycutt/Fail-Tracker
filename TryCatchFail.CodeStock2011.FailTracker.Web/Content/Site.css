@@ -116,17 +116,16 @@ div.control-box
 	color: #CD0A0A;
 }
 
-/* Display Form
+/* Display Issue
 -----------------------------------------------------------*/
-div.display-form p, 
-div.display-form div.multiline-text 
+div.bug-details
 {
-	border: 1px solid gray;
-	padding: 0.4em 0.5em;
-	border-radius: 0.5em;
+	padding: 1em;
 }
 
-div.display-form label
+div.bug-details label
 {
+	width: auto;
+	text-align: left;
 	font-weight: bold;
 }

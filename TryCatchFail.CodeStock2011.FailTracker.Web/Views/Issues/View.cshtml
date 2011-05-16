@@ -4,4 +4,15 @@
     ViewBag._Title = Model.Title;
 }
 
-@Html.DisplayForModel()
+@section SideBar
+{
+	<div class="bug-details">
+		@Html.LabelFor(m => m.AssignedTo)
+		@Html.DisplayFor(m => m.AssignedTo)
+	</div>
+}
+
+<h2>@Model.Title</h2>
+<div>
+	@Model.Body
+</div>

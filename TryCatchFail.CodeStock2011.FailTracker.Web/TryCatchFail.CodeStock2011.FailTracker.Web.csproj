@@ -203,21 +203,6 @@
   <ItemGroup>
     <Content Include="Views\Issues\View.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\DisplayTemplates\_FieldLayout.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\DisplayTemplates\Object.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\DisplayTemplates\Title.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\DisplayTemplates\EmailAddress.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\DisplayTemplates\MultiLineText.cshtml" />
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
