@@ -115,3 +115,18 @@ div.control-box
 	border: 1px solid #CD0A0A;
 	color: #CD0A0A;
 }
+
+/* Display Form
+-----------------------------------------------------------*/
+div.display-form p, 
+div.display-form div.multiline-text 
+{
+	border: 1px solid gray;
+	padding: 0.4em 0.5em;
+	border-radius: 0.5em;
+}
+
+div.display-form label
+{
+	font-weight: bold;
+}

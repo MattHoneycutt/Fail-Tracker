@@ -46,7 +46,16 @@ namespace TryCatchFail.CodeStock2011.FailTracker.Web.Controllers
 
 		public ActionResult View(Guid id)
 		{
-			throw new NotImplementedException();
+			var model = (from i in _issues.Query()
+			             where i.ID == id
+			             select new ViewIssueViewModel
+			                    	{
+										Title = i.Title,
+			                    		AssignedTo = i.AssignedTo.EmailAddress,
+										Body = i.Body
+			                    	}).Single();
+
+			return View(model);
 		}
 	}
 }

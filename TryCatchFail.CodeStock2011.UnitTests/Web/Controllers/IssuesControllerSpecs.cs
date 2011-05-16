@@ -76,5 +76,40 @@ namespace TryCatchFail.CodeStock2011.UnitTests.Web.Controllers
 				_result.AssertActionRedirect().ToAction<IssuesController>(c => c.View(TestIssueID));
 			}
 		}
+
+		public class when_viewing_an_issue : SpecsFor<IssuesController>
+		{
+			private ActionResult _result;
+			private Issue[] TestIssues;
+
+			protected override void Given()
+			{
+				TestIssues = new[]
+				             	{
+				             		Issue.Create("Test 1", User.CreateNewUser("test@user1.com", "blah"), "Test 1 Body"),
+				             		Issue.Create("Test 2", User.CreateNewUser("test@user2.com", "blah"), "Test 2 Body"),
+				             	};
+
+				TestIssues[0].ID = Guid.NewGuid();
+				TestIssues[1].ID = Guid.NewGuid();
+
+				GetMockFor<IRepository<Issue>>()
+					.Setup(r => r.Query())
+					.Returns(TestIssues.AsQueryable());
+			}
+
+			protected override void When()
+			{
+				_result = SUT.View(TestIssues[1].ID);
+			}
+
+			[Test]
+			public void then_it_renders_a_view_model_with_the_issue_data()
+			{
+				_result.AssertViewRendered()
+					.WithViewData<ViewIssueViewModel>()
+					.AssignedTo.ShouldEqual("test@user2.com");
+			}
+		}
 	}
 }
