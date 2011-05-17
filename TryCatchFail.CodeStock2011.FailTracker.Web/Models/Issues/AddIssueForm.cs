@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using TryCatchFail.CodeStock2011.FailTracker.Core.Domain;
 
 namespace TryCatchFail.CodeStock2011.FailTracker.Web.Models.Issues
 {
@@ -8,6 +9,12 @@ namespace TryCatchFail.CodeStock2011.FailTracker.Web.Models.Issues
 	{
 		[Required]
 		public string Title { get; set; }
+
+		[Required]
+		public IssueType Type { get; set; }
+
+		[Required]
+		public PointSize Size { get; set; }
 
 		[Required]
 		[DisplayName("Assigned To")]

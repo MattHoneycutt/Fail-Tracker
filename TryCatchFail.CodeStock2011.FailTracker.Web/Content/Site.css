@@ -128,4 +128,11 @@ div.bug-details label
 	width: auto;
 	text-align: left;
 	font-weight: bold;
+	display: block;
+	margin-top: 1em;
+}
+
+div.bug-details label:first-child
+{
+	margin-top: 0;
 }

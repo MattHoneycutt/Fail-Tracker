@@ -1,5 +1,6 @@
 using System;
 using System.Web.Mvc;
+using Moq;
 using NUnit.Framework;
 using SpecsFor;
 using TryCatchFail.CodeStock2011.FailTracker.Core.Data;
@@ -22,7 +23,7 @@ namespace TryCatchFail.CodeStock2011.UnitTests.Web.Controllers
 			{
 				GetMockFor<IRepository<Issue>>()
 					.Setup(s => s.Query())
-					.Returns((new[] {Issue.Create("Test1", User.CreateNewUser("test@user.com", "Blah"), "blah")}).AsQueryable());
+					.Returns((new[] {Issue.CreateNewStory("Test1", User.CreateNewUser("test@user.com", "Blah"), "blah")}).AsQueryable());
 			}
 
 			protected override void When()
@@ -40,28 +41,32 @@ namespace TryCatchFail.CodeStock2011.UnitTests.Web.Controllers
 		public class when_adding_a_new_issue : SpecsFor<IssuesController>
 		{
 			private readonly Guid TestIssueID = Guid.NewGuid();
-			private User TestUser;
-
 			private ActionResult _result;
 
 			protected override void Given()
 			{
-				TestUser = User.CreateNewUser("test@user.com", "blah");
-				TestUser.ID = Guid.NewGuid();
+				Given<users_exist>();
+
+				base.Given();
+
+				var newStory = Issue.CreateNewStory("Test Title", users_exist.TestUser, "Content");
+				newStory.SetSizeTo(PointSize.Eight);
 
 				GetMockFor<IRepository<Issue>>()
-					.Setup(s => s.Save(Issue.Create("Test Title", TestUser, "Content")))
+					.Setup(s => s.Save(newStory))
 					.Callback<Object>(i => ((Issue) i).ID = TestIssueID)
 					.Verifiable();
-
-				GetMockFor<IRepository<User>>()
-					.Setup(s => s.Query())
-					.Returns((new[] {User.CreateNewUser("some@user.com", "blah"), TestUser}).AsQueryable());
 			}
 
 			protected override void When()
 			{
-				_result = SUT.AddIssue(new AddIssueForm {AssignedTo = TestUser.ID, Title = "Test Title", Body = "Content"});
+				_result = SUT.AddIssue(new AddIssueForm
+				                       	{
+				                       		AssignedTo = users_exist.TestUser.ID, 
+											Title = "Test Title", 
+											Body = "Content",
+											Size = PointSize.Eight
+				                       	});
 			}
 
 			[Test]
@@ -77,6 +82,27 @@ namespace TryCatchFail.CodeStock2011.UnitTests.Web.Controllers
 			}
 		}
 
+		public class when_adding_a_bug : SpecsFor<IssuesController>
+		{
+			protected override void Given()
+			{
+				Given<users_exist>();
+				base.Given();
+			}
+
+			protected override void When()
+			{
+				SUT.AddIssue(new AddIssueForm {AssignedTo = users_exist.TestUser.ID, Type = IssueType.Bug});
+			}
+
+			[Test]
+			public void then_it_creates_a_bug()
+			{
+				GetMockFor<IRepository<Issue>>()
+					.Verify(r => r.Save(It.Is<Issue>(i => i.Type == IssueType.Bug)));
+			}
+		}
+
 		public class when_viewing_an_issue : SpecsFor<IssuesController>
 		{
 			private ActionResult _result;
@@ -86,8 +112,10 @@ namespace TryCatchFail.CodeStock2011.UnitTests.Web.Controllers
 			{
 				TestIssues = new[]
 				             	{
-				             		Issue.Create("Test 1", User.CreateNewUser("test@user1.com", "blah"), "Test 1 Body"),
-				             		Issue.Create("Test 2", User.CreateNewUser("test@user2.com", "blah"), "Test 2 Body"),
+				             		Issue.CreateNewStory("Test 1", User.CreateNewUser("test@user1.com", "blah"), "Test 1 Body"),
+				             		Issue.CreateNewStory("Test 2", User.CreateNewUser("test@user2.com", "blah"), "Test 2 Body")
+										.SetSizeTo(PointSize.Thirteen)
+										.ChangeTypeTo(IssueType.Bug),
 				             	};
 
 				TestIssues[0].ID = Guid.NewGuid();
@@ -106,10 +134,32 @@ namespace TryCatchFail.CodeStock2011.UnitTests.Web.Controllers
 			[Test]
 			public void then_it_renders_a_view_model_with_the_issue_data()
 			{
-				_result.AssertViewRendered()
-					.WithViewData<ViewIssueViewModel>()
-					.AssignedTo.ShouldEqual("test@user2.com");
+				var data = _result.AssertViewRendered().WithViewData<ViewIssueViewModel>();
+
+				data.AssignedTo.ShouldEqual(TestIssues[1].AssignedTo.EmailAddress);
+				data.Size.ShouldEqual(TestIssues[1].Size);
+				data.Type.ShouldEqual(TestIssues[1].Type);
 			}
 		}
+
+		#region Context
+
+		public class users_exist : IContext<IssuesController>
+		{
+			public static User TestUser;
+
+			public void Initialize(ITestState<IssuesController> state)
+			{
+				TestUser = User.CreateNewUser("test@user.com", "blah");
+				TestUser.ID = Guid.NewGuid();
+
+				state.GetMockFor<IRepository<User>>()
+					.Setup(s => s.Query())
+					.Returns((new[] { User.CreateNewUser("some@user.com", "blah"), TestUser }).AsQueryable());
+			}
+		}
+
+		#endregion
 	}
+
 }

@@ -22,6 +22,8 @@ namespace TryCatchFail.CodeStock2011.FailTracker.Web.Controllers
 		[HttpPost]
 		public ActionResult ResetDatabase(FormCollection form)
 		{
+
+
 			NHibernateBootstrapper.CreateSchema();
 			using (var session = NHibernateBootstrapper.GetSession())
 			{
@@ -33,10 +35,14 @@ namespace TryCatchFail.CodeStock2011.FailTracker.Web.Controllers
 				users.ForEach(u => session.Save(u));
 				
 				(new[] {
-				 		Issue.Create("Something doesn't work", users[0], "Body 12345"),
-				 		Issue.Create("Something doesn't work", users[1], "Body 12345"),
-				 		Issue.Create("Something doesn't work", users[0], "Body 12345"),
-				 		Issue.Create("Something doesn't work", users[1], "Body 12345"),
+				 		Issue.CreateNewStory("I want this feature!", users[0], "Body 12345"),
+				 		Issue.CreateNewStory("I want this feature!", users[1], "Body 12345"),
+				 		Issue.CreateNewStory("I want this feature!", users[0], "Body 12345"),
+				 		Issue.CreateNewStory("I want this feature!", users[1], "Body 12345"),
+				 		Issue.CreateNewBug("Something doesn't work", users[0], "Body 12345"),
+				 		Issue.CreateNewBug("Something doesn't work", users[1], "Body 12345"),
+				 		Issue.CreateNewBug("Something doesn't work", users[0], "Body 12345"),
+				 		Issue.CreateNewBug("Something doesn't work", users[1], "Body 12345"),
 				 	}).ForEach(i => session.Save(i));
 
 				session.Flush();

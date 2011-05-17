@@ -4,23 +4,47 @@ namespace TryCatchFail.CodeStock2011.FailTracker.Core.Domain
 {
 	public class Issue : IEquatable<Issue>
 	{
+		//TODO: We only want to expose changing the ID for test purposes...
 		public virtual Guid ID { get; set; }
 
-		public virtual string Title { get; set; }
+		public virtual string Title { get; protected set; }
 
-		public virtual User AssignedTo { get; set; }
+		public virtual User AssignedTo { get; protected set; }
 
-		public virtual string Body { get; set; }
+		public virtual string Body { get; protected set; }
 
-		public static Issue Create(string title, User assignedTo, string body)
+		public virtual IssueType Type { get; protected set; }
+
+		public virtual PointSize Size { get; protected set; }
+
+		public static Issue CreateNewStory(string title, User assignedTo, string body)
 		{
-			return new Issue { Title = title, AssignedTo = assignedTo, Body = body };
+			return new Issue { Title = title, AssignedTo = assignedTo, Body = body, Type = IssueType.Story };
 		}
-
+		
+		public static Issue CreateNewBug(string title, User assignedTo, string body)
+		{
+			return new Issue { Title = title, AssignedTo = assignedTo, Body = body, Type = IssueType.Bug };
+		}
+		
 		//Required for NHibernate
 		protected Issue()
 		{
 			
+		}
+
+		public virtual Issue ChangeTypeTo(IssueType type)
+		{
+			Type = type;
+
+			return this;
+		}
+
+		public virtual Issue SetSizeTo(PointSize size)
+		{
+			Size = size;
+
+			return this;
 		}
 
 		#region Equals Implementation 
@@ -29,7 +53,7 @@ namespace TryCatchFail.CodeStock2011.FailTracker.Core.Domain
 		{
 			if (ReferenceEquals(null, other)) return false;
 			if (ReferenceEquals(this, other)) return true;
-			return other.ID.Equals(ID) && Equals(other.Title, Title) && Equals(other.Body, Body) && Equals(other.AssignedTo, AssignedTo);
+			return other.ID.Equals(ID) && Equals(other.Title, Title) && Equals(other.AssignedTo, AssignedTo) && Equals(other.Body, Body) && Equals(other.Type, Type) && Equals(other.Size, Size);
 		}
 
 		public override bool Equals(object obj)
@@ -46,8 +70,10 @@ namespace TryCatchFail.CodeStock2011.FailTracker.Core.Domain
 			{
 				int result = ID.GetHashCode();
 				result = (result*397) ^ (Title != null ? Title.GetHashCode() : 0);
-				result = (result*397) ^ (Body != null ? Body.GetHashCode() : 0);
 				result = (result*397) ^ (AssignedTo != null ? AssignedTo.GetHashCode() : 0);
+				result = (result*397) ^ (Body != null ? Body.GetHashCode() : 0);
+				result = (result*397) ^ Type.GetHashCode();
+				result = (result*397) ^ Size.GetHashCode();
 				return result;
 			}
 		}

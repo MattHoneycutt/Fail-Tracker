@@ -70,6 +70,8 @@
     <Compile Include="Data\NHibernateBootstrapper.cs" />
     <Compile Include="Data\NHibernateRepository.cs" />
     <Compile Include="Domain\Issue.cs" />
+    <Compile Include="Domain\IssueType.cs" />
+    <Compile Include="Domain\PointSize.cs" />
     <Compile Include="Domain\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -22,7 +22,12 @@ namespace TryCatchFail.CodeStock2011.FailTracker.Web.Controllers
 		public ActionResult Dashboard()
 		{
 			var issues = (from i in _issues.Query()
-			              select new IssueViewModel {ID = i.ID, Title = i.Title, AssignedTo = i.AssignedTo.EmailAddress}).ToArray();
+			              select new IssueViewModel
+			                     	{
+			                     		ID = i.ID, 
+										Title = i.Title, 
+										AssignedTo = i.AssignedTo.EmailAddress
+			                     	}).ToArray();
 
 			return View(issues);
 		}
@@ -37,7 +42,9 @@ namespace TryCatchFail.CodeStock2011.FailTracker.Web.Controllers
 		public ActionResult AddIssue(AddIssueForm form)
 		{
 			var user = _users.Query().Where(u => u.ID == form.AssignedTo).Single();
-			var issue = Issue.Create(form.Title, user, form.Body);
+			var issue = Issue.CreateNewStory(form.Title, user, form.Body);
+			issue.ChangeTypeTo(form.Type);
+			issue.SetSizeTo(form.Size);
 
 			_issues.Save(issue);
 
@@ -52,7 +59,9 @@ namespace TryCatchFail.CodeStock2011.FailTracker.Web.Controllers
 			                    	{
 										Title = i.Title,
 			                    		AssignedTo = i.AssignedTo.EmailAddress,
-										Body = i.Body
+										Body = i.Body,
+										Size = i.Size,
+										Type = i.Type
 			                    	}).Single();
 
 			return View(model);

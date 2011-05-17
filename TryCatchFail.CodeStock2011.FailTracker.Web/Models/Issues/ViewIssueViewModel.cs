@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using TryCatchFail.CodeStock2011.FailTracker.Core.Domain;
 
 namespace TryCatchFail.CodeStock2011.FailTracker.Web.Models.Issues
 {
@@ -14,5 +15,9 @@ namespace TryCatchFail.CodeStock2011.FailTracker.Web.Models.Issues
 
 		[DataType(DataType.MultilineText)]
 		public string Body { get; set; }
+
+		public PointSize Size { get; set; }
+
+		public IssueType Type { get; set; }
 	}
 }

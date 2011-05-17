@@ -7,8 +7,12 @@
 @section SideBar
 {
 	<div class="bug-details">
+		@Html.LabelFor(m => m.Type)
+		@Html.DisplayFor(m => m.Type)
 		@Html.LabelFor(m => m.AssignedTo)
 		@Html.DisplayFor(m => m.AssignedTo)
+		@Html.LabelFor(m => m.Size)
+		@Html.DisplayFor(m => m.Size)
 	</div>
 }
 
