@@ -26,7 +26,9 @@ namespace TryCatchFail.CodeStock2011.FailTracker.Web.Controllers
 			                     	{
 			                     		ID = i.ID, 
 										Title = i.Title, 
-										AssignedTo = i.AssignedTo.EmailAddress
+										AssignedTo = i.AssignedTo.EmailAddress,
+										Size = i.Size,
+										Type = i.Type
 			                     	}).ToArray();
 
 			return View(issues);

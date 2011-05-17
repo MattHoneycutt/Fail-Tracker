@@ -7,14 +7,18 @@
 <table>
 	<thead>
 		<tr>
+			<th>Type</th>
 			<th>Title</th>
+			<th>Size</th>
 			<th>Assigned To</th>
 		</tr>
 	</thead>
 	<tbody>
 		@foreach(var issue in Model){
 		<tr>
+			<td>@issue.Type</td>
 			<td>@(Html.ActionLink<IssuesController>(c => c.View(issue.ID), issue.Title))</td>
+			<td>@issue.Size</td>
 			<td>@Html.Mailto(@issue.AssignedTo, @issue.AssignedTo)</td>
 		</tr>
 		}
