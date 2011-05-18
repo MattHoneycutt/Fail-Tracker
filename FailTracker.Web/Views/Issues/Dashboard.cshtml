@@ -1,0 +1,28 @@
+﻿@model IEnumerable<FailTracker.Web.Models.Issues.IssueViewModel>
+@{
+    ViewBag._Title = "View Issues";
+}
+
+<h2>Issues</h2>
+<table>
+	<thead>
+		<tr>
+			<th>Type</th>
+			<th>Title</th>
+			<th>Size</th>
+			<th>Assigned To</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach(var issue in Model){
+		<tr>
+			<td>@issue.Type</td>
+			<td>@(Html.ActionLink<IssuesController>(c => c.View(issue.ID), issue.Title))</td>
+			<td>@issue.Size</td>
+			<td>@Html.Mailto(@issue.AssignedTo, @issue.AssignedTo)</td>
+		</tr>
+		}
+	</tbody>
+</table>
+<p>@(Html.ActionLink<IssuesController>(c => c.AddIssue(), "Add New Issues"))</p>
+
