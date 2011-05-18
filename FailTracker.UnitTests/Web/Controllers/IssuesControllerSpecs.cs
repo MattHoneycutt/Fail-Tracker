@@ -11,7 +11,7 @@ using FailTracker.Web.Models.Issues;
 using Should;
 using System.Linq;
 
-namespace TryCatchFail.CodeStock2011.UnitTests.Web.Controllers
+namespace FailTracker.UnitTests.Web.Controllers
 {
 	public class IssuesControllerSpecs
 	{

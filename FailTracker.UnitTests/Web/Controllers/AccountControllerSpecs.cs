@@ -10,7 +10,7 @@ using MvcContrib.TestHelper;
 using FailTracker.Web.Models.Account;
 using System.Linq;
 
-namespace TryCatchFail.CodeStock2011.UnitTests.Web.Controllers
+namespace FailTracker.UnitTests.Web.Controllers
 {
 	public class AccountControllerSpecs
 	{
