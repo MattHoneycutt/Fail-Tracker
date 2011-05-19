@@ -114,6 +114,7 @@ namespace FailTracker.UnitTests.Web.Controllers
 				             	{
 				             		Issue.CreateNewStory("Test 1", User.CreateNewUser("test@user1.com", "blah"), "Test 1 Body"),
 				             		Issue.CreateNewStory("Test 2", User.CreateNewUser("test@user2.com", "blah"), "Test 2 Body")
+										.ReassignTo(User.CreateNewUser("worker@bee.com", "blah"))
 										.SetSizeTo(PointSize.Thirteen)
 										.ChangeTypeTo(IssueType.Bug),
 				             	};

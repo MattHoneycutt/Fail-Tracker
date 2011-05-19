@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using FailTracker.Core.Domain;
 
 namespace FailTracker.Web.Models.Issues
@@ -9,6 +10,7 @@ namespace FailTracker.Web.Models.Issues
 
 		public string Title { get; set; }
 
+		[DataType("User")]
 		public string AssignedTo { get; set; }
 
 		public IssueType Type { get; set; }

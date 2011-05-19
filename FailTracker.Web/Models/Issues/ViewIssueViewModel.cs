@@ -9,7 +9,7 @@ namespace FailTracker.Web.Models.Issues
 		[UIHint("Title")]
 		public string Title { get; set; }
 
-		[DataType(DataType.EmailAddress)]
+		[DataType("User")]
 		[DisplayName("Assigned To")]
 		public string AssignedTo { get; set; }
 

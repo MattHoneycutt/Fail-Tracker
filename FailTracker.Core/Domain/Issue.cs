@@ -17,14 +17,21 @@ namespace FailTracker.Core.Domain
 
 		public virtual PointSize Size { get; protected set; }
 
-		public static Issue CreateNewStory(string title, User assignedTo, string body)
+		public virtual bool IsUnassigned
 		{
-			return new Issue { Title = title, AssignedTo = assignedTo, Body = body, Type = IssueType.Story };
+			get { return AssignedTo == null; }
+		}
+
+		public virtual User CreatedBy { get; protected set; }
+
+		public static Issue CreateNewStory(string title, User creator, string body)
+		{
+			return new Issue { Title = title, CreatedBy = creator, Body = body, Type = IssueType.Story };
 		}
 		
-		public static Issue CreateNewBug(string title, User assignedTo, string body)
+		public static Issue CreateNewBug(string title, User creator, string body)
 		{
-			return new Issue { Title = title, AssignedTo = assignedTo, Body = body, Type = IssueType.Bug };
+			return new Issue { Title = title, CreatedBy = creator, Body = body, Type = IssueType.Bug };
 		}
 		
 		//Required for NHibernate
@@ -43,6 +50,13 @@ namespace FailTracker.Core.Domain
 		public virtual Issue SetSizeTo(PointSize size)
 		{
 			Size = size;
+
+			return this;
+		}
+
+		public virtual Issue ReassignTo(User user)
+		{
+			AssignedTo = user;
 
 			return this;
 		}

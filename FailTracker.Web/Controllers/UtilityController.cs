@@ -22,8 +22,6 @@ namespace FailTracker.Web.Controllers
 		[HttpPost]
 		public ActionResult ResetDatabase(FormCollection form)
 		{
-
-
 			NHibernateBootstrapper.CreateSchema();
 			using (var session = NHibernateBootstrapper.GetSession())
 			{
@@ -35,14 +33,17 @@ namespace FailTracker.Web.Controllers
 				users.ForEach(u => session.Save(u));
 				
 				(new[] {
-				 		Issue.CreateNewStory("I want this feature!", users[0], "Body 12345"),
-				 		Issue.CreateNewStory("I want this feature!", users[1], "Body 12345"),
-				 		Issue.CreateNewStory("I want this feature!", users[0], "Body 12345"),
-				 		Issue.CreateNewStory("I want this feature!", users[1], "Body 12345"),
-				 		Issue.CreateNewBug("Something doesn't work", users[0], "Body 12345"),
-				 		Issue.CreateNewBug("Something doesn't work", users[1], "Body 12345"),
-				 		Issue.CreateNewBug("Something doesn't work", users[0], "Body 12345"),
-				 		Issue.CreateNewBug("Something doesn't work", users[1], "Body 12345"),
+				 		Issue.CreateNewStory("Project support", users[0], "As someone who manages many software projects, I want to be able to organize issues and bugs into projects within Fail Tracker.")
+								.ReassignTo(users[0])
+								.SetSizeTo(PointSize.Eight),
+				 		Issue.CreateNewBug("Site rendering problems in IE6", users[1], "The site does not render the same in al versions of IE!")
+								.SetSizeTo(PointSize.OneHundred)
+								.ReassignTo(users[1]),
+				 		Issue.CreateNewStory("Enable user invite", users[0], "I want to be able to invite users to join Fail Tracker through a form on the site.")
+								.ReassignTo(users[0])
+								.SetSizeTo(PointSize.Five),
+				 		Issue.CreateNewStory("Support unassigned stories", users[0], "I want to be able to leave stories and bugs unassigned.")
+								.SetSizeTo(PointSize.Five),
 				 	}).ForEach(i => session.Save(i));
 
 				session.Flush();

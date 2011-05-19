@@ -22,11 +22,12 @@ namespace FailTracker.Web.Controllers
 		public ActionResult Dashboard()
 		{
 			var issues = (from i in _issues.Query()
+						  let assignedTo = i.AssignedTo != null ? i.AssignedTo.EmailAddress : null
 			              select new IssueViewModel
 			                     	{
 			                     		ID = i.ID, 
 										Title = i.Title, 
-										AssignedTo = i.AssignedTo.EmailAddress,
+										AssignedTo = assignedTo,
 										Size = i.Size,
 										Type = i.Type
 			                     	}).ToArray();
@@ -57,10 +58,11 @@ namespace FailTracker.Web.Controllers
 		{
 			var model = (from i in _issues.Query()
 			             where i.ID == id
-			             select new ViewIssueViewModel
+						 let assignedTo = i.AssignedTo != null ? i.AssignedTo.EmailAddress : null
+						 select new ViewIssueViewModel
 			                    	{
 										Title = i.Title,
-			                    		AssignedTo = i.AssignedTo.EmailAddress,
+										AssignedTo = assignedTo,
 										Body = i.Body,
 										Size = i.Size,
 										Type = i.Type

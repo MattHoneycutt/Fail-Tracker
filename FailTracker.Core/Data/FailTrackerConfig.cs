@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 using FluentNHibernate;
 using FluentNHibernate.Automapping;
 using FailTracker.Core.Domain;
@@ -20,6 +21,18 @@ namespace FailTracker.Core.Data
 			}
 
 			return base.ShouldMap(type);
+		}
+
+		public override bool ShouldMap(Member member)
+		{
+			var prop = member.MemberInfo as PropertyInfo;
+
+			if (prop != null && !prop.CanWrite)
+			{
+				return false;
+			}
+
+			return base.ShouldMap(member);
 		}
 	}
 }
