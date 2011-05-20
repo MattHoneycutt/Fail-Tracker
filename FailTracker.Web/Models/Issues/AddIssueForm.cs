@@ -16,10 +16,9 @@ namespace FailTracker.Web.Models.Issues
 		[Required]
 		public PointSize Size { get; set; }
 
-		[Required]
 		[DisplayName("Assigned To")]
 		[UIHint("UserDropDown")]
-		public Guid AssignedTo { get; set; }
+		public Guid? AssignedTo { get; set; }
 
 		[Required]
 		[DataType(DataType.MultilineText)]

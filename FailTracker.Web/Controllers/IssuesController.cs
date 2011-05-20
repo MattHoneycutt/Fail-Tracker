@@ -44,10 +44,16 @@ namespace FailTracker.Web.Controllers
 		[HttpPost]
 		public ActionResult AddIssue(AddIssueForm form)
 		{
-			var user = _users.Query().Where(u => u.ID == form.AssignedTo).Single();
-			var issue = Issue.CreateNewStory(form.Title, user, form.Body);
+			//TODO: Abstract this down/out
+			var currentUser = _users.Query().Single(u => u.EmailAddress == User.Identity.Name);
+			var issue = Issue.CreateNewStory(form.Title, currentUser, form.Body);
 			issue.ChangeTypeTo(form.Type);
 			issue.SetSizeTo(form.Size);
+
+			if (form.AssignedTo.HasValue)
+			{
+				issue.ReassignTo(_users.Query().Where(u => u.ID == form.AssignedTo).Single());
+			}
 
 			_issues.Save(issue);
 
@@ -62,6 +68,7 @@ namespace FailTracker.Web.Controllers
 						 select new ViewIssueViewModel
 			                    	{
 										Title = i.Title,
+										CreatedBy = i.CreatedBy.EmailAddress,
 										AssignedTo = assignedTo,
 										Body = i.Body,
 										Size = i.Size,

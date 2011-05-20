@@ -10,6 +10,9 @@ namespace FailTracker.Web.Models.Issues
 		public string Title { get; set; }
 
 		[DataType("User")]
+		public string CreatedBy { get; set; }
+
+		[DataType("User")]
 		[DisplayName("Assigned To")]
 		public string AssignedTo { get; set; }
 

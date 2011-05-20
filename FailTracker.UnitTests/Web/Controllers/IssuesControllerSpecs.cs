@@ -38,19 +38,18 @@ namespace FailTracker.UnitTests.Web.Controllers
 			}
 		}
 
-		public class when_adding_a_new_issue : SpecsFor<IssuesController>
+		public class when_adding_a_new_issue : given.users_exists
 		{
 			private readonly Guid TestIssueID = Guid.NewGuid();
 			private ActionResult _result;
 
 			protected override void Given()
 			{
-				Given<users_exist>();
-
 				base.Given();
 
-				var newStory = Issue.CreateNewStory("Test Title", users_exist.TestUser, "Content");
+				var newStory = Issue.CreateNewStory("Test Title", CreatorUser, "Content");
 				newStory.SetSizeTo(PointSize.Eight);
+				newStory.ReassignTo(TestUser);
 
 				GetMockFor<IRepository<Issue>>()
 					.Setup(s => s.Save(newStory))
@@ -60,17 +59,18 @@ namespace FailTracker.UnitTests.Web.Controllers
 
 			protected override void When()
 			{
-				_result = SUT.AddIssue(new AddIssueForm
-				                       	{
-				                       		AssignedTo = users_exist.TestUser.ID, 
-											Title = "Test Title", 
-											Body = "Content",
-											Size = PointSize.Eight
-				                       	});
+				var form = new AddIssueForm
+				                   	{
+				                   		AssignedTo = TestUser.ID, 
+				                   		Title = "Test Title", 
+				                   		Body = "Content",
+				                   		Size = PointSize.Eight
+				                   	};
+				_result = SUT.AddIssue(form);
 			}
 
 			[Test]
-			public void then_it_will_send_an_add_issue_command()
+			public void then_it_will_save_the_issue()
 			{
 				GetMockFor<IRepository<Issue>>().Verify();
 			}
@@ -82,17 +82,26 @@ namespace FailTracker.UnitTests.Web.Controllers
 			}
 		}
 
-		public class when_adding_a_bug : SpecsFor<IssuesController>
+		public class when_adding_a_new_issue_that_is_not_assigned_to_anyone : given.users_exists
 		{
-			protected override void Given()
-			{
-				Given<users_exist>();
-				base.Given();
-			}
-
 			protected override void When()
 			{
-				SUT.AddIssue(new AddIssueForm {AssignedTo = users_exist.TestUser.ID, Type = IssueType.Bug});
+				SUT.AddIssue(new AddIssueForm {Title = "Test", Body = "Test"});
+			}
+
+			[Test]
+			public void then_it_adds_the_issue_with_no_user_assigned()
+			{
+				GetMockFor<IRepository<Issue>>()
+					.Verify(r => r.Save(It.Is<Issue>(i => i.AssignedTo == null)));
+			}
+		}
+
+		public class when_adding_a_bug : given.users_exists
+		{
+			protected override void When()
+			{
+				SUT.AddIssue(new AddIssueForm {AssignedTo = TestUser.ID, Type = IssueType.Bug});
 			}
 
 			[Test]
@@ -145,18 +154,29 @@ namespace FailTracker.UnitTests.Web.Controllers
 
 		#region Context
 
-		public class users_exist : IContext<IssuesController>
+		public static class given
 		{
-			public static User TestUser;
-
-			public void Initialize(ITestState<IssuesController> state)
+			public abstract class users_exists : SpecsFor<IssuesController>
 			{
-				TestUser = User.CreateNewUser("test@user.com", "blah");
-				TestUser.ID = Guid.NewGuid();
+				protected User TestUser;
+				protected User CreatorUser;
 
-				state.GetMockFor<IRepository<User>>()
-					.Setup(s => s.Query())
-					.Returns((new[] { User.CreateNewUser("some@user.com", "blah"), TestUser }).AsQueryable());
+				protected override void Given()
+				{
+					TestUser = User.CreateNewUser("test@user.com", "blah");
+					TestUser.ID = Guid.NewGuid();
+
+					CreatorUser = User.CreateNewUser("some@user.com", "blah");
+					CreatorUser.ID = Guid.NewGuid();
+
+					GetMockFor<IRepository<User>>()
+						.Setup(s => s.Query())
+						.Returns((new[] { CreatorUser, TestUser }).AsQueryable());
+
+					var context = GetMockFor<ControllerContext>();
+					context.SetupGet(c => c.HttpContext.User.Identity.Name).Returns("some@user.com");
+					SUT.ControllerContext = context.Object;
+				}
 			}
 		}
 

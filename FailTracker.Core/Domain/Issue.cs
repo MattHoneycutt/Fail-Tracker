@@ -67,7 +67,7 @@ namespace FailTracker.Core.Domain
 		{
 			if (ReferenceEquals(null, other)) return false;
 			if (ReferenceEquals(this, other)) return true;
-			return other.ID.Equals(ID) && Equals(other.Title, Title) && Equals(other.AssignedTo, AssignedTo) && Equals(other.Body, Body) && Equals(other.Type, Type) && Equals(other.Size, Size);
+			return other.ID.Equals(ID) && Equals(other.Title, Title) && Equals(other.AssignedTo, AssignedTo) && Equals(other.Body, Body) && Equals(other.Type, Type) && Equals(other.Size, Size) && Equals(other.CreatedBy, CreatedBy);
 		}
 
 		public override bool Equals(object obj)
@@ -88,6 +88,7 @@ namespace FailTracker.Core.Domain
 				result = (result*397) ^ (Body != null ? Body.GetHashCode() : 0);
 				result = (result*397) ^ Type.GetHashCode();
 				result = (result*397) ^ Size.GetHashCode();
+				result = (result*397) ^ (CreatedBy != null ? CreatedBy.GetHashCode() : 0);
 				return result;
 			}
 		}
