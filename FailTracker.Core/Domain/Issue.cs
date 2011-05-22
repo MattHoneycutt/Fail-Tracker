@@ -46,6 +46,12 @@ namespace FailTracker.Core.Domain
 
 		public virtual Issue ChangeTypeTo(IssueType type)
 		{
+			//TODO: Store a transient flag that tracks whether or not an edit has started, and
+			//		throw an exception if you try to make changes when not in edit mode.
+			//		Usage could look like: issue.BeginEdit(user, comments);  issue.ChangeTypeTo(...)...
+			//		The flag would be set to true immediately after you created a story, that way
+			//		you can still populate a story as part of the initial edit. 
+
 			Type = type;
 
 			return this;
