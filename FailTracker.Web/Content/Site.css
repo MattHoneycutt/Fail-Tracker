@@ -136,3 +136,20 @@ div.bug-details label:first-child
 {
 	margin-top: 0;
 }
+
+div.bug-notes
+{
+	background-color: #EFEFEF;
+	padding: 1em;
+	border-radius: 1em;
+}
+
+div.bug-notes h4
+{
+	margin-bottom: 1em;
+}
+
+div.bug-notes div
+{
+	padding: 0 1em 0 1em;
+}

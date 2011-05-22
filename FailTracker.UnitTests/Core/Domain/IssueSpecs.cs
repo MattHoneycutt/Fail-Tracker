@@ -1,3 +1,4 @@
+using System;
 using FailTracker.Core.Domain;
 using NUnit.Framework;
 using SpecsFor;
@@ -15,7 +16,7 @@ namespace FailTracker.UnitTests.Core.Domain
 
 			protected override void InitializeClassUnderTest()
 			{
-				SUT = Issue.CreateNewStory("My issue", User.CreateNewUser("test", "blah"), "Body");
+				SUT = Issue.CreateNewIssue("My issue", User.CreateNewUser("test", "blah"), "Body");
 			}
 
 			protected override void Given()
@@ -50,7 +51,7 @@ namespace FailTracker.UnitTests.Core.Domain
 
 			protected override void When()
 			{
-				SUT = Issue.CreateNewStory("Testing", User.CreateNewUser("creator@user.com", "test"), "Test body");
+				SUT = Issue.CreateNewIssue("Testing", User.CreateNewUser("creator@user.com", "test"), "Test body");
 			}
 
 			[Test]
@@ -69,6 +70,31 @@ namespace FailTracker.UnitTests.Core.Domain
 			public void then_the_creator_is_captured()
 			{
 				SUT.CreatedBy.EmailAddress.ShouldEqual("creator@user.com");
+			}
+
+			[Test]
+			public void then_it_sets_the_date_created()
+			{
+				SUT.CreatedAt.ShouldBeInRange(DateTime.Now.AddSeconds(-5), DateTime.Now);
+			}
+		}
+
+		public class when_changing_the_title : SpecsFor<Issue>
+		{
+			protected override void InitializeClassUnderTest()
+			{
+				SUT = Issue.CreateNewIssue("Test", null, "Body");
+			}
+
+			protected override void When()
+			{
+				SUT.ChangeTitleTo("Edited!");
+			}
+
+			[Test]
+			public void then_it_updates_the_title()
+			{
+				SUT.Title.ShouldEqual("Edited!");
 			}
 		}
 	}	

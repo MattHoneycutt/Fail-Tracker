@@ -2,4 +2,4 @@
 @{
     Layout = "~/Views/Shared/EditorTemplates/_FieldLayout.cshtml";
 }
-@Html.DropDownList("", IssueType.Story.ToSelectList())
+@Html.DropDownList("", ((IssueType?)Model ?? IssueType.Story).ToSelectList())

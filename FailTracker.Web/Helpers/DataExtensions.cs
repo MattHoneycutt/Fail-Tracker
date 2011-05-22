@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using StructureMap;
 using FailTracker.Core.Data;
@@ -9,11 +11,11 @@ namespace FailTracker.Web.Helpers
 	//		to be the simplest solution for now...
 	public static class DataExtensions
 	{
-		public static SelectList GetUserSelectList(this HtmlHelper helper)
+		public static IEnumerable<SelectListItem> GetUserSelectList(this HtmlHelper helper, Guid? value)
 		{
 			var repository = ObjectFactory.GetInstance<IRepository<User>>();
 
-			return new SelectList(repository.Query(), "ID", "EmailAddress");
+			return new SelectList(repository.Query(), "ID", "EmailAddress", value);
 		}
 	}
 }

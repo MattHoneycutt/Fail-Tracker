@@ -46,7 +46,7 @@ namespace FailTracker.Web.Controllers
 		{
 			//TODO: Abstract this down/out
 			var currentUser = _users.Query().Single(u => u.EmailAddress == User.Identity.Name);
-			var issue = Issue.CreateNewStory(form.Title, currentUser, form.Body);
+			var issue = Issue.CreateNewIssue(form.Title, currentUser, form.Body);
 			issue.ChangeTypeTo(form.Type);
 			issue.SetSizeTo(form.Size);
 
@@ -65,17 +65,51 @@ namespace FailTracker.Web.Controllers
 			var model = (from i in _issues.Query()
 			             where i.ID == id
 						 let assignedTo = i.AssignedTo != null ? i.AssignedTo.EmailAddress : null
-						 select new ViewIssueViewModel
+						 select new IssueDetailsViewModel
 			                    	{
+										ID = i.ID,
 										Title = i.Title,
 										CreatedBy = i.CreatedBy.EmailAddress,
 										AssignedTo = assignedTo,
 										Body = i.Body,
 										Size = i.Size,
-										Type = i.Type
+										Type = i.Type,
+										CreatedAt = i.CreatedAt
 			                    	}).Single();
 
 			return View(model);
+		}
+
+		[HttpGet]
+		public ActionResult Edit(Guid id)
+		{
+			var editForm = (from i in _issues.Query()
+			                where i.ID == id
+			                select new EditIssueForm
+			                       	{
+			                       		ID = i.ID,
+			                       		AssignedTo = i.AssignedTo != null ? (Guid?) i.AssignedTo.ID : null,
+			                       		Title = i.Title,
+			                       		Size = i.Size,
+			                       		Type = i.Type
+			                       	}).Single();
+
+			return View(editForm);
+		}
+
+		[HttpPost]
+		public ActionResult Edit(EditIssueForm form)
+		{
+			var issue = _issues.Query().Single(i => i.ID == form.ID);
+
+			var assignedTo = _users.Query().SingleOrDefault(u => u.ID == form.AssignedTo);
+
+			issue.ReassignTo(assignedTo);
+			issue.SetSizeTo(form.Size);
+			issue.ChangeTypeTo(form.Type);
+			issue.ChangeTitleTo(form.Title);
+
+			return this.RedirectToAction(c => c.View(form.ID));
 		}
 	}
 }

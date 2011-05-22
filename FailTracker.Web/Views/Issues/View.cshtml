@@ -1,4 +1,4 @@
-﻿@model FailTracker.Web.Models.Issues.ViewIssueViewModel
+﻿@model FailTracker.Web.Models.Issues.IssueDetailsViewModel
 
 @{
     ViewBag._Title = Model.Title;
@@ -17,7 +17,8 @@
 }
 
 <h2>@Model.Title</h2>
-<div>
-	<p>Created by @Html.DisplayFor(m => m.CreatedBy)</p>
-	@Model.Body
+<div class="bug-notes">
+	<h4>Created by @Html.DisplayFor(m => m.CreatedBy) at @Model.CreatedAt</h4>
+	<div>@Model.Body</div>
 </div>
+<p>@(Html.ActionLink<IssuesController>(c => c.Edit(Model.ID), "Edit", new{@class="button"}))</p>

@@ -18,7 +18,7 @@ namespace FailTracker.Web.Infrastructure.DependencyResolution
 										scan.WithDefaultConventions();
 									});
 
-							x.For<ISession>().Use(NHibernateBootstrapper.GetSession);
+							x.For<ISession>().HttpContextScoped().Use(NHibernateBootstrapper.GetSession);
 							x.For(typeof (IRepository<>)).Use(typeof (NHibernateRepository<>));
 							x.For<IFilterProvider>().Use<FailTrackerFilterProvider>();
 						});

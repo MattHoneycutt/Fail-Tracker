@@ -2,4 +2,4 @@
 @{
     Layout = "~/Views/Shared/EditorTemplates/_FieldLayout.cshtml";
 }
-@Html.DropDownList("", PointSize.Unsized.ToSelectList())
+@Html.DropDownList("",  ((PointSize?)Model ?? PointSize.Unsized).ToSelectList())

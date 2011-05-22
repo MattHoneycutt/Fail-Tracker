@@ -23,7 +23,7 @@ namespace FailTracker.UnitTests.Web.Controllers
 			{
 				GetMockFor<IRepository<Issue>>()
 					.Setup(s => s.Query())
-					.Returns((new[] {Issue.CreateNewStory("Test1", User.CreateNewUser("test@user.com", "Blah"), "blah")}).AsQueryable());
+					.Returns((new[] {Issue.CreateNewIssue("Test1", User.CreateNewUser("test@user.com", "Blah"), "blah")}).AsQueryable());
 			}
 
 			protected override void When()
@@ -47,7 +47,7 @@ namespace FailTracker.UnitTests.Web.Controllers
 			{
 				base.Given();
 
-				var newStory = Issue.CreateNewStory("Test Title", CreatorUser, "Content");
+				var newStory = Issue.CreateNewIssue("Test Title", CreatorUser, "Content");
 				newStory.SetSizeTo(PointSize.Eight);
 				newStory.ReassignTo(TestUser);
 
@@ -121,8 +121,8 @@ namespace FailTracker.UnitTests.Web.Controllers
 			{
 				TestIssues = new[]
 				             	{
-				             		Issue.CreateNewStory("Test 1", User.CreateNewUser("test@user1.com", "blah"), "Test 1 Body"),
-				             		Issue.CreateNewStory("Test 2", User.CreateNewUser("test@user2.com", "blah"), "Test 2 Body")
+				             		Issue.CreateNewIssue("Test 1", User.CreateNewUser("test@user1.com", "blah"), "Test 1 Body"),
+				             		Issue.CreateNewIssue("Test 2", User.CreateNewUser("test@user2.com", "blah"), "Test 2 Body")
 										.ReassignTo(User.CreateNewUser("worker@bee.com", "blah"))
 										.SetSizeTo(PointSize.Thirteen)
 										.ChangeTypeTo(IssueType.Bug),
@@ -144,11 +144,89 @@ namespace FailTracker.UnitTests.Web.Controllers
 			[Test]
 			public void then_it_renders_a_view_model_with_the_issue_data()
 			{
-				var data = _result.AssertViewRendered().WithViewData<ViewIssueViewModel>();
+				var data = _result.AssertViewRendered().WithViewData<IssueDetailsViewModel>();
 
 				data.AssignedTo.ShouldEqual(TestIssues[1].AssignedTo.EmailAddress);
 				data.Size.ShouldEqual(TestIssues[1].Size);
 				data.Type.ShouldEqual(TestIssues[1].Type);
+			}
+		}
+
+		public class when_requesting_the_edit_page : given.users_and_issues_exist
+		{
+			private ActionResult _result;
+
+			protected override void When()
+			{
+				_result = SUT.Edit(TestIssue.ID);
+			}
+
+			[Test]
+			public void then_it_renders_a_view()
+			{
+				_result.AssertViewRendered();
+			}
+
+			[Test]
+			public void then_it_returns_the_expected_model()
+			{
+				//TODO: Add AutoMapper to cut down on tedious testing. 
+				var model = _result.AssertViewRendered().WithViewData<EditIssueForm>();
+				model.AssignedTo.ShouldEqual(TestIssue.AssignedTo.ID);
+			}
+		}
+
+		public class when_editing_an_issue : given.users_and_issues_exist
+		{
+			private ActionResult _result;
+
+			protected override void When()
+			{
+				_result =SUT.Edit(new EditIssueForm
+				         	{
+				         		ID = TestIssue.ID,
+				         		AssignedTo = CreatorUser.ID,
+				         		Size = PointSize.OneHundred,
+				         		Type = IssueType.Bug,
+				         		Title = "Edited!",
+				         		Comments = "Edited Comments!"
+				         	});
+			}
+
+			[Test]
+			public void then_it_redirects_to_the_view_page()
+			{
+				_result.AssertActionRedirect().ToAction<IssuesController>(c => c.View(TestIssue.ID));
+			}
+
+			[Test]
+			public void then_it_changes_the_owner()
+			{
+				TestIssue.AssignedTo.ShouldEqual(CreatorUser);
+			}
+
+			[Test]
+			public void then_it_changes_the_point_size()
+			{
+				TestIssue.Size.ShouldEqual(PointSize.OneHundred);
+			}
+
+			[Test]
+			public void then_it_changes_the_type()
+			{
+				TestIssue.Type.ShouldEqual(IssueType.Bug);
+			}
+
+			[Test]
+			public void then_it_changes_the_title()
+			{
+				TestIssue.Title.ShouldEqual("Edited!");
+			}
+
+			[Test]
+			[Ignore("Actually persisting commetns and tracking changes isn't implemented yet.")]
+			public void then_it_adds_a_comment()
+			{
 			}
 		}
 
@@ -178,9 +256,26 @@ namespace FailTracker.UnitTests.Web.Controllers
 					SUT.ControllerContext = context.Object;
 				}
 			}
+
+			public abstract class users_and_issues_exist : users_exists
+			{
+				protected Issue TestIssue;
+
+				protected override void Given()
+				{
+					base.Given();
+
+					TestIssue = Issue.CreateNewIssue("Test Issue", CreatorUser, "This is a test");
+					TestIssue.ReassignTo(TestUser);
+					TestIssue.ID = Guid.NewGuid();
+
+					GetMockFor<IRepository<Issue>>()
+						.Setup(r => r.Query())
+						.Returns((new[] { TestIssue }).AsQueryable());
+				}
+			}
 		}
 
 		#endregion
 	}
-
 }

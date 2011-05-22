@@ -24,14 +24,18 @@ namespace FailTracker.Core.Domain
 
 		public virtual User CreatedBy { get; protected set; }
 
-		public static Issue CreateNewStory(string title, User creator, string body)
+		public virtual DateTime CreatedAt { get; protected set; }
+
+		public static Issue CreateNewIssue(string title, User creator, string body)
 		{
-			return new Issue { Title = title, CreatedBy = creator, Body = body, Type = IssueType.Story };
-		}
-		
-		public static Issue CreateNewBug(string title, User creator, string body)
-		{
-			return new Issue { Title = title, CreatedBy = creator, Body = body, Type = IssueType.Bug };
+			return new Issue
+			       	{
+			       		Title = title,
+			       		CreatedBy = creator,
+			       		Body = body,
+			       		Type = IssueType.Story,
+			       		CreatedAt = DateTime.Now
+			       	};
 		}
 		
 		//Required for NHibernate
@@ -58,6 +62,12 @@ namespace FailTracker.Core.Domain
 		{
 			AssignedTo = user;
 
+			return this;
+		}
+
+		public virtual Issue ChangeTitleTo(string title)
+		{
+			Title = title;
 			return this;
 		}
 
