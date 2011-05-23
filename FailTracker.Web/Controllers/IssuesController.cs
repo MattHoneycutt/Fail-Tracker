@@ -74,10 +74,19 @@ namespace FailTracker.Web.Controllers
 			                    		Body = i.Body,
 			                    		Size = i.Size,
 			                    		Type = i.Type,
-			                    		CreatedAt = i.CreatedAt,
-			                    		Changes = (from c in i.Changes
-			                    		           select new ChangeViewModel()).ToArray()
+			                    		CreatedAt = i.CreatedAt
 			                    	}).Single();
+			//TODO: Current version of NHibernate doesn't allow nested selects. :( 
+			model.Changes = (from i in _issues.Query()
+			                 from c in i.Changes
+							 where i.ID == id
+			                 select new ChangeViewModel
+			                        	{
+			                        		EditedBy = c.EditedBy.EmailAddress,
+											//TODO: Capture change date!
+											ChangedAt = c.ChangedAt,
+											Comments = c.Comments
+			                        	}).ToArray();
 
 			return View(model);
 		}

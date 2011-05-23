@@ -68,7 +68,7 @@ namespace FailTracker.UnitTests.Core.Domain
 			[Test]
 			public void then_it_stores_the_comment()
 			{
-				SUT.Changes.Last().Comment.ShouldEqual("Edited!");
+				SUT.Changes.Last().Comments.ShouldEqual("Edited!");
 			}
 		}
 
@@ -97,7 +97,7 @@ namespace FailTracker.UnitTests.Core.Domain
 			[Test]
 			public void then_it_stores_the_comment()
 			{
-				_result.Changes.Last().Comment.ShouldEqual("Reassignment test");
+				_result.Changes.Last().Comments.ShouldEqual("Reassignment test");
 			}
 
 			[Test]

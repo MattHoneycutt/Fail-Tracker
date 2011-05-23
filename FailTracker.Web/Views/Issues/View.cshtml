@@ -22,3 +22,11 @@
 	<div>@Model.Body</div>
 </div>
 <p>@(Html.ActionLink<IssuesController>(c => c.Edit(Model.ID), "Edit", new{@class="button"}))</p>
+@foreach (var change in Model.Changes)
+{
+	<hr />
+	<div class="bug-notes">
+		<h4>Edited by @change.EditedBy at @change.ChangedAt</h4>
+		<div>@change.Comments</div>
+	</div>
+}

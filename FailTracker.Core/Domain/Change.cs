@@ -8,9 +8,11 @@ namespace FailTracker.Core.Domain
 
 		public virtual Guid ID { get; protected set; }
 
-		public virtual string Comment { get; protected internal set; }
-
 		public virtual User EditedBy { get; protected internal set; }
+
+		public virtual DateTime ChangedAt { get; protected set; }
+
+		public virtual string Comments { get; protected internal set; }
 
 		public virtual Issue AppliesTo { get; protected internal set; }
 
@@ -28,13 +30,13 @@ namespace FailTracker.Core.Domain
 			       	{
 			       		EditedBy = editingUser,
 			       		AppliesTo = issue,
-			       		Comment = comment
+			       		Comments = comment
 			       	};
 		}
 
 		protected Change()
 		{
-			
+			ChangedAt = DateTime.Now;
 		}
 	}
 }

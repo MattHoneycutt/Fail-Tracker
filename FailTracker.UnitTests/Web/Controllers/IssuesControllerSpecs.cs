@@ -235,7 +235,7 @@ namespace FailTracker.UnitTests.Web.Controllers
 			[Test]
 			public void then_it_adds_a_comment()
 			{
-				TestIssue.Changes.Last().Comment.ShouldEqual("Edited Comments!");
+				TestIssue.Changes.Last().Comments.ShouldEqual("Edited Comments!");
 			}
 		}
 
