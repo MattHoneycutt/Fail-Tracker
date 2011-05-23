@@ -121,8 +121,8 @@ namespace FailTracker.UnitTests.Web.Controllers
 			{
 				TestIssues = new[]
 				             	{
-				             		Issue.CreateNewIssue("Test 1", User.CreateNewUser("test@user1.com", "blah"), "Test 1 Body"),
-				             		Issue.CreateNewIssue("Test 2", User.CreateNewUser("test@user2.com", "blah"), "Test 2 Body")
+				             		Issue.CreateNewIssue("Test 1", User.CreateNewUser("test@user1.com", "blah"), "Test 1 Description"),
+				             		Issue.CreateNewIssue("Test 2", User.CreateNewUser("test@user2.com", "blah"), "Test 2 Description")
 										.ReassignTo(User.CreateNewUser("worker@bee.com", "blah"))
 										.ChangeSizeTo(PointSize.Thirteen)
 										.ChangeTypeTo(IssueType.Bug),
@@ -198,6 +198,7 @@ namespace FailTracker.UnitTests.Web.Controllers
 				         		Size = PointSize.OneHundred,
 				         		Type = IssueType.Bug,
 				         		Title = "Edited!",
+								Description = "New Description",
 				         		Comments = "Edited Comments!"
 				         	});
 			}
@@ -230,6 +231,12 @@ namespace FailTracker.UnitTests.Web.Controllers
 			public void then_it_changes_the_title()
 			{
 				TestIssue.Title.ShouldEqual("Edited!");
+			}
+
+			[Test]
+			public void then_it_changes_the_description()
+			{
+				TestIssue.Description.ShouldEqual("New Description");
 			}
 
 			[Test]

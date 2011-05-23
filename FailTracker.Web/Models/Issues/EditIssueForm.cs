@@ -26,6 +26,10 @@ namespace FailTracker.Web.Models.Issues
 
 		[Required]
 		[DataType(DataType.MultilineText)]
+		public string Description { get; set; }
+
+		[Required]
+		[DataType(DataType.MultilineText)]
 		public string Comments { get; set; }
 	}
 }

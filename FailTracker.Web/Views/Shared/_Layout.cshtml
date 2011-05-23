@@ -27,9 +27,6 @@
        <ul id="mainNav">
 			@*TODO: Render links to actions! *@
 			<li>@(Html.ActionLink<IssuesController>(c => c.Dashboard(), "Dashboard", new { @class = "active" }))</li>
-        	<li><a href="#">ADMINISTRATION</a></li>
-        	<li><a href="#">DESIGN</a></li>
-        	<li><a href="#">OPTION</a></li>
         	<li class="right">@(Html.ActionLink<AccountController>(c => c.LogOff(), "Log Off"))</li>
         	<li class="right">@(Html.ActionLink<IssuesController>(c => c.AddIssue(), "Add Issue"))</li>
         </ul>

@@ -14,7 +14,7 @@ namespace FailTracker.Core.Domain
 
 		public virtual User AssignedTo { get; protected set; }
 
-		public virtual string Body { get; protected set; }
+		public virtual string Description { get; protected set; }
 
 		public virtual IssueType Type { get; protected set; }
 
@@ -37,7 +37,7 @@ namespace FailTracker.Core.Domain
 			       	{
 			       		Title = title,
 			       		CreatedBy = creator,
-			       		Body = body,
+			       		Description = body,
 			       		Type = IssueType.Story,
 			       		CreatedAt = DateTime.Now
 			       	};
@@ -106,6 +106,17 @@ namespace FailTracker.Core.Domain
 			return this;
 		}
 
+		public virtual Issue ChangeDescriptionTo(string description)
+		{
+			EnsureEditModeEnabled();
+
+			_activeChange.IsDescriptionChanged = Description != description;
+
+			Description = description;
+
+			return this;
+		}
+
 		public virtual void BeginEdit(User editingUser, string comments)
 		{
 			_activeChange = Change.For(this, editingUser, comments);
@@ -124,7 +135,7 @@ namespace FailTracker.Core.Domain
 		{
 			if (ReferenceEquals(null, other)) return false;
 			if (ReferenceEquals(this, other)) return true;
-			return other.ID.Equals(ID) && Equals(other.Title, Title) && Equals(other.AssignedTo, AssignedTo) && Equals(other.Body, Body) && Equals(other.Type, Type) && Equals(other.Size, Size) && Equals(other.CreatedBy, CreatedBy);
+			return other.ID.Equals(ID) && Equals(other.Title, Title) && Equals(other.AssignedTo, AssignedTo) && Equals(other.Description, Description) && Equals(other.Type, Type) && Equals(other.Size, Size) && Equals(other.CreatedBy, CreatedBy);
 		}
 
 		public override bool Equals(object obj)
@@ -142,7 +153,7 @@ namespace FailTracker.Core.Domain
 				int result = ID.GetHashCode();
 				result = (result*397) ^ (Title != null ? Title.GetHashCode() : 0);
 				result = (result*397) ^ (AssignedTo != null ? AssignedTo.GetHashCode() : 0);
-				result = (result*397) ^ (Body != null ? Body.GetHashCode() : 0);
+				result = (result*397) ^ (Description != null ? Description.GetHashCode() : 0);
 				result = (result*397) ^ Type.GetHashCode();
 				result = (result*397) ^ Size.GetHashCode();
 				result = (result*397) ^ (CreatedBy != null ? CreatedBy.GetHashCode() : 0);

@@ -6,6 +6,14 @@ body
     background-color: #fff;
 }
 
+hr
+{
+	border: none;
+	height: 1px;
+	background: #BBB;
+	width: 75%;
+}
+
 /* Styles for basic forms
 -----------------------------------------------------------*/
 
@@ -52,7 +60,6 @@ div.control-box
 	padding-left: 10em;
 	width: 20em;
 }
-
 
 /* Styles for validation helpers
 -----------------------------------------------------------*/

@@ -71,10 +71,10 @@ namespace FailTracker.Web.Controllers
 			                    		Title = i.Title,
 			                    		CreatedBy = i.CreatedBy.EmailAddress,
 			                    		AssignedTo = assignedTo,
-			                    		Body = i.Body,
+			                    		Body = i.Description,
 			                    		Size = i.Size,
 			                    		Type = i.Type,
-			                    		CreatedAt = i.CreatedAt
+			                    		CreatedAt = i.CreatedAt,
 			                    	}).Single();
 			//TODO: Current version of NHibernate doesn't allow nested selects. :( 
 			model.Changes = (from i in _issues.Query()
@@ -102,7 +102,8 @@ namespace FailTracker.Web.Controllers
 			                       		AssignedTo = i.AssignedTo != null ? (Guid?) i.AssignedTo.ID : null,
 			                       		Title = i.Title,
 			                       		Size = i.Size,
-			                       		Type = i.Type
+			                       		Type = i.Type,
+										Description = i.Description
 			                       	}).Single();
 
 			return View(editForm);
@@ -121,6 +122,7 @@ namespace FailTracker.Web.Controllers
 			issue.ChangeSizeTo(form.Size);
 			issue.ChangeTypeTo(form.Type);
 			issue.ChangeTitleTo(form.Title);
+			issue.ChangeDescriptionTo(form.Description);
 
 			return this.RedirectToAction(c => c.View(form.ID));
 		}
