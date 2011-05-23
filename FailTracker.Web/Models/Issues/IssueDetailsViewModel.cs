@@ -27,5 +27,7 @@ namespace FailTracker.Web.Models.Issues
 		public PointSize Size { get; set; }
 
 		public IssueType Type { get; set; }
+
+		public ChangeViewModel[] Changes { get; set; }
 	}
 }

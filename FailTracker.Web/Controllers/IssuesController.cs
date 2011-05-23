@@ -48,7 +48,7 @@ namespace FailTracker.Web.Controllers
 			var currentUser = _users.Query().Single(u => u.EmailAddress == User.Identity.Name);
 			var issue = Issue.CreateNewIssue(form.Title, currentUser, form.Body);
 			issue.ChangeTypeTo(form.Type);
-			issue.SetSizeTo(form.Size);
+			issue.ChangeSizeTo(form.Size);
 
 			if (form.AssignedTo.HasValue)
 			{
@@ -64,17 +64,19 @@ namespace FailTracker.Web.Controllers
 		{
 			var model = (from i in _issues.Query()
 			             where i.ID == id
-						 let assignedTo = i.AssignedTo != null ? i.AssignedTo.EmailAddress : null
-						 select new IssueDetailsViewModel
+			             let assignedTo = i.AssignedTo != null ? i.AssignedTo.EmailAddress : null
+			             select new IssueDetailsViewModel
 			                    	{
-										ID = i.ID,
-										Title = i.Title,
-										CreatedBy = i.CreatedBy.EmailAddress,
-										AssignedTo = assignedTo,
-										Body = i.Body,
-										Size = i.Size,
-										Type = i.Type,
-										CreatedAt = i.CreatedAt
+			                    		ID = i.ID,
+			                    		Title = i.Title,
+			                    		CreatedBy = i.CreatedBy.EmailAddress,
+			                    		AssignedTo = assignedTo,
+			                    		Body = i.Body,
+			                    		Size = i.Size,
+			                    		Type = i.Type,
+			                    		CreatedAt = i.CreatedAt,
+			                    		Changes = (from c in i.Changes
+			                    		           select new ChangeViewModel()).ToArray()
 			                    	}).Single();
 
 			return View(model);
@@ -103,9 +105,11 @@ namespace FailTracker.Web.Controllers
 			var issue = _issues.Query().Single(i => i.ID == form.ID);
 
 			var assignedTo = _users.Query().SingleOrDefault(u => u.ID == form.AssignedTo);
+			var currentUser = _users.Query().Single(u => u.EmailAddress == User.Identity.Name);
 
+			issue.BeginEdit(currentUser, form.Comments);
 			issue.ReassignTo(assignedTo);
-			issue.SetSizeTo(form.Size);
+			issue.ChangeSizeTo(form.Size);
 			issue.ChangeTypeTo(form.Type);
 			issue.ChangeTitleTo(form.Title);
 

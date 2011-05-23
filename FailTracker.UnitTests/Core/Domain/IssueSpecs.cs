@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using FailTracker.Core.Domain;
 using NUnit.Framework;
 using SpecsFor;
@@ -8,40 +9,6 @@ namespace FailTracker.UnitTests.Core.Domain
 {
 	public class IssueSpecs
 	{
-		public class when_reassigning_an_issue : SpecsFor<Issue>
-		{
-			private User TestUser;
-
-			private Issue _result;
-
-			protected override void InitializeClassUnderTest()
-			{
-				SUT = Issue.CreateNewIssue("My issue", User.CreateNewUser("test", "blah"), "Body");
-			}
-
-			protected override void Given()
-			{
-				TestUser = User.CreateNewUser("test@user.com", "12345");
-			}
-
-			protected override void When()
-			{
-				_result = SUT.ReassignTo(TestUser);
-			}
-
-			[Test]
-			public void then_it_reassigns_the_issue()
-			{
-				SUT.AssignedTo.ShouldEqual(TestUser);
-			}
-
-			[Test]
-			public void then_it_returns_the_SUT()
-			{
-				_result.ShouldBeSameAs(SUT);
-			}
-		}
-
 		public class when_creating_a_new_issue : SpecsFor<Issue>
 		{
 			protected override void InitializeClassUnderTest()
@@ -77,17 +44,90 @@ namespace FailTracker.UnitTests.Core.Domain
 			{
 				SUT.CreatedAt.ShouldBeInRange(DateTime.Now.AddSeconds(-5), DateTime.Now);
 			}
+
+			[Test]
+			public void then_the_issue_is_editable()
+			{
+				Assert.DoesNotThrow(() => SUT.ReassignTo(User.CreateNewUser("other@user.com", "pass")));
+			}
 		}
 
-		public class when_changing_the_title : SpecsFor<Issue>
+		public class when_editing_an_issue : given.an_issue_has_been_created
 		{
-			protected override void InitializeClassUnderTest()
+			protected override void When()
 			{
-				SUT = Issue.CreateNewIssue("Test", null, "Body");
+				SUT.BeginEdit(TestUser, "Edited!");
 			}
+
+			[Test]
+			public void then_it_captures_the_editing_user()
+			{
+				SUT.Changes.Last().EditedBy.ShouldEqual(TestUser);
+			}
+
+			[Test]
+			public void then_it_stores_the_comment()
+			{
+				SUT.Changes.Last().Comment.ShouldEqual("Edited!");
+			}
+		}
+
+		public class when_reassigning_an_issue : given.an_issue_has_been_created
+		{
+			private Issue _result;
 
 			protected override void When()
 			{
+				SUT.BeginEdit(TestUser, "Reassignment test");
+				_result = SUT.ReassignTo(TestUser);
+			}
+
+			[Test]
+			public void then_it_reassigns_the_issue()
+			{
+				SUT.AssignedTo.ShouldEqual(TestUser);
+			}
+
+			[Test]
+			public void then_it_returns_the_SUT()
+			{
+				_result.ShouldBeSameAs(SUT);
+			}
+
+			[Test]
+			public void then_it_stores_the_comment()
+			{
+				_result.Changes.Last().Comment.ShouldEqual("Reassignment test");
+			}
+
+			[Test]
+			public void then_it_tracks_the_change()
+			{
+				_result.Changes.Last().IsReassigned.ShouldBeTrue();
+			}
+		}
+
+		public class when_reassigning_without_an_active_edit : given.issue_is_not_being_edited
+		{
+			private InvalidOperationException _exception;
+
+			protected override void When()
+			{
+				_exception = Assert.Throws<InvalidOperationException>(() => SUT.ReassignTo(TestUser));
+			}
+
+			[Test]
+			public void then_it_throws_an_exception()
+			{
+				_exception.ShouldNotBeNull();
+			}
+		}
+
+		public class when_changing_the_title : given.an_issue_has_been_created
+		{
+			protected override void When()
+			{
+				SUT.BeginEdit(TestUser, "Changing title");
 				SUT.ChangeTitleTo("Edited!");
 			}
 
@@ -95,6 +135,93 @@ namespace FailTracker.UnitTests.Core.Domain
 			public void then_it_updates_the_title()
 			{
 				SUT.Title.ShouldEqual("Edited!");
+			}
+
+			[Test]
+			public void then_it_captures_the_title_change()
+			{
+				SUT.Changes.Last().IsTitleChanged.ShouldBeTrue();
+			}
+		}
+
+		public class when_changing_the_title_without_an_active_edit : given.issue_is_not_being_edited
+		{
+			private InvalidOperationException _exception;
+
+			protected override void When()
+			{
+				_exception = Assert.Throws<InvalidOperationException>(() => SUT.ChangeTitleTo("Edited!"));
+			}
+
+			[Test]
+			public void then_it_throws_an_exception()
+			{
+				_exception.ShouldNotBeNull();
+			}
+		}
+
+		public class when_changing_the_size : given.an_issue_has_been_created
+		{
+			protected override void When()
+			{
+				SUT.BeginEdit(TestUser, "Testing");
+				SUT.ChangeSizeTo(PointSize.Twenty);
+			}
+
+			[Test]
+			public void then_it_sets_the_point_size()
+			{
+				SUT.Size.ShouldEqual(PointSize.Twenty);
+			}
+
+			[Test]
+			public void then_it_tracks_the_change()
+			{
+				SUT.Changes.Last().IsPointSizeChanged.ShouldBeTrue();
+			}
+		}
+		
+		public class when_changing_the_type : given.an_issue_has_been_created
+		{
+			protected override void When()
+			{
+				SUT.BeginEdit(TestUser, "Changing type.");
+				SUT.ChangeTypeTo(IssueType.Chore);
+			}
+
+			[Test]
+			public void then_it_updates_the_type()
+			{
+				SUT.Type.ShouldEqual(IssueType.Chore);
+			}
+
+			[Test]
+			public void then_it_captures_the_edit()
+			{
+				SUT.Changes.Last().IsTypeChanged.ShouldBeTrue();
+			}
+		}
+
+		public static class given
+		{
+			public abstract class an_issue_has_been_created : SpecsFor<Issue>
+			{
+				protected User TestUser = User.CreateNewUser("test@user.com", "12345");
+				protected User CreatorUser = User.CreateNewUser("creator@user.com", "blah");
+
+				protected override void InitializeClassUnderTest()
+				{
+					SUT = Issue.CreateNewIssue("My issue", CreatorUser, "Body");
+				}
+			}
+
+			public abstract class issue_is_not_being_edited : an_issue_has_been_created
+			{
+				protected override void Given()
+				{
+					base.Given();
+					SUT.EndEdit();
+				}
 			}
 		}
 	}	

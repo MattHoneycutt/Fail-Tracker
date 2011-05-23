@@ -17,7 +17,10 @@ namespace FailTracker.Core.Data
 		{
 			_configuration = Fluently.Configure()
 				.Database(MsSqlCeConfiguration.Standard.ConnectionString(c => c.FromConnectionStringWithKey("FailTrackerData")))
-				.Mappings(m => m.AutoMappings.Add(AutoMap.AssemblyOf<Issue>(new FailTrackerConfig())))
+				.Mappings(m => m.AutoMappings.Add(
+					AutoMap.AssemblyOf<Issue>(new FailTrackerConfig()).UseOverridesFromAssemblyOf<IssueOverrides>()
+					)
+				)
 				.BuildConfiguration();
 
 			_sessionFactory = _configuration.BuildSessionFactory();

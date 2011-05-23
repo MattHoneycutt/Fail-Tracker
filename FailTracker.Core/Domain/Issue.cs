@@ -1,9 +1,12 @@
 using System;
+using System.Collections.Generic;
 
 namespace FailTracker.Core.Domain
 {
 	public class Issue : IEquatable<Issue>
 	{
+		private Change _activeChange;
+
 		//TODO: We only want to expose changing the ID for test purposes...
 		public virtual Guid ID { get; set; }
 
@@ -26,9 +29,11 @@ namespace FailTracker.Core.Domain
 
 		public virtual DateTime CreatedAt { get; protected set; }
 
+		public virtual IEnumerable<Change> Changes { get; protected set; }
+
 		public static Issue CreateNewIssue(string title, User creator, string body)
 		{
-			return new Issue
+			var issue = new Issue
 			       	{
 			       		Title = title,
 			       		CreatedBy = creator,
@@ -36,29 +41,44 @@ namespace FailTracker.Core.Domain
 			       		Type = IssueType.Story,
 			       		CreatedAt = DateTime.Now
 			       	};
+
+			//This allows a newly-created story to be edited.
+			issue._activeChange = Change.Empty;
+
+			return issue;
 		}
 		
 		//Required for NHibernate
 		protected Issue()
 		{
-			
+			Changes = new List<Change>();
+		}
+
+		private void EnsureEditModeEnabled()
+		{
+			if (_activeChange == null)
+			{
+				throw new InvalidOperationException("Issue must be in edit mode before you can make changes.  Call the BeginEdit method first.");
+			}
 		}
 
 		public virtual Issue ChangeTypeTo(IssueType type)
 		{
-			//TODO: Store a transient flag that tracks whether or not an edit has started, and
-			//		throw an exception if you try to make changes when not in edit mode.
-			//		Usage could look like: issue.BeginEdit(user, comments);  issue.ChangeTypeTo(...)...
-			//		The flag would be set to true immediately after you created a story, that way
-			//		you can still populate a story as part of the initial edit. 
+			EnsureEditModeEnabled();
+
+			_activeChange.IsTypeChanged = Type != type;
 
 			Type = type;
 
 			return this;
 		}
 
-		public virtual Issue SetSizeTo(PointSize size)
+		public virtual Issue ChangeSizeTo(PointSize size)
 		{
+			EnsureEditModeEnabled();
+
+			_activeChange.IsPointSizeChanged = Size != size;
+
 			Size = size;
 
 			return this;
@@ -66,6 +86,10 @@ namespace FailTracker.Core.Domain
 
 		public virtual Issue ReassignTo(User user)
 		{
+			EnsureEditModeEnabled();
+
+			_activeChange.IsReassigned = AssignedTo != user;
+
 			AssignedTo = user;
 
 			return this;
@@ -73,8 +97,25 @@ namespace FailTracker.Core.Domain
 
 		public virtual Issue ChangeTitleTo(string title)
 		{
+			EnsureEditModeEnabled();
+
+			_activeChange.IsTitleChanged = Title != title;
+
 			Title = title;
+
 			return this;
+		}
+
+		public virtual void BeginEdit(User editingUser, string comments)
+		{
+			_activeChange = Change.For(this, editingUser, comments);
+
+			((IList<Change>)Changes).Add(_activeChange);
+		}
+
+		public virtual void EndEdit()
+		{
+			_activeChange = null;
 		}
 
 		#region Equals Implementation 

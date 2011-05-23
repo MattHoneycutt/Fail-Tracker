@@ -48,7 +48,7 @@ namespace FailTracker.UnitTests.Web.Controllers
 				base.Given();
 
 				var newStory = Issue.CreateNewIssue("Test Title", CreatorUser, "Content");
-				newStory.SetSizeTo(PointSize.Eight);
+				newStory.ChangeSizeTo(PointSize.Eight);
 				newStory.ReassignTo(TestUser);
 
 				GetMockFor<IRepository<Issue>>()
@@ -124,12 +124,14 @@ namespace FailTracker.UnitTests.Web.Controllers
 				             		Issue.CreateNewIssue("Test 1", User.CreateNewUser("test@user1.com", "blah"), "Test 1 Body"),
 				             		Issue.CreateNewIssue("Test 2", User.CreateNewUser("test@user2.com", "blah"), "Test 2 Body")
 										.ReassignTo(User.CreateNewUser("worker@bee.com", "blah"))
-										.SetSizeTo(PointSize.Thirteen)
+										.ChangeSizeTo(PointSize.Thirteen)
 										.ChangeTypeTo(IssueType.Bug),
 				             	};
 
 				TestIssues[0].ID = Guid.NewGuid();
 				TestIssues[1].ID = Guid.NewGuid();
+				TestIssues[1].BeginEdit(User.CreateNewUser("test@user3.com", "pass"), "Edit 1!");
+				TestIssues[1].BeginEdit(User.CreateNewUser("test@user3.com", "pass"), "Edit 2!");
 
 				GetMockFor<IRepository<Issue>>()
 					.Setup(r => r.Query())
@@ -149,6 +151,13 @@ namespace FailTracker.UnitTests.Web.Controllers
 				data.AssignedTo.ShouldEqual(TestIssues[1].AssignedTo.EmailAddress);
 				data.Size.ShouldEqual(TestIssues[1].Size);
 				data.Type.ShouldEqual(TestIssues[1].Type);
+			}
+
+			[Test]
+			public void then_it_returns_the_changes()
+			{
+				var data = _result.AssertViewRendered().WithViewData<IssueDetailsViewModel>();
+				data.Changes.Length.ShouldEqual(2);
 			}
 		}
 
@@ -224,9 +233,9 @@ namespace FailTracker.UnitTests.Web.Controllers
 			}
 
 			[Test]
-			[Ignore("Actually persisting commetns and tracking changes isn't implemented yet.")]
 			public void then_it_adds_a_comment()
 			{
+				TestIssue.Changes.Last().Comment.ShouldEqual("Edited Comments!");
 			}
 		}
 
