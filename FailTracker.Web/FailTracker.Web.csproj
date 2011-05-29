@@ -81,6 +81,7 @@
     <Compile Include="Helpers\DataExtensions.cs" />
     <Compile Include="Infrastructure\Mapping\IMapFrom.cs" />
     <Compile Include="Infrastructure\Mapping\MappingBootstrapper.cs" />
+    <Compile Include="Infrastructure\Mapping\UserToStringTypeConverter.cs" />
     <Compile Include="Infrastructure\NHSessionModule.cs" />
     <Compile Include="Models\Account\LogOnForm.cs" />
     <Compile Include="Controllers\UtilityController.cs" />
