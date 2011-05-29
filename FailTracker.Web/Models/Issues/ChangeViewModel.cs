@@ -1,12 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using AutoMapper;
 using FailTracker.Core.Domain;
 using FailTracker.Web.Infrastructure.Mapping;
 
 namespace FailTracker.Web.Models.Issues
 {
-	public class ChangeViewModel : IMappable
+	public class ChangeViewModel : IMapFrom<Change>
 	{
 		[DataType("User")]
 		public string EditedBy { get; set; }
@@ -14,10 +13,5 @@ namespace FailTracker.Web.Models.Issues
 		public DateTime ChangedAt { get; set; }
 
 		public string Comments { get; set; }
-		
-		public void CreateMappings(IConfiguration configuration)
-		{
-			configuration.CreateMap<Change, ChangeViewModel>();
-		}
 	}
 }

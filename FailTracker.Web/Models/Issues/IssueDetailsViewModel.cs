@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using AutoMapper;
@@ -8,10 +7,7 @@ using FailTracker.Web.Infrastructure.Mapping;
 
 namespace FailTracker.Web.Models.Issues
 {
-	//TODO: Can we use a marker interface for basic/standard mapping, and another
-	//		for more advanced mapping? 
-
-	public class IssueDetailsViewModel : IMappable
+	public class IssueDetailsViewModel : IMapFrom<Issue>
 	{
 		public Guid ID { get; set; }
 
@@ -35,10 +31,5 @@ namespace FailTracker.Web.Models.Issues
 		public IssueType Type { get; set; }
 
 		public ChangeViewModel[] Changes { get; set; }
-		
-		void IMappable.CreateMappings(IConfiguration configuration)
-		{
-			configuration.CreateMap<Issue, IssueDetailsViewModel>();
-		}
 	}
 }

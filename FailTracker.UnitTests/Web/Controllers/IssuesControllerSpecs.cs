@@ -179,7 +179,6 @@ namespace FailTracker.UnitTests.Web.Controllers
 			[Test]
 			public void then_it_returns_the_expected_model()
 			{
-				//TODO: Add AutoMapper to cut down on tedious testing. 
 				var model = _result.AssertViewRendered().WithViewData<EditIssueForm>();
 				model.AssignedToID.ShouldEqual(TestIssue.AssignedTo.ID);
 			}

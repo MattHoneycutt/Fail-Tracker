@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using AutoMapper;
@@ -9,30 +10,46 @@ namespace FailTracker.Web.Infrastructure.Mapping
 	{
 		public static void LoadAllMaps()
 		{
-			var maps = (from t in Assembly.GetExecutingAssembly().GetExportedTypes()
+			var types = Assembly.GetExecutingAssembly().GetExportedTypes();
+
+			LoadStandardMappings(types);
+
+			LoadCustomMappings(types);
+		}
+
+		private static void LoadCustomMappings(IEnumerable<Type> types)
+		{
+			var maps = (from t in types
 			            from i in t.GetInterfaces()
-			            where (i.IsGenericType && i.GetGenericTypeDefinition() == typeof (IMappable<>)) ||
-			                  typeof (IMappable).IsAssignableFrom(t)
-			            where !t.IsAbstract &&
+			            where typeof (IHaveCustomMappings).IsAssignableFrom(t) &&
+			                  !t.IsAbstract &&
+			                  !t.IsInterface
+			            select (IHaveCustomMappings)Activator.CreateInstance(t)).ToArray();
+
+			foreach (var map in maps)
+			{
+				map.CreateMappings(Mapper.Configuration);
+			}
+		}
+
+		private static void LoadStandardMappings(IEnumerable<Type> types)
+		{
+			var maps = (from t in types
+			            from i in t.GetInterfaces()
+			            where i.IsGenericType && i.GetGenericTypeDefinition() == typeof (IMapFrom<>) &&
+			                  !t.IsAbstract &&
 			                  !t.IsInterface
 			            select Activator.CreateInstance(t)).ToArray();
 
 			foreach (var map in maps)
 			{
-				if (map is IMappable)
-				{
-					((IMappable) map).CreateMappings(Mapper.Configuration);
-				}
-				else
-				{
-					var destination = map.GetType();
-					var source = (from i in map.GetType().GetInterfaces()
-					              where i.IsGenericType &&
-					                    i.GetGenericTypeDefinition() == typeof (IMappable<>)
-					              select i.GetGenericArguments()[0]).Single();
+				var destination = map.GetType();
+				var source = (from i in map.GetType().GetInterfaces()
+								where i.IsGenericType &&
+									i.GetGenericTypeDefinition() == typeof(IMapFrom<>)
+								select i.GetGenericArguments()[0]).Single();
 
-					Mapper.CreateMap(source, destination);
-				}
+				Mapper.CreateMap(source, destination);
 			}
 		}
 	}

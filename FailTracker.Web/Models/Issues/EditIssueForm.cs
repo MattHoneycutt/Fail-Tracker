@@ -8,7 +8,7 @@ using FailTracker.Web.Infrastructure.Mapping;
 
 namespace FailTracker.Web.Models.Issues
 {
-	public class EditIssueForm : IMappable
+	public class EditIssueForm : IHaveCustomMappings
 	{
 		[HiddenInput(DisplayValue = false)]
 		public Guid ID { get; set; }
@@ -34,7 +34,7 @@ namespace FailTracker.Web.Models.Issues
 		[DataType(DataType.MultilineText)]
 		public string Comments { get; set; }
 
-		public void CreateMappings(IConfiguration configuration)
+		void IHaveCustomMappings.CreateMappings(IConfiguration configuration)
 		{
 			configuration.CreateMap<Issue, EditIssueForm>()
 				.ForMember(f => f.Comments, opt => opt.Ignore());

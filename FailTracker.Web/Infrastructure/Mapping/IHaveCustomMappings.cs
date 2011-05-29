@@ -2,12 +2,7 @@
 
 namespace FailTracker.Web.Infrastructure.Mapping
 {
-	public interface IMappable<T>
-	{
-		
-	}
-
-	public interface IMappable
+	public interface IHaveCustomMappings
 	{
 		void CreateMappings(IConfiguration configuration);
 	}
