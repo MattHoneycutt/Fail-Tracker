@@ -148,7 +148,7 @@ namespace FailTracker.UnitTests.Web.Controllers
 			{
 				var data = _result.AssertViewRendered().WithViewData<IssueDetailsViewModel>();
 
-				data.AssignedTo.ShouldEqual(TestIssues[1].AssignedTo.EmailAddress);
+				data.AssignedToEmailAddress.ShouldEqual(TestIssues[1].AssignedTo.EmailAddress);
 				data.Size.ShouldEqual(TestIssues[1].Size);
 				data.Type.ShouldEqual(TestIssues[1].Type);
 			}
@@ -181,7 +181,7 @@ namespace FailTracker.UnitTests.Web.Controllers
 			{
 				//TODO: Add AutoMapper to cut down on tedious testing. 
 				var model = _result.AssertViewRendered().WithViewData<EditIssueForm>();
-				model.AssignedTo.ShouldEqual(TestIssue.AssignedTo.ID);
+				model.AssignedToID.ShouldEqual(TestIssue.AssignedTo.ID);
 			}
 		}
 
@@ -194,7 +194,7 @@ namespace FailTracker.UnitTests.Web.Controllers
 				_result =SUT.Edit(new EditIssueForm
 				         	{
 				         		ID = TestIssue.ID,
-				         		AssignedTo = CreatorUser.ID,
+				         		AssignedToID = CreatorUser.ID,
 				         		Size = PointSize.OneHundred,
 				         		Type = IssueType.Bug,
 				         		Title = "Edited!",

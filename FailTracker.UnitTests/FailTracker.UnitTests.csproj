@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\packages\AutoMapper.1.1.0.118\lib\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Moq">
       <HintPath>..\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
     </Reference>
@@ -64,8 +67,10 @@
   <ItemGroup>
     <Compile Include="Core\Domain\IssueSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Web\AssemblySetup.cs" />
     <Compile Include="Web\Controllers\AccountControllerSpecs.cs" />
     <Compile Include="Web\Controllers\IssuesControllerSpecs.cs" />
+    <Compile Include="Web\Infrastructure\MappingBootstrapperSpecs.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FailTracker.Core\FailTracker.Core.csproj">

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
 using FailTracker.Core.Data;
 using FailTracker.Core.Domain;
 using FailTracker.Web.Models.Issues;
@@ -22,15 +23,7 @@ namespace FailTracker.Web.Controllers
 		public ActionResult Dashboard()
 		{
 			var issues = (from i in _issues.Query()
-						  let assignedTo = i.AssignedTo != null ? i.AssignedTo.EmailAddress : null
-			              select new IssueViewModel
-			                     	{
-			                     		ID = i.ID, 
-										Title = i.Title, 
-										AssignedTo = assignedTo,
-										Size = i.Size,
-										Type = i.Type
-			                     	}).ToArray();
+			              select Mapper.Map<Issue, IssueViewModel>(i)).ToArray();
 
 			return View(issues);
 		}
@@ -46,6 +39,7 @@ namespace FailTracker.Web.Controllers
 		{
 			//TODO: Abstract this down/out
 			var currentUser = _users.Query().Single(u => u.EmailAddress == User.Identity.Name);
+
 			var issue = Issue.CreateNewIssue(form.Title, currentUser, form.Body);
 			issue.ChangeTypeTo(form.Type);
 			issue.ChangeSizeTo(form.Size);
@@ -62,31 +56,7 @@ namespace FailTracker.Web.Controllers
 
 		public ActionResult View(Guid id)
 		{
-			var model = (from i in _issues.Query()
-			             where i.ID == id
-			             let assignedTo = i.AssignedTo != null ? i.AssignedTo.EmailAddress : null
-			             select new IssueDetailsViewModel
-			                    	{
-			                    		ID = i.ID,
-			                    		Title = i.Title,
-			                    		CreatedBy = i.CreatedBy.EmailAddress,
-			                    		AssignedTo = assignedTo,
-			                    		Body = i.Description,
-			                    		Size = i.Size,
-			                    		Type = i.Type,
-			                    		CreatedAt = i.CreatedAt,
-			                    	}).Single();
-			//TODO: Current version of NHibernate doesn't allow nested selects. :( 
-			model.Changes = (from i in _issues.Query()
-			                 from c in i.Changes
-							 where i.ID == id
-			                 select new ChangeViewModel
-			                        	{
-			                        		EditedBy = c.EditedBy.EmailAddress,
-											//TODO: Capture change date!
-											ChangedAt = c.ChangedAt,
-											Comments = c.Comments
-			                        	}).ToArray();
+			var model = Mapper.Map<Issue, IssueDetailsViewModel>(_issues.Query().Single(i => i.ID == id));
 
 			return View(model);
 		}
@@ -94,17 +64,7 @@ namespace FailTracker.Web.Controllers
 		[HttpGet]
 		public ActionResult Edit(Guid id)
 		{
-			var editForm = (from i in _issues.Query()
-			                where i.ID == id
-			                select new EditIssueForm
-			                       	{
-			                       		ID = i.ID,
-			                       		AssignedTo = i.AssignedTo != null ? (Guid?) i.AssignedTo.ID : null,
-			                       		Title = i.Title,
-			                       		Size = i.Size,
-			                       		Type = i.Type,
-										Description = i.Description
-			                       	}).Single();
+			var editForm = Mapper.Map<Issue, EditIssueForm>(_issues.Query().Single(i => i.ID == id));
 
 			return View(editForm);
 		}
@@ -114,7 +74,7 @@ namespace FailTracker.Web.Controllers
 		{
 			var issue = _issues.Query().Single(i => i.ID == form.ID);
 
-			var assignedTo = _users.Query().SingleOrDefault(u => u.ID == form.AssignedTo);
+			var assignedTo = _users.Query().SingleOrDefault(u => u.ID == form.AssignedToID);
 			var currentUser = _users.Query().Single(u => u.EmailAddress == User.Identity.Name);
 
 			issue.BeginEdit(currentUser, form.Comments);

@@ -9,8 +9,8 @@
 	<div class="bug-details">
 		@Html.LabelFor(m => m.Type)
 		@Html.DisplayFor(m => m.Type)
-		@Html.LabelFor(m => m.AssignedTo)
-		@Html.DisplayFor(m => m.AssignedTo)
+		@Html.LabelFor(m => m.AssignedToEmailAddress)
+		@Html.DisplayFor(m => m.AssignedToEmailAddress)
 		@Html.LabelFor(m => m.Size)
 		@Html.DisplayFor(m => m.Size)
 	</div>
@@ -19,7 +19,7 @@
 <h2>@Model.Title</h2>
 <div class="bug-notes">
 	<h4>Created by @Html.DisplayFor(m => m.CreatedBy) at @Model.CreatedAt</h4>
-	<div>@Model.Body</div>
+	<div>@Model.Description</div>
 </div>
 <p>@(Html.ActionLink<IssuesController>(c => c.Edit(Model.ID), "Edit", new{@class="button"}))</p>
 @foreach (var change in Model.Changes)

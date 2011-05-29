@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\packages\AutoMapper.1.1.0.118\lib\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Web.Mvc">
       <HintPath>..\packages\Mvc3Futures.3.0.20105.0\lib\Microsoft.Web.Mvc.dll</HintPath>
     </Reference>
@@ -74,7 +77,9 @@
     <Compile Include="Controllers\IssuesController.cs" />
     <Compile Include="ActionResults\LogOnResult.cs" />
     <Compile Include="ActionResults\StatusResult.cs" />
+    <Compile Include="Infrastructure\FilterBootstrapper.cs" />
     <Compile Include="Helpers\DataExtensions.cs" />
+    <Compile Include="Infrastructure\Mapping\MappingBootstrapper.cs" />
     <Compile Include="Infrastructure\NHSessionModule.cs" />
     <Compile Include="Models\Account\LogOnForm.cs" />
     <Compile Include="Controllers\UtilityController.cs" />
@@ -84,6 +89,7 @@
     <Compile Include="Infrastructure\RouteBootstrapper.cs" />
     <Compile Include="Models\Issues\ChangeViewModel.cs" />
     <Compile Include="Models\Issues\EditIssueForm.cs" />
+    <Compile Include="Infrastructure\Mapping\IMappable.cs" />
     <Compile Include="Models\Issues\IssueViewModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
