@@ -1,14 +1,14 @@
 var Site = {};
 $(function () {
 	//Apply defaults
-	$("input[type=button], input[type=submit], a.button").button();
+	$("input[type=button], input[type=submit], a.button, span.button").button();
 
 	$.extend($.ui.dialog.prototype.options, {
 		width: 500,
 		height: 350
 	});
 
-	$.ajaxSetup({traditional:true});
+	$.ajaxSetup({ traditional: true });
 
 	//Initialize Site object
 	Site.showStatus = function (message, type) {
@@ -26,7 +26,38 @@ $(function () {
 			})
 			.delay(5000)
 			.fadeOut(1500);
-	}
+	};
+
+	Site.confirm = function (options) {
+		
+		options = $.extend({
+			confirmAction : function() { },
+			cancelAction : function() { },
+			title : "Are you sure?",
+			text : "Do you wish to continue?"
+			}, options);
+
+		$("#dialog-confirm")
+			.find("span.text")
+				.text(options.text)
+				.end()
+			.attr("title", options.title)
+			.dialog({
+				resizable: false,
+				height: 180,
+				modal: true,
+				buttons: {
+					Continue: function () {
+						$(this).dialog("close");
+						options.confirmAction();
+					},
+					Cancel: function () {
+						$(this).dialog("close");
+						options.cancelAction();
+					}
+				}
+			});
+	};
 
 	//Attach global AJAX error handler
 	$(document).ajaxError(function (event, request, options) {

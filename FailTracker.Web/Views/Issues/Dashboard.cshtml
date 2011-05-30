@@ -8,8 +8,20 @@
 			var id = $(this).attr("data-issue-id");
 			$("#issue-preview-dialog")
 				.html("<em>Loading...</em>")
-				.dialog({modal:true})
+				.dialog({ modal: true })
 				.load("@(Html.BuildUrlFromExpression<IssuesController>(c => c.Details(Guid.Empty)))".replace("@Guid.Empty", id));
+		});
+
+		$("span.issue-delete").click(function () {
+			var id = $(this).attr("data-issue-id");
+
+			Site.confirm({
+				title: "Delete this issue?",
+				text: "Are you sure you wish to delete this issue?  You cannot undo this action.  All history will be lost!",
+				confirmAction: function () {
+					$.post("/delete!!");
+				}
+			});
 		});
 	});
 </script>
@@ -26,16 +38,18 @@
 			<th>Title</th>
 			<th>Size</th>
 			<th>Assigned To</th>
+			<th>&nbsp;</th>
 		</tr>
 	</thead>
 	<tbody>
 		@foreach(var issue in Model){
 		<tr>
-			<td><span class="ui-icon ui-icon-search issue-preview" data-issue-id="@issue.ID"></span></td>
+			<td><span class="ui-icon ui-icon-search issue-preview button" data-issue-id="@issue.ID"></span></td>
 			<td>@issue.Type</td>
 			<td>@(Html.ActionLink<IssuesController>(c => c.View(issue.ID), issue.Title))</td>
 			<td>@issue.Size</td>
 			<td>@Html.DisplayFor(m => issue.AssignedTo)</td>
+			<td><span class="ui-icon ui-icon-trash issue-delete button" data-issue-id="@issue.ID"></span></td>
 		</tr>
 		}
 	</tbody>
