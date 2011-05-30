@@ -2,11 +2,26 @@
 @{
     ViewBag._Title = "View Issues";
 }
+<script type="text/javascript">
+	$(function () {
+		$("span.issue-preview").click(function () {
+			var id = $(this).attr("data-issue-id");
+			$("#issue-preview-dialog")
+				.html("<em>Loading...</em>")
+				.dialog({modal:true, width: 500, height: 350})
+				.load("@(Html.BuildUrlFromExpression<IssuesController>(c => c.Details(Guid.Empty)))".replace("@Guid.Empty", id));
+		});
+	});
+</script>
+
+<div id="issue-preview-dialog">
+</div>
 
 <h2>Issues</h2>
 <table>
 	<thead>
 		<tr>
+			<th>&nbsp;</th>
 			<th>Type</th>
 			<th>Title</th>
 			<th>Size</th>
@@ -16,6 +31,7 @@
 	<tbody>
 		@foreach(var issue in Model){
 		<tr>
+			<td><span class="ui-icon ui-icon-search issue-preview" data-issue-id="@issue.ID"></span></td>
 			<td>@issue.Type</td>
 			<td>@(Html.ActionLink<IssuesController>(c => c.View(issue.ID), issue.Title))</td>
 			<td>@issue.Size</td>

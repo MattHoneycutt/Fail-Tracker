@@ -86,5 +86,12 @@ namespace FailTracker.Web.Controllers
 
 			return this.RedirectToAction(c => c.View(form.ID));
 		}
+
+		public ActionResult Details(Guid id)
+		{
+			var model = Mapper.Map<Issue, IssueDetailsViewModel>(_issues.Query().Single(i => i.ID == id));
+			
+			return View(model);
+		}
 	}
 }

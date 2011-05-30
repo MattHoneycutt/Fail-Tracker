@@ -245,6 +245,22 @@ namespace FailTracker.UnitTests.Web.Controllers
 			}
 		}
 
+		public class when_getting_issue_details : given.users_and_issues_exist
+		{
+			private ActionResult _result;
+
+			protected override void When()
+			{
+				_result = SUT.Details(TestIssue.ID);
+			}
+
+			[Test]
+			public void then_it_returns_a_populated_view()
+			{
+				_result.AssertViewRendered().WithViewData<IssueDetailsViewModel>().ShouldNotBeNull();
+			}
+		}
+
 		#region Context
 
 		public static class given
