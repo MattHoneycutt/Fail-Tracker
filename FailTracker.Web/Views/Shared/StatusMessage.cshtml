@@ -1,27 +1,10 @@
-﻿<script type="text/javascript">
-	function showStatus(message, type) {
-		var statusMessage = $("#status-message");
-		var container = statusMessage.parent();
-		$("#status-message")
-			.removeClass()
-			.addClass(type)
-			.text(message)
-			.show()
-			.position({
-				my: "center top",
-				at: "center top",
-				of: container
-			})
-			.delay(5000)
-			.fadeOut(1500);
-	}
-</script>
-@if (TempData["StatusMessage"] != null)
+﻿@if (TempData["StatusMessage"] != null)
 {
 	<script type="text/javascript">
 		$(function () { 
-			showStatus("@Html.Encode(TempData["StatusMessage"])", "@TempData["StatusMessageType"]");
+			Site.showStatus("@Html.Encode(TempData["StatusMessage"])", "@TempData["StatusMessageType"]");
 		});
 	</script>
-}<div id="status-message" class="error">
+}
+<div id="status-message" class="error">
 </div>

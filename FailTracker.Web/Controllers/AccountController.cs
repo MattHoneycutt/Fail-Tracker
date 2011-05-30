@@ -4,7 +4,6 @@ using FailTracker.Core.Data;
 using FailTracker.Core.Domain;
 using FailTracker.Web.ActionResults;
 using FailTracker.Web.Models.Account;
-using Microsoft.Web.Mvc;
 
 namespace FailTracker.Web.Controllers
 {

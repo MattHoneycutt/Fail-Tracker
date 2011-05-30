@@ -160,3 +160,10 @@ div.bug-notes div
 {
 	padding: 0 1em 0 1em;
 }
+
+/* Display Issue
+-----------------------------------------------------------*/
+div.dialog
+{
+	display: none;
+}
