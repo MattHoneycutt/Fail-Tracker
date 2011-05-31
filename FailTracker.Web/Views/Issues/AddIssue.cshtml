@@ -7,10 +7,10 @@
 <h2>Add Issue</h2>
 @using (Html.BeginForm())
 {
-	<p>@Html.LabelFor(m => m.Title) @Html.TextBoxFor(m => m.Title) @Html.ValidationMessageFor(m => m.Title)</p>
-	<p>@Html.LabelFor(m => m.Type) @Html.DropDownListFor(m => m.Type, (IssueType.Story).ToSelectList()) @Html.ValidationMessageFor(m => m.Type)</p>
-	<p>@Html.LabelFor(m => m.Size) @Html.DropDownListFor(m => m.Size, (PointSize.Unsized).ToSelectList()) @Html.ValidationMessageFor(m => m.Size)</p>
-	<p>@Html.LabelFor(m => m.AssignedTo) @Html.DropDownListFor(m => m.AssignedTo, Html.GetUserSelectList(null), "Unassigned") @Html.ValidationMessageFor(m => m.AssignedTo)</p>
-	<p>@Html.LabelFor(m => m.Body) @Html.TextAreaFor(m => m.Body) @Html.ValidationMessageFor(m => m.Body)</p>
+	<p>@Html.LabelFor(m => m.Title) @Html.TextBoxFor(m => m.Title) </p>
+	<p>@Html.LabelFor(m => m.Type) @Html.DropDownListFor(m => m.Type, (IssueType.Story).ToSelectList()) </p>
+	<p>@Html.LabelFor(m => m.Size) @Html.DropDownListFor(m => m.Size, (PointSize.Unsized).ToSelectList()) </p>
+	<p>@Html.LabelFor(m => m.AssignedTo) @Html.DropDownListFor(m => m.AssignedTo, Html.GetUserSelectList(null), "Unassigned") </p>
+	<p>@Html.LabelFor(m => m.Body) @Html.TextAreaFor(m => m.Body) </p>
 	<div class="control-box"><input type="submit" value="Add Issue" /></div>
 }
