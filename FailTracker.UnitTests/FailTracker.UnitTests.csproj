@@ -68,6 +68,7 @@
     <Compile Include="Core\Domain\IssueSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Web\AssemblySetup.cs" />
+    <Compile Include="Web\AuthorizationConventionVerifier.cs" />
     <Compile Include="Web\Controllers\AccountControllerSpecs.cs" />
     <Compile Include="Web\Controllers\IssuesControllerSpecs.cs" />
     <Compile Include="Web\Infrastructure\MappingBootstrapperSpecs.cs" />

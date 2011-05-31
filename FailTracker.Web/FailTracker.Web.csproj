@@ -74,6 +74,7 @@
     <Compile Include="ActionResults\LogOffResult.cs" />
     <Compile Include="App_Start\StructuremapMvc.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AuthorizeBaseController.cs" />
     <Compile Include="Controllers\IssuesController.cs" />
     <Compile Include="ActionResults\LogOnResult.cs" />
     <Compile Include="ActionResults\StatusResult.cs" />
@@ -88,7 +89,6 @@
     <Compile Include="Controllers\UtilityController.cs" />
     <Compile Include="Infrastructure\DependencyResolution\IoC.cs" />
     <Compile Include="Infrastructure\DependencyResolution\SmDependencyResolver.cs" />
-    <Compile Include="Infrastructure\FailTrackerFilterProvider.cs" />
     <Compile Include="Infrastructure\RouteBootstrapper.cs" />
     <Compile Include="Models\Issues\ChangeViewModel.cs" />
     <Compile Include="Models\Issues\EditIssueForm.cs" />

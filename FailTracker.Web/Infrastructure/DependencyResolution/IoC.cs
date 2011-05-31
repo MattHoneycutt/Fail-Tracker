@@ -20,7 +20,6 @@ namespace FailTracker.Web.Infrastructure.DependencyResolution
 
 							x.For<ISession>().HttpContextScoped().Use(NHibernateBootstrapper.GetSession);
 							x.For(typeof (IRepository<>)).Use(typeof (NHibernateRepository<>));
-							x.For<IFilterProvider>().Use<FailTrackerFilterProvider>();
 						});
 
 			return ObjectFactory.Container;
