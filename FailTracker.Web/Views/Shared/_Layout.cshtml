@@ -2,13 +2,13 @@
 <html>
 <head>
 	<title>@ViewBag._Title - Fail Tracker</title>
-	<link href="@Url.Content("~/Content/themes/base/jquery-ui.css")" rel="stylesheet" type="text/css" />
+	<link href="@Url.Content("~/Content/Shared/themes/base/jquery-ui.css")" rel="stylesheet" type="text/css" />
 	<link href="@Url.Content("~/Content/Shared/TransdminTheme/css/transdmin.css")" rel="stylesheet" type="text/css" />
-	<link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
-	<script src="@Url.Content("~/Scripts/jquery-1.4.4.min.js")" type="text/javascript"></script>
-	<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
-	<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
-	<script src="@Url.Content("~/Scripts/jquery-ui.min.js")" type="text/javascript"></script>
+	<link href="@Url.Content("~/Content/Shared/Site.css")" rel="stylesheet" type="text/css" />
+	<script src="@Url.Content("~/Scripts/Shared/jquery-1.4.4.min.js")" type="text/javascript"></script>
+	<script src="@Url.Content("~/Scripts/Shared/jquery.validate.min.js")" type="text/javascript"></script>
+	<script src="@Url.Content("~/Scripts/Shared/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+	<script src="@Url.Content("~/Scripts/Shared/jquery-ui.min.js")" type="text/javascript"></script>
 	<script src="@Url.Content("~/Scripts/Shared/Site.js")" type="text/javascript"></script>
 </head>
 <body>
@@ -27,7 +27,6 @@
 				<li class="right">@(Html.ActionLink<IssuesController>(c => c.AddIssue(), "Add Issue"))</li>
 			</ul>
 		}
-		<!-- // #end mainNav -->
 		<div id="containerHolder">
 			<div id="container">
 				@if (IsSectionDefined("SideBar"))
@@ -44,9 +43,7 @@
 				<div class="clear">
 				</div>
 			</div>
-			<!-- // #container -->
 		</div>
-		<!-- // #containerHolder -->
 		<p id="footer">Based on the Transdmin Theme: <a href="http://www.perspectived.com">Perspectived</a></p>
 	</div>
     <div class="dialog" id="session-timeout-dialog">

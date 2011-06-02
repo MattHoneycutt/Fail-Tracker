@@ -2,29 +2,13 @@
 @{
     ViewBag._Title = "View Issues";
 }
+
 <script type="text/javascript">
-	$(function () {
-		$("span.issue-preview").click(function () {
-			var id = $(this).attr("data-issue-id");
-			$("#issue-preview-dialog")
-				.html("<em>Loading...</em>")
-				.dialog({ modal: true })
-				.load("@(Html.BuildUrlFromExpression<IssuesController>(c => c.Details(Guid.Empty)))".replace("@Guid.Empty", id));
-		});
-
-		$("span.issue-delete").click(function () {
-			var id = $(this).attr("data-issue-id");
-
-			Site.confirm({
-				title: "Delete this issue?",
-				text: "Are you sure you wish to delete this issue?  You cannot undo this action.  All history will be lost!",
-				confirmAction: function () {
-					$.post("/delete!!");
-				}
-			});
-		});
-	});
+	ViewBag.buildDetailsUrl = function (id) {
+		return "@(Html.BuildUrlFromExpression<IssuesController>(c => c.Details(Guid.Empty)))".replace("@Guid.Empty", id)
+	}
 </script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/Issues/Dashboard.js")"></script>
 
 <div id="issue-preview-dialog" class="dialog">
 </div>

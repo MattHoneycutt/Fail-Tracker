@@ -1,4 +1,6 @@
 var Site = {};
+var ViewBag = {};
+
 $(function () {
 	//Apply defaults
 	$("input[type=button], input[type=submit], a.button, span.button").button();
