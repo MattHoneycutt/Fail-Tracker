@@ -43,8 +43,8 @@ $(function () {
 			.find("span.text")
 				.text(options.text)
 				.end()
-			.attr("title", options.title)
 			.dialog({
+				title: options.title,
 				resizable: false,
 				height: 180,
 				modal: true,
