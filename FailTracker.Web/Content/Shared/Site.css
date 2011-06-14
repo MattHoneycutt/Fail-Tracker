@@ -17,6 +17,11 @@ hr
 /* Styles for basic forms
 -----------------------------------------------------------*/
 
+form li
+{
+	padding-bottom: 1em;
+}
+
 fieldset 
 {
     border:1px solid #ddd;
@@ -32,9 +37,8 @@ legend
 
 label
 {
-	width: 10em;
-	display: inline-block;
-	text-align: right;
+	display: block;
+	font-weight: bold;
 }
 
 label:after
@@ -44,12 +48,12 @@ label:after
 
 input[type=text], input[type=password], select
 {
-    width: 15em;
+    width: 25em;
 }
 
 textarea
 {
-	width: 14.8em;
+	width: 24.8em;
     min-height: 5em;
     vertical-align: text-top;
     resize: vertical;

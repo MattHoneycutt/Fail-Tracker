@@ -1,8 +1,6 @@
 ﻿@{
     Layout = null;
 }
-<p>
-	@Html.LabelForModel()
-	@RenderBody()
-	@Html.ValidationMessage("")
-</p>
+@Html.LabelForModel()
+@RenderBody()
+@Html.ValidationMessage("")

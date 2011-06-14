@@ -1,7 +1,9 @@
 ﻿@{
     Layout = null;
 }
+<ul>
 @foreach (var prop in ViewData.ModelMetadata.Properties.Where(pm => pm.ShowForEdit))
 {
-	@Html.Editor(prop.PropertyName)
+	<li>@Html.Editor(prop.PropertyName)</li>
 }
+</ul>

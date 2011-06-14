@@ -101,6 +101,7 @@
     <Compile Include="Models\Issues\IssueDetailsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helpers\EnumExtensions.cs" />
+    <Content Include="Content\Account\LogOn.css" />
     <Content Include="Scripts\Issues\Dashboard.js" />
     <Content Include="Scripts\Shared\Site.js" />
   </ItemGroup>
