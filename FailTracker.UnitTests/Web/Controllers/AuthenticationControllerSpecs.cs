@@ -12,9 +12,9 @@ using System.Linq;
 
 namespace FailTracker.UnitTests.Web.Controllers
 {
-	public class AccountControllerSpecs
+	public class AuthenticationControllerSpecs
 	{
-		public class when_requesting_the_login_page : SpecsFor<AccountController>
+		public class when_requesting_the_login_page : SpecsFor<AuthenticationController>
 		{
 			private ActionResult _result;
 
@@ -30,7 +30,7 @@ namespace FailTracker.UnitTests.Web.Controllers
 			}
 		}
 
-		public class when_logging_in_with_a_valid_username : SpecsFor<AccountController>
+		public class when_logging_in_with_a_valid_username : SpecsFor<AuthenticationController>
 		{
 			private ActionResult _result;
 
@@ -54,7 +54,7 @@ namespace FailTracker.UnitTests.Web.Controllers
 			}
 		}
 
-		public class when_logging_in_with_an_invalid_email_address : SpecsFor<AccountController>
+		public class when_logging_in_with_an_invalid_email_address : SpecsFor<AuthenticationController>
 		{
 			private ActionResult _result;
 
@@ -80,7 +80,7 @@ namespace FailTracker.UnitTests.Web.Controllers
 			}
 		}
 
-		public class when_logging_in_with_a_bad_password : SpecsFor<AccountController>
+		public class when_logging_in_with_a_bad_password : SpecsFor<AuthenticationController>
 		{
 			private ActionResult _result;
 
@@ -113,7 +113,7 @@ namespace FailTracker.UnitTests.Web.Controllers
 			}
 		}
 
-		public class when_logging_out : SpecsFor<AccountController>
+		public class when_logging_out : SpecsFor<AuthenticationController>
 		{
 			private ActionResult _result;
 

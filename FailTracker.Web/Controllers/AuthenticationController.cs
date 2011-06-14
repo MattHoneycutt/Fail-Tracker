@@ -7,11 +7,11 @@ using FailTracker.Web.Models.Account;
 
 namespace FailTracker.Web.Controllers
 {
-	public class AccountController : Controller
+	public class AuthenticationController : FailTrackerController
 	{
 		private readonly IRepository<User> _repository;
 
-		public AccountController(IRepository<User> repository)
+		public AuthenticationController(IRepository<User> repository)
 		{
 			_repository = repository;
 		}

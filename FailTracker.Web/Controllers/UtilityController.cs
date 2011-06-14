@@ -6,7 +6,7 @@ using NHibernate.Linq;
 
 namespace FailTracker.Web.Controllers
 {
-	public class UtilityController : Controller
+	public class UtilityController : FailTrackerController
 	{
 		public ActionResult Layout()
 		{

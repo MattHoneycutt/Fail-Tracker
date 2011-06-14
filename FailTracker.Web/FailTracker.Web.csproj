@@ -73,8 +73,9 @@
   <ItemGroup>
     <Compile Include="ActionResults\LogOffResult.cs" />
     <Compile Include="App_Start\StructuremapMvc.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AuthorizeBaseController.cs" />
+    <Compile Include="Controllers\AuthenticationController.cs" />
+    <Compile Include="Controllers\AuthorizedFailTrackerController.cs" />
+    <Compile Include="Controllers\FailTrackerController.cs" />
     <Compile Include="Controllers\IssuesController.cs" />
     <Compile Include="ActionResults\LogOnResult.cs" />
     <Compile Include="ActionResults\StatusResult.cs" />
@@ -205,7 +206,7 @@
     <Content Include="App_Code\MyHelpers.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Account\LogOn.cshtml" />
+    <Content Include="Views\Authentication\LogOn.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\EditorTemplates\Password.cshtml" />

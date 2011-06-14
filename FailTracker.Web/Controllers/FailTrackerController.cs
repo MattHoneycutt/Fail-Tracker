@@ -2,8 +2,7 @@ using System.Web.Mvc;
 
 namespace FailTracker.Web.Controllers
 {
-	[Authorize]
-	public abstract class AuthorizeBaseController : Controller
+	public abstract class FailTrackerController : Controller
 	{
 		
 	}

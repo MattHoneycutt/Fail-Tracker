@@ -11,7 +11,7 @@ namespace FailTracker.Web.Infrastructure
 
 			routes.MapRoute("LogOn",
 			                "LogOn",
-			                new {controller = "Account", action = "LogOn"});
+			                new {controller = "Authentication", action = "LogOn"});
 
 			routes.MapRoute(
 				"Default", // Route name
