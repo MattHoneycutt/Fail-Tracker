@@ -3,7 +3,7 @@ using System.Web.Mvc;
 using FailTracker.Core.Data;
 using FailTracker.Core.Domain;
 using FailTracker.Web.ActionResults;
-using FailTracker.Web.Models.Account;
+using FailTracker.Web.Models.Authentication;
 
 namespace FailTracker.Web.Controllers
 {

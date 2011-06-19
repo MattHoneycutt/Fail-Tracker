@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.Web.Mvc;
 
-namespace FailTracker.Web.Models.Account
+namespace FailTracker.Web.Models.Authentication
 {
 	public class LogOnForm
 	{

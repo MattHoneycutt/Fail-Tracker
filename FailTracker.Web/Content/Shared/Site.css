@@ -46,6 +46,13 @@ label:after
 	content: ":"
 }
 
+input, textarea, select
+{
+	border: 1px solid rgb(140, 138, 138);
+	padding: 0.25em;
+	border-radius: 0.25em;
+}
+
 input[type=text], input[type=password], select
 {
     width: 25em;

@@ -29,16 +29,22 @@
 		}
 		<div id="containerHolder">
 			<div id="container">
-				@if (IsSectionDefined("SideBar"))
+				@if (IsSectionDefined("SideBarLeft"))
 				{
-					<div id="sidebar">
-						@RenderSection("SideBar")
+					<div class="sidebar left">
+						@RenderSection("SideBarLeft")
 					</div>    
 				}
 				<div id="main">
 					@Html.Partial("StatusMessage")
 					@RenderBody()
 				</div>
+				@if (IsSectionDefined("SideBarRight"))
+				{
+					<div class="sidebar right">
+						@RenderSection("SideBarRight")
+					</div>
+				}
 				<!-- // #main -->
 				<div class="clear">
 				</div>

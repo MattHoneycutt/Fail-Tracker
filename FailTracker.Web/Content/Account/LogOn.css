@@ -4,3 +4,8 @@ input[type=password]
 	font-size: 1.5em;
 	width: 15em;
 }
+
+label
+{
+	font-size: 1.25em;	
+}

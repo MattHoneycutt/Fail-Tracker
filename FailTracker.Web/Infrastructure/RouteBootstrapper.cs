@@ -13,6 +13,10 @@ namespace FailTracker.Web.Infrastructure
 			                "LogOn",
 			                new {controller = "Authentication", action = "LogOn"});
 
+			routes.MapRoute("SignUp",
+			                "SignUp",
+			                new {controller = "SignUp", action = "SignUp"});
+
 			routes.MapRoute(
 				"Default", // Route name
 				"{controller}/{action}/{id}", // URL with parameters

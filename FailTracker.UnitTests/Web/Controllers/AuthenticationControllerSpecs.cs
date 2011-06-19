@@ -1,4 +1,5 @@
 using System.Web.Mvc;
+using FailTracker.Web.Models.Authentication;
 using NUnit.Framework;
 using Should;
 using SpecsFor;
@@ -7,7 +8,6 @@ using FailTracker.Core.Domain;
 using FailTracker.Web.ActionResults;
 using FailTracker.Web.Controllers;
 using MvcContrib.TestHelper;
-using FailTracker.Web.Models.Account;
 using System.Linq;
 
 namespace FailTracker.UnitTests.Web.Controllers

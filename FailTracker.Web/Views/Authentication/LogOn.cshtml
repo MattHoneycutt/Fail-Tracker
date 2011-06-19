@@ -1,4 +1,4 @@
-﻿@model FailTracker.Web.Models.Account.LogOnForm
+﻿@model FailTracker.Web.Models.Authentication.LogOnForm
 @{
     ViewBag._Title = "Log On";
 }
@@ -9,4 +9,11 @@
 {
 	@Html.EditorForModel();
 	@MyHelpers.ControlBox("Log On")
+}
+
+
+@section SideBarRight{
+	<div class="message">
+		<p>Don't have an account?  @(Html.ActionLink<SignUpController>(c => c.SignUp(), "Sign up!"))</p>
+	</div>
 }

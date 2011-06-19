@@ -111,18 +111,32 @@ div.logon-status
 
 /* Sidebar ---------------------------------------- */
 
-#sidebar 
+.sidebar 
 {
-	width: 179px;
 	display: table-cell;
+}
+
+.sidebar.left
+{	
+	width: 179px;
 	border-right: 1px solid #EEE;
 }
 
-#sidebar .sideNav { width: 179px; }
+.sidebar.right
+{
+	font-size: 1.5em;
+	width: 400px;
+	margin-left: 1em;
+	border-left: 1px solid #EEE;
+	text-align: center;
+	vertical-align: middle;	
+}
 
-#sidebar .sideNav li { border-bottom: 1px solid #ddd; width: 179px; }
+.sidebar .sideNav { width: 179px; }
 
-#sidebar .sideNav li a {
+.sidebar .sideNav li { border-bottom: 1px solid #ddd; width: 179px; }
+
+.sidebar .sideNav li a {
 	display: block;
 	color: #646464;
 	background: #f6f6f6;
@@ -133,9 +147,9 @@ div.logon-status
 	width: 141px;
 }
 
-#sidebar .sideNav li a:hover { background: #fdfcf6; }
+.sidebar .sideNav li a:hover { background: #fdfcf6; }
 
-#sidebar .sideNav li a.active, #sidebar .sideNav li a.active:hover {
+.sidebar .sideNav li a.active, #sidebar .sideNav li a.active:hover {
 	background: #f0f7fa;
 	color: #c66653;
 }
