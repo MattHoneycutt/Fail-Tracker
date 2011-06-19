@@ -125,8 +125,8 @@ div.logon-status
 .sidebar.right
 {
 	font-size: 1.5em;
-	width: 400px;
-	margin-left: 1em;
+	width: 260px;
+	padding-left: 1em;
 	border-left: 1px solid #EEE;
 	text-align: center;
 	vertical-align: middle;	
