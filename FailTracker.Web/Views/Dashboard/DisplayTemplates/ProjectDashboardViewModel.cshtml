@@ -26,4 +26,4 @@
 		}
 	</tbody>
 </table>
-<p>@(Html.ActionLink<IssuesController>(c => c.AddIssue(), "Add New Issues", new { @class="button"}))</p>
+<p>@(Html.ActionLink<AddIssueController>(c => c.Index(Model.ID), "Add New Issues", new { @class="button"}))</p>

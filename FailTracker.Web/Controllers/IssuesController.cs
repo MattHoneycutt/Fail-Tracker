@@ -13,34 +13,13 @@ namespace FailTracker.Web.Controllers
 	{
 		private readonly IRepository<Issue> _issues;
 		private readonly IRepository<User> _users;
+		private readonly IRepository<Project> _projects;
 
-		public IssuesController(IRepository<Issue> issues, IRepository<User> users)
+		public IssuesController(IRepository<Issue> issues, IRepository<User> users, IRepository<Project> projects)
 		{
 			_issues = issues;
 			_users = users;
-		}
-
-		[HttpGet]
-		public ActionResult AddIssue()
-		{
-			return View();
-		}
-
-		[HttpPost]
-		public ActionResult AddIssue(AddIssueForm form)
-		{
-			var issue = Issue.CreateNewIssue(Project.Create("test"), form.Title, form.CurrentUser, form.Body);
-			issue.ChangeTypeTo(form.Type);
-			issue.ChangeSizeTo(form.Size);
-
-			if (form.AssignedTo.HasValue)
-			{
-				issue.ReassignTo(_users.Query().Where(u => u.ID == form.AssignedTo).Single());
-			}
-
-			_issues.Save(issue);
-
-			return this.RedirectToAction(c => c.View(issue.ID));
+			_projects = projects;
 		}
 
 		public ActionResult View(Guid id)

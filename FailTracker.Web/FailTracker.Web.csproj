@@ -72,6 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActionResults\LogOffResult.cs" />
+    <Compile Include="Controllers\AddIssueController.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\AuthorizedFailTrackerController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
@@ -111,7 +112,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Issues\AddIssueForm.cs" />
+    <Compile Include="Models\AddIssue\AddIssueForm.cs" />
     <Compile Include="Models\Issues\IssueDetailsViewModel.cs" />
     <Compile Include="Infrastructure\ModelMetadata\RenderModeAttribute.cs" />
     <Compile Include="Models\SignUp\SignUpForm.cs" />
@@ -201,7 +202,7 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Issues\AddIssue.cshtml" />
+    <Content Include="Views\AddIssue\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Utility\Layout.cshtml" />
