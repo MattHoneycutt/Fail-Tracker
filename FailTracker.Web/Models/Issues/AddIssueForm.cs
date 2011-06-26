@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using FailTracker.Core.Domain;
+using FailTracker.Web.Infrastructure.ModelMetadata;
 
 namespace FailTracker.Web.Models.Issues
 {
@@ -23,5 +24,9 @@ namespace FailTracker.Web.Models.Issues
 		[Required]
 		[DataType(DataType.MultilineText)]
 		public string Body { get; set; }
+
+		[Required]
+		[RenderMode(RenderMode.None)]
+		public User CurrentUser { get; set; }
 	}
 }

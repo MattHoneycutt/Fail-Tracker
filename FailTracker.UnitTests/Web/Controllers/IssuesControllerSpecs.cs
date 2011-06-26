@@ -64,7 +64,8 @@ namespace FailTracker.UnitTests.Web.Controllers
 				                   		AssignedTo = TestUser.ID, 
 				                   		Title = "Test Title", 
 				                   		Body = "Content",
-				                   		Size = PointSize.Eight
+				                   		Size = PointSize.Eight,
+										CurrentUser = CreatorUser
 				                   	};
 				_result = SUT.AddIssue(form);
 			}
@@ -198,7 +199,8 @@ namespace FailTracker.UnitTests.Web.Controllers
 				         		Type = IssueType.Bug,
 				         		Title = "Edited!",
 								Description = "New Description",
-				         		Comments = "Edited Comments!"
+				         		Comments = "Edited Comments!",
+								CurrentUser = TestUser
 				         	});
 			}
 
@@ -243,6 +245,12 @@ namespace FailTracker.UnitTests.Web.Controllers
 			{
 				TestIssue.Changes.Last().Comments.ShouldEqual("Edited Comments!");
 			}
+
+			[Test]
+			public void then_it_captures_the_editor()
+			{
+				TestIssue.Changes.Last().EditedBy.ShouldEqual(TestUser);
+			}
 		}
 
 		public class when_getting_issue_details : given.users_and_issues_exist
@@ -281,10 +289,6 @@ namespace FailTracker.UnitTests.Web.Controllers
 					GetMockFor<IRepository<User>>()
 						.Setup(s => s.Query())
 						.Returns((new[] { CreatorUser, TestUser }).AsQueryable());
-
-					var context = GetMockFor<ControllerContext>();
-					context.SetupGet(c => c.HttpContext.User.Identity.Name).Returns("some@user.com");
-					SUT.ControllerContext = context.Object;
 				}
 			}
 

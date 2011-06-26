@@ -1,23 +1,30 @@
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace FailTracker.Web.Infrastructure
+namespace FailTracker.Web.Infrastructure.Startup
 {
-	public static class RouteBootstrapper
+	public class RouteBootstrapper : IRunAtStartup
 	{
-		public static void RegisterRoutes(RouteCollection routes)
-		{
-			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+		private readonly RouteCollection _routes;
 
-			routes.MapRoute("LogOn",
+		public RouteBootstrapper(RouteCollection routes)
+		{
+			_routes = routes;
+		}
+
+		public void Execute()
+		{
+			_routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+
+			_routes.MapRoute("LogOn",
 			                "LogOn",
 			                new {controller = "Authentication", action = "LogOn"});
 
-			routes.MapRoute("SignUp",
+			_routes.MapRoute("SignUp",
 			                "SignUp",
 			                new {controller = "SignUp", action = "SignUp"});
 
-			routes.MapRoute(
+			_routes.MapRoute(
 				"Default", // Route name
 				"{controller}/{action}/{id}", // URL with parameters
 				new { controller = "Issues", action = "Dashboard", id = UrlParameter.Optional } // Parameter defaults

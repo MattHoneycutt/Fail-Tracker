@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using AutoMapper;
 using FailTracker.Core.Domain;
 using FailTracker.Web.Infrastructure.Mapping;
+using FailTracker.Web.Infrastructure.ModelMetadata;
 
 namespace FailTracker.Web.Models.Issues
 {
@@ -34,10 +35,15 @@ namespace FailTracker.Web.Models.Issues
 		[DataType(DataType.MultilineText)]
 		public string Comments { get; set; }
 
+		[Required]
+		[RenderMode(RenderMode.None)]
+		public User CurrentUser { get; set; }
+
 		void IHaveCustomMappings.CreateMappings(IConfiguration configuration)
 		{
 			configuration.CreateMap<Issue, EditIssueForm>()
-				.ForMember(f => f.Comments, opt => opt.Ignore());
+				.ForMember(f => f.Comments, opt => opt.Ignore())
+				.ForMember(f => f.CurrentUser, opt => opt.Ignore());
 		}
 	}
 }

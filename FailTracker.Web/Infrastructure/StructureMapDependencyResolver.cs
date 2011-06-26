@@ -4,13 +4,13 @@ using System.Linq;
 using System.Web.Mvc;
 using StructureMap;
 
-namespace FailTracker.Web.Infrastructure.DependencyResolution
+namespace FailTracker.Web.Infrastructure
 {
-	public class SmDependencyResolver : IDependencyResolver
+	public class StructureMapDependencyResolver : IDependencyResolver
 	{
 		private readonly IContainer _container;
 
-		public SmDependencyResolver(IContainer container)
+		public StructureMapDependencyResolver(IContainer container)
 		{
 			_container = container;
 		}
