@@ -18,7 +18,8 @@ namespace FailTracker.UnitTests.Core.Domain
 
 			protected override void When()
 			{
-				SUT = Issue.CreateNewIssue(Project.Create("test"), "Testing", User.CreateNewUser("creator@user.com", "test"), "Test body");
+				var creator = User.CreateNewUser("creator@user.com", "test");
+				SUT = Issue.CreateNewIssue(Project.Create("test", creator), "Testing", creator, "Test body");
 			}
 
 			[Test]
@@ -245,7 +246,7 @@ namespace FailTracker.UnitTests.Core.Domain
 
 				protected override void InitializeClassUnderTest()
 				{
-					SUT = Issue.CreateNewIssue(Project.Create("Test"), "My issue", CreatorUser, "Description");
+					SUT = Issue.CreateNewIssue(Project.Create("Test", CreatorUser), "My issue", CreatorUser, "Description");
 				}
 			}
 

@@ -1,0 +1,13 @@
+﻿@model FailTracker.Web.Models.ProjectAdministration.AddProjectForm
+
+@{
+	ViewBag._Title = "Add Project";
+}
+
+<h2>Add Project</h2>
+
+@using(Html.BeginForm())
+{
+	@Html.EditorForModel()
+	@MyHelpers.ControlBox("Add Project")
+}

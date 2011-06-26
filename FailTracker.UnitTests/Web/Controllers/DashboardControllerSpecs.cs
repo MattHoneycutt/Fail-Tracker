@@ -1,13 +1,11 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
-using FailTracker.Core.Data;
-using FailTracker.Core.Domain;
+using FailTracker.UnitTests.Web.Controllers.Contexts;
 using FailTracker.Web.Controllers;
 using FailTracker.Web.Models.Dashboard;
 using MvcContrib.TestHelper;
 using NUnit.Framework;
 using Should;
-using SpecsFor;
 
 namespace FailTracker.UnitTests.Web.Controllers
 {
@@ -34,29 +32,14 @@ namespace FailTracker.UnitTests.Web.Controllers
 				var result = (ViewResult)_result;
 				var model = (ProjectDashboardViewModel[]) result.Model;
 
-				model.All(m => m.CurrentIssues.Count() > 0).ShouldBeTrue();
+				model.Any(m => m.CurrentIssues.Count() > 0).ShouldBeTrue();
 			}
 		}
 
 		public static class given
 		{
-			public abstract class the_default_state : SpecsFor<DashboardController>
+			public abstract class the_default_state : SpecsForWithData<DashboardController>
 			{
-				protected override void Given()
-				{
-					GetMockFor<IRepository<Project>>()
-						.Setup(s => s.Query())
-						.Returns((new[] { BuildTestProject(), BuildTestProject() }).AsQueryable());
-				}
-
-				private Project BuildTestProject()
-				{
-					var project = Project.Create("Test Project");
-
-					Issue.CreateNewIssue(project, "Test Title", User.CreateNewUser("test@user.com", "blah"), "Body!");
-
-					return project;
-				}
 			}
 		}
 	}

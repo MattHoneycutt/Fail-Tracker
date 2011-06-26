@@ -24,7 +24,7 @@ namespace FailTracker.UnitTests.Web.Controllers
 			{
 				base.Given();
 
-				var expectedIssue = Issue.CreateNewIssue(Project.Create("Test"), "Test Title", CreatorUser, "Content");
+				var expectedIssue = Issue.CreateNewIssue(Project.Create("Test", CreatorUser), "Test Title", CreatorUser, "Content");
 				expectedIssue.ChangeSizeTo(PointSize.Eight);
 				expectedIssue.ReassignTo(TestUser);
 

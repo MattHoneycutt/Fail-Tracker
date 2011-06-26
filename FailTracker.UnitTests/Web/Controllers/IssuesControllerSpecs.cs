@@ -25,7 +25,7 @@ namespace FailTracker.UnitTests.Web.Controllers
 
 			protected override void Given()
 			{
-				TestProject = Project.Create("Test");
+				TestProject = Project.Create("Test", User.CreateNewUser("creator@user.com", "blah"));
 
 				TestIssues = new[]
 				             	{

@@ -1,0 +1,23 @@
+﻿@model FailTracker.Web.Models.ProjectAdministration.ProjectSummaryViewModel[]
+
+@{
+	ViewBag._Title = "Project Administration";
+}
+
+<h2>Project Administration</h2>
+
+<table>
+<thead>
+	<th>Project Name</th>
+	<th>Active Stories</th>
+</thead>
+@foreach (var p in Model)
+{
+	<tr>
+		<td>@p.Name</td>
+		<td>@p.ActiveStories</td>
+	</tr>
+}
+</table>
+
+<p>@(Html.ActionLink<ProjectAdministrationController>(c => c.AddProject(), "Add New Project", new { @class="button"}))</p>

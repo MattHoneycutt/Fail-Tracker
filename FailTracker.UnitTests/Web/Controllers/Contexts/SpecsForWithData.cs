@@ -24,12 +24,12 @@ namespace FailTracker.UnitTests.Web.Controllers.Contexts
 
 		private void CreateProject()
 		{
-			TestProject = Project.Create("Test");
+			TestProject = Project.Create("Test", CreatorUser);
 			TestProject.ID = Guid.NewGuid();
 
 			GetMockFor<IRepository<Project>>()
 				.Setup(r => r.Query())
-				.Returns((new[] { Project.Create("Blah!"), TestProject }).AsQueryable());
+				.Returns((new[] { Project.Create("Blah!", CreatorUser), TestProject }).AsQueryable());
 		}
 
 		private void CreateIssues()

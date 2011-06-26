@@ -40,7 +40,7 @@ namespace FailTracker.Web.Controllers
 				            	};
 				users.ForEach(u => session.Save(u));
 
-				var project = Project.Create("Fail Tracker");
+				var project = Project.Create("Fail Tracker", users[0]);
 				session.Save(project);
 				
 				(new[] {
