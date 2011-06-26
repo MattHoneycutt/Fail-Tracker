@@ -39,26 +39,29 @@ namespace FailTracker.Web.Controllers
 				            		Core.Domain.User.CreateNewUser("user@failtracker.com", "user")
 				            	};
 				users.ForEach(u => session.Save(u));
+
+				var project = Project.Create("Fail Tracker");
+				session.Save(project);
 				
 				(new[] {
-				 		Issue.CreateNewIssue("Project support", users[0], "As someone who manages many software projects, I want to be able to organize issues and bugs into projects within Fail Tracker.")
+				 		Issue.CreateNewIssue(project, "Project support", users[0], "As someone who manages many software projects, I want to be able to organize issues and bugs into projects within Fail Tracker.")
 								.ReassignTo(users[0])
 								.ChangeSizeTo(PointSize.Eight),
-				 		Issue.CreateNewIssue("Site rendering problems in IE6", users[1], "The site does not render the same in al versions of IE!")
+				 		Issue.CreateNewIssue(project, "Site rendering problems in IE6", users[1], "The site does not render the same in al versions of IE!")
 								.ChangeTypeTo(IssueType.Bug)
 								.ChangeSizeTo(PointSize.OneHundred)
 								.ReassignTo(users[1]),
-				 		Issue.CreateNewIssue("Enable user invite", users[0], "I want to be able to invite users to join Fail Tracker through a form on the site.")
+				 		Issue.CreateNewIssue(project, "Enable user invite", users[0], "I want to be able to invite users to join Fail Tracker through a form on the site.")
 								.ReassignTo(users[0])
 								.ChangeSizeTo(PointSize.Five),
-				 		Issue.CreateNewIssue("Support unassigned stories", users[0], "I want to be able to leave stories and bugs unassigned.")
+				 		Issue.CreateNewIssue(project, "Support unassigned stories", users[0], "I want to be able to leave stories and bugs unassigned.")
 								.ChangeSizeTo(PointSize.Five),
 				 	}).ForEach(i => session.Save(i));
 
 				session.Flush();
 			}
 
-			return this.RedirectToAction<IssuesController>(c => c.Dashboard());
+			return this.RedirectToAction<DashboardController>(c => c.Index());
 		}
 
 		public ActionResult Container()

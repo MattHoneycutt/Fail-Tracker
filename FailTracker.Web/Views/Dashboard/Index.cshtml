@@ -1,0 +1,23 @@
+﻿@using FailTracker.Web.Models.Dashboard
+@using System.Web.Mvc.Html
+@model IEnumerable<ProjectDashboardViewModel>
+@{
+    ViewBag._Title = "Your Dashboard";
+}
+
+<script type="text/javascript">
+	ViewBag.buildDetailsUrl = function (id) {
+		return "@(Html.BuildUrlFromExpression<IssuesController>(c => c.Details(Guid.Empty)))".replace("@Guid.Empty", id)
+	}
+</script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/Issues/Dashboard.js")"></script>
+
+<div id="issue-preview-dialog" class="dialog">
+</div>
+
+<h2>Your Projects</h2>
+@foreach (var project in Model)
+{
+	@Html.DisplayFor(m => project)
+}
+

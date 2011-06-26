@@ -31,7 +31,7 @@ namespace FailTracker.Core.Domain
 
 		public virtual IEnumerable<Change> Changes { get; protected set; }
 
-		public static Issue CreateNewIssue(string title, User creator, string body)
+		public static Issue CreateNewIssue(Project project, string title, User creator, string body)
 		{
 			var issue = new Issue
 			       	{
@@ -44,6 +44,8 @@ namespace FailTracker.Core.Domain
 
 			//This allows a newly-created story to be edited.
 			issue._activeChange = Change.Empty;
+
+			project.AttachIssue(issue);
 
 			return issue;
 		}

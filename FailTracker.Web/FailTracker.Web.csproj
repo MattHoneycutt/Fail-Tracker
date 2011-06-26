@@ -74,6 +74,7 @@
     <Compile Include="ActionResults\LogOffResult.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\AuthorizedFailTrackerController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\FailTrackerController.cs" />
     <Compile Include="Controllers\IssuesController.cs" />
     <Compile Include="ActionResults\LogOnResult.cs" />
@@ -102,10 +103,11 @@
     <Compile Include="Controllers\UtilityController.cs" />
     <Compile Include="Infrastructure\StructureMapDependencyResolver.cs" />
     <Compile Include="Infrastructure\Startup\RouteBootstrapper.cs" />
+    <Compile Include="Models\Dashboard\ProjectDashboardViewModel.cs" />
     <Compile Include="Models\Issues\ChangeViewModel.cs" />
     <Compile Include="Models\Issues\EditIssueForm.cs" />
     <Compile Include="Infrastructure\Mapping\IHaveCustomMappings.cs" />
-    <Compile Include="Models\Issues\IssueViewModel.cs" />
+    <Compile Include="Models\Dashboard\IssueSummaryViewModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -193,7 +195,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Issues\Dashboard.cshtml" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -257,6 +259,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Start\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Dashboard\DisplayTemplates\ProjectDashboardViewModel.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

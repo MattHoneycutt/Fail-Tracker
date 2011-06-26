@@ -1,5 +1,6 @@
 using System;
 using System.Web.Mvc;
+using FailTracker.Web.Models.Dashboard;
 using Moq;
 using NUnit.Framework;
 using SpecsFor;
@@ -15,29 +16,6 @@ namespace FailTracker.UnitTests.Web.Controllers
 {
 	public class IssuesControllerSpecs
 	{
-		public class when_requesting_the_list_of_issues : SpecsFor<IssuesController>
-		{
-			private ActionResult _result;
-
-			protected override void Given()
-			{
-				GetMockFor<IRepository<Issue>>()
-					.Setup(s => s.Query())
-					.Returns((new[] {Issue.CreateNewIssue("Test1", User.CreateNewUser("test@user.com", "Blah"), "blah")}).AsQueryable());
-			}
-
-			protected override void When()
-			{
-				_result = SUT.Dashboard();
-			}
-
-			[Test]
-			public void then_it_returns_a_view()
-			{
-				_result.AssertViewRendered().WithViewData<IssueViewModel[]>().ShouldNotBeEmpty();
-			}
-		}
-
 		public class when_adding_a_new_issue : given.users_exists
 		{
 			private readonly Guid TestIssueID = Guid.NewGuid();
@@ -47,7 +25,7 @@ namespace FailTracker.UnitTests.Web.Controllers
 			{
 				base.Given();
 
-				var newStory = Issue.CreateNewIssue("Test Title", CreatorUser, "Content");
+				var newStory = Issue.CreateNewIssue(Project.Create("Test"), "Test Title", CreatorUser, "Content");
 				newStory.ChangeSizeTo(PointSize.Eight);
 				newStory.ReassignTo(TestUser);
 
@@ -117,13 +95,16 @@ namespace FailTracker.UnitTests.Web.Controllers
 		{
 			private ActionResult _result;
 			private Issue[] TestIssues;
+			private Project TestProject;
 
 			protected override void Given()
 			{
+				TestProject = Project.Create("Test");
+
 				TestIssues = new[]
 				             	{
-				             		Issue.CreateNewIssue("Test 1", User.CreateNewUser("test@user1.com", "blah"), "Test 1 Description"),
-				             		Issue.CreateNewIssue("Test 2", User.CreateNewUser("test@user2.com", "blah"), "Test 2 Description")
+				             		Issue.CreateNewIssue(TestProject, "Test 1", User.CreateNewUser("test@user1.com", "blah"), "Test 1 Description"),
+				             		Issue.CreateNewIssue(TestProject, "Test 2", User.CreateNewUser("test@user2.com", "blah"), "Test 2 Description")
 										.ReassignTo(User.CreateNewUser("worker@bee.com", "blah"))
 										.ChangeSizeTo(PointSize.Thirteen)
 										.ChangeTypeTo(IssueType.Bug),
@@ -300,7 +281,7 @@ namespace FailTracker.UnitTests.Web.Controllers
 				{
 					base.Given();
 
-					TestIssue = Issue.CreateNewIssue("Test Issue", CreatorUser, "This is a test");
+					TestIssue = Issue.CreateNewIssue(Project.Create("Test"), "Test Issue", CreatorUser, "This is a test");
 					TestIssue.ReassignTo(TestUser);
 					TestIssue.ID = Guid.NewGuid();
 

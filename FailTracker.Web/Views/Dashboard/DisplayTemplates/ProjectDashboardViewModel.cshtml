@@ -1,19 +1,7 @@
-﻿@model IEnumerable<FailTracker.Web.Models.Issues.IssueViewModel>
-@{
-    ViewBag._Title = "View Issues";
-}
-
-<script type="text/javascript">
-	ViewBag.buildDetailsUrl = function (id) {
-		return "@(Html.BuildUrlFromExpression<IssuesController>(c => c.Details(Guid.Empty)))".replace("@Guid.Empty", id)
-	}
-</script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/Issues/Dashboard.js")"></script>
-
-<div id="issue-preview-dialog" class="dialog">
-</div>
-
-<h2>Issues</h2>
+﻿@using FailTracker.Web.Models.Dashboard
+@model ProjectDashboardViewModel
+		   
+<h3>@Model.Name</h3>
 <table>
 	<thead>
 		<tr>
@@ -26,7 +14,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		@foreach(var issue in Model){
+		@foreach(var issue in Model.CurrentIssues){
 		<tr>
 			<td><span class="ui-icon ui-icon-search issue-preview button" data-issue-id="@issue.ID"></span></td>
 			<td>@issue.Type</td>
@@ -39,4 +27,3 @@
 	</tbody>
 </table>
 <p>@(Html.ActionLink<IssuesController>(c => c.AddIssue(), "Add New Issues", new { @class="button"}))</p>
-

@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations;
 using FailTracker.Core.Domain;
 using FailTracker.Web.Infrastructure.Mapping;
 
-namespace FailTracker.Web.Models.Issues
+namespace FailTracker.Web.Models.Dashboard
 {
-	public class IssueViewModel : IMapFrom<Issue>
+	public class IssueSummaryViewModel : IMapFrom<Issue>
 	{
 		public Guid ID { get; set; }
 

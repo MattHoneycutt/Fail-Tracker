@@ -20,14 +20,6 @@ namespace FailTracker.Web.Controllers
 			_users = users;
 		}
 
-		public ActionResult Dashboard()
-		{
-			var issues = (from i in _issues.Query()
-			              select Mapper.Map<Issue, IssueViewModel>(i)).ToArray();
-
-			return View(issues);
-		}
-
 		[HttpGet]
 		public ActionResult AddIssue()
 		{
@@ -37,7 +29,7 @@ namespace FailTracker.Web.Controllers
 		[HttpPost]
 		public ActionResult AddIssue(AddIssueForm form)
 		{
-			var issue = Issue.CreateNewIssue(form.Title, form.CurrentUser, form.Body);
+			var issue = Issue.CreateNewIssue(Project.Create("test"), form.Title, form.CurrentUser, form.Body);
 			issue.ChangeTypeTo(form.Type);
 			issue.ChangeSizeTo(form.Size);
 
