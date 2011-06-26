@@ -25,6 +25,7 @@ namespace FailTracker.Web.Models.Issues
 		[DataType(DataType.MultilineText)]
 		public string Body { get; set; }
 
+		[Required]
 		[RenderMode(RenderMode.None)]
 		public User CurrentUser { get; set; }
 	}

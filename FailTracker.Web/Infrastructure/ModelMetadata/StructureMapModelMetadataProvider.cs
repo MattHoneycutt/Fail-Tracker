@@ -3,9 +3,9 @@ using System.Linq;
 
 namespace FailTracker.Web.Infrastructure.ModelMetadata
 {
-	public class SuperModelMetadataProvider : DataAnnotationsModelMetadataProvider
+	//TODO: First time this guy grows, break it out and introduce abstractions!
+	public class StructureMapModelMetadataProvider : DataAnnotationsModelMetadataProvider
 	{
-		//TODO: Inject the real model metadata providers using IoC.
 		protected override System.Web.Mvc.ModelMetadata CreateMetadata(System.Collections.Generic.IEnumerable<System.Attribute> attributes, System.Type containerType, System.Func<object> modelAccessor, System.Type modelType, string propertyName)
 		{
 			var metadata = base.CreateMetadata(attributes, containerType, modelAccessor, modelType, propertyName);

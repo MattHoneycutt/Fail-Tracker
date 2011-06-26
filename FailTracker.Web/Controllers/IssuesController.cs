@@ -37,11 +37,6 @@ namespace FailTracker.Web.Controllers
 		[HttpPost]
 		public ActionResult AddIssue(AddIssueForm form)
 		{
-			if (form.CurrentUser == null)
-			{
-				throw new NullReferenceException();
-			}
-
 			var issue = Issue.CreateNewIssue(form.Title, form.CurrentUser, form.Body);
 			issue.ChangeTypeTo(form.Type);
 			issue.ChangeSizeTo(form.Size);
@@ -77,9 +72,8 @@ namespace FailTracker.Web.Controllers
 			var issue = _issues.Query().Single(i => i.ID == form.ID);
 
 			var assignedTo = _users.Query().SingleOrDefault(u => u.ID == form.AssignedToID);
-			var currentUser = _users.Query().Single(u => u.EmailAddress == User.Identity.Name);
 
-			issue.BeginEdit(currentUser, form.Comments);
+			issue.BeginEdit(form.CurrentUser, form.Comments);
 			issue.ReassignTo(assignedTo);
 			issue.ChangeSizeTo(form.Size);
 			issue.ChangeTypeTo(form.Type);

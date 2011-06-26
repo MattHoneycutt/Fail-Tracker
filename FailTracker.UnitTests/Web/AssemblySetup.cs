@@ -9,7 +9,7 @@ namespace FailTracker.UnitTests.Web
 		[SetUp]
 		public void SetUpAutoMapper()
 		{
-			MappingBootstrapper.LoadAllMaps();
+			new MappingBootstrapper().Execute();
 		}
 	}
 }

@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Globalization;
 using System.Security.Principal;
-using System.Web;
 using System.Web.Mvc;
 using FailTracker.Core.Data;
 using FailTracker.Core.Domain;
-using StructureMap;
 using System.Linq;
 
 namespace FailTracker.Web.Infrastructure.ValueProviders
@@ -15,11 +13,10 @@ namespace FailTracker.Web.Infrastructure.ValueProviders
 		private readonly IIdentity _currentUser;
 		private readonly IRepository<User> _users;
 
-		public CurrentUserValueProvider()
+		public CurrentUserValueProvider(IIdentity currentUser, IRepository<User> users)
 		{
-			//TODO: REFACTOR
-			_currentUser = HttpContext.Current.User.Identity;
-			_users = ObjectFactory.GetInstance<IRepository<User>>();
+			_currentUser = currentUser;
+			_users = users;
 		}
 
 		private static bool BindingCurrentUser(string prefix)

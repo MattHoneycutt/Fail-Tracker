@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using AutoMapper;
+using FailTracker.Web.Infrastructure.Startup;
 
 namespace FailTracker.Web.Infrastructure.Mapping
 {
-	public static class MappingBootstrapper
+	public class MappingBootstrapper : IRunAtStartup
 	{
-		public static void LoadAllMaps()
+		public void Execute()
 		{
 			var types = Assembly.GetExecutingAssembly().GetExportedTypes();
 
