@@ -3,11 +3,19 @@ using Microsoft.Web.Mvc;
 using FailTracker.Core.Data;
 using FailTracker.Core.Domain;
 using NHibernate.Linq;
+using StructureMap;
 
 namespace FailTracker.Web.Controllers
 {
 	public class UtilityController : FailTrackerController
 	{
+		private readonly IContainer _container;
+
+		public UtilityController(IContainer container)
+		{
+			_container = container;
+		}
+
 		public ActionResult Layout()
 		{
 			return View();
@@ -51,6 +59,11 @@ namespace FailTracker.Web.Controllers
 			}
 
 			return this.RedirectToAction<IssuesController>(c => c.Dashboard());
+		}
+
+		public ActionResult Container()
+		{
+			return View(_container);
 		}
 	}
 }

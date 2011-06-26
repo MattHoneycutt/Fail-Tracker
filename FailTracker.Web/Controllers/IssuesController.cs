@@ -37,10 +37,12 @@ namespace FailTracker.Web.Controllers
 		[HttpPost]
 		public ActionResult AddIssue(AddIssueForm form)
 		{
-			//TODO: Abstract this down/out
-			var currentUser = _users.Query().Single(u => u.EmailAddress == User.Identity.Name);
+			if (form.CurrentUser == null)
+			{
+				throw new NullReferenceException();
+			}
 
-			var issue = Issue.CreateNewIssue(form.Title, currentUser, form.Body);
+			var issue = Issue.CreateNewIssue(form.Title, form.CurrentUser, form.Body);
 			issue.ChangeTypeTo(form.Type);
 			issue.ChangeSizeTo(form.Size);
 

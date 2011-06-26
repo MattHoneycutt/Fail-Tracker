@@ -4,6 +4,8 @@ using System.Web.Routing;
 using FailTracker.Core.Data;
 using FailTracker.Web.Infrastructure;
 using FailTracker.Web.Infrastructure.Mapping;
+using FailTracker.Web.Infrastructure.ModelMetadata;
+using FailTracker.Web.Infrastructure.ValueProviders;
 
 namespace FailTracker.Web
 {
@@ -29,6 +31,8 @@ namespace FailTracker.Web
 			NHibernateBootstrapper.Bootstrap();
 			//TODO: Turn this off once major development is finished. 
 			NHibernateBootstrapper.UpdateSchema();
+
+			ModelMetadataProviders.Current = new SuperModelMetadataProvider();
 		}
 	}
 }
