@@ -13,14 +13,26 @@ namespace FailTracker.Core.Domain
 
 		public virtual User Creator { get; private set; }
 
+		public virtual IEnumerable<User> Members { get; private set; }
+
 		protected Project()
 		{
 			CurrentIssues = new List<Issue>();
+			Members = new List<User>();
 		}
 
 		public static Project Create(string name, User creator)
 		{
-			return new Project {Name = name, Creator = creator};
+			var project = new Project {Name = name, Creator = creator};
+
+			project.AddMember(creator);
+
+			return project;
+		}
+
+		public virtual void AddMember(User user)
+		{
+			((IList<User>) Members).Add(user);
 		}
 
 		public virtual void AttachIssue(Issue issue)

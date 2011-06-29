@@ -40,5 +40,11 @@ namespace FailTracker.Web.Controllers
 
 			return this.RedirectToAction(c => c.Index());
 		}
+
+		[HttpGet]
+		public ActionResult InviteMember()
+		{
+			return null;
+		}
 	}
 }
