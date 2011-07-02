@@ -8,11 +8,17 @@ namespace FailTracker.Web.ActionResults
 		{
 			return StatusResult.Decorate(innerResult, message, StatusType.Error);
 		}
+
+		public static ActionResult WithSuccessMessage(this ActionResult innerResult, string message)
+		{
+			return StatusResult.Decorate(innerResult, message, StatusType.Success);
+		}		
 	}
 
 	public enum StatusType
 	{
-		Error
+		Error,
+		Success
 	}
 
 	public class StatusResult : ActionResult

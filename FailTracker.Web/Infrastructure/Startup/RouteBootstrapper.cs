@@ -16,6 +16,10 @@ namespace FailTracker.Web.Infrastructure.Startup
 		{
 			_routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+			_routes.MapRoute("InviteMember",
+			                 "{targetProjectID}/Invite",
+			                 new {controller = "ProjectAdministration", action = "InviteMember"});
+
 			_routes.MapRoute("LogOn",
 			                "LogOn",
 			                new {controller = "Authentication", action = "LogOn"});
