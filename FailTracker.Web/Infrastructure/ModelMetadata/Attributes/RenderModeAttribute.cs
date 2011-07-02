@@ -1,6 +1,6 @@
 using System;
 
-namespace FailTracker.Web.Infrastructure.ModelMetadata
+namespace FailTracker.Web.Infrastructure.ModelMetadata.Attributes
 {
 	[AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
 	public class RenderModeAttribute : Attribute

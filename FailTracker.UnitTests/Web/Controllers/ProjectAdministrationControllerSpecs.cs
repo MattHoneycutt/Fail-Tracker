@@ -54,6 +54,22 @@ namespace FailTracker.UnitTests.Web.Controllers
 			}
 		}
 
+		public class when_viewing_the_invite_member_form : given.the_default_state
+		{
+			private ActionResult _result;
+
+			protected override void When()
+			{
+				_result = SUT.InviteMember();
+			}
+
+			[Test]
+			public void then_it_returns_a_view()
+			{
+				_result.AssertViewRendered();
+			}
+		}
+
 		public static class given
 		{
 			public abstract class the_default_state : SpecsForWithData<ProjectAdministrationController>

@@ -19,7 +19,7 @@
 		<td>@p.Name</td>
 		<td>@p.ActiveStories</td>
 		<td>@p.Members</td>
-		<td>@(Html.ActionLink<ProjectAdministrationController>(c => c.InviteMember()))</td>
+		<td>@(Html.ActionLink<ProjectAdministrationController>(c => c.InviteMember(), "Invite Members"))</td>
 	</tr>
 }
 </table>

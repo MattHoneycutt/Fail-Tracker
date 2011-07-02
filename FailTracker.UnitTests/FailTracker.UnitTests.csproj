@@ -68,6 +68,7 @@
     <Compile Include="Core\Domain\DomainConventions.cs" />
     <Compile Include="Core\Domain\IssueSpecs.cs" />
     <Compile Include="Core\Domain\ProjectSpecs.cs" />
+    <Compile Include="Core\Utility\StringExtensionsSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Web\AssemblySetup.cs" />
     <Compile Include="Web\Controllers\AddIssueControllerSpecs.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="Web\Controllers\AuthenticationControllerSpecs.cs" />
     <Compile Include="Web\Controllers\IssuesControllerSpecs.cs" />
     <Compile Include="Web\Infrastructure\MappingBootstrapperSpecs.cs" />
+    <Compile Include="Web\Infrastructure\ModelMetadata\PascalCaseToDisplayNameProviderSpecs.cs" />
     <Compile Include="Web\Infrastructure\ValueProviders\CurrentUserValueProviderSpecs.cs" />
   </ItemGroup>
   <ItemGroup>

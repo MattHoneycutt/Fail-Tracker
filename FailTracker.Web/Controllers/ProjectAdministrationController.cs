@@ -44,7 +44,7 @@ namespace FailTracker.Web.Controllers
 		[HttpGet]
 		public ActionResult InviteMember()
 		{
-			return null;
+			return View();
 		}
 	}
 }

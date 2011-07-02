@@ -21,8 +21,6 @@ namespace FailTracker.Web.Infrastructure.Startup
 			AreaRegistration.RegisterAllAreas();
 
 			DependencyResolver.SetResolver(new StructureMapDependencyResolver(_container));
-
-			ModelMetadataProviders.Current = new StructureMapModelMetadataProvider();
 		}
 	}
 }

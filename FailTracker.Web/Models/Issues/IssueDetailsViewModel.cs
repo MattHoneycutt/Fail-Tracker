@@ -1,7 +1,5 @@
 ﻿using System;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using AutoMapper;
 using FailTracker.Core.Domain;
 using FailTracker.Web.Infrastructure.Mapping;
 
@@ -20,7 +18,6 @@ namespace FailTracker.Web.Models.Issues
 		public DateTime CreatedAt { get; set; }
 
 		[DataType("User")]
-		[DisplayName("Assigned To")]
 		public string AssignedToEmailAddress { get; set; }
 
 		[DataType(DataType.MultilineText)]
