@@ -1,7 +1,5 @@
-﻿using FailTracker.Core.Data;
-using FailTracker.Web.Infrastructure.Startup;
+﻿using FailTracker.Web.Infrastructure.Startup;
 using FailTracker.Web.Infrastructure.ValueProviders;
-using NHibernate;
 using StructureMap;
 
 namespace FailTracker.Web.Infrastructure
@@ -17,9 +15,8 @@ namespace FailTracker.Web.Infrastructure
 				x.AddRegistry<TaskRegistry>();
 				x.AddRegistry<MvcRegistry>();
 				x.AddRegistry<ModelMetadataRegistry>();
-
-				x.For<ISession>().HttpContextScoped().Use(NHibernateBootstrapper.GetSession);
-				x.For(typeof(IRepository<>)).Use(typeof(NHibernateRepository<>));
+				x.AddRegistry<NHibernateRegistry>();
+				x.AddRegistry<SecurityRegistry>();
 			});
 		}
 

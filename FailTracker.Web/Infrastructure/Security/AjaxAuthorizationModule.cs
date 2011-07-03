@@ -2,7 +2,7 @@ using System;
 using System.Web;
 using System.Web.Mvc;
 
-namespace FailTracker.Web.Infrastructure.Authorization
+namespace FailTracker.Web.Infrastructure.Security
 {
 	public class AjaxAuthorizationModule : IHttpModule
 	{

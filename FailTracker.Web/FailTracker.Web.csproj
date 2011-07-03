@@ -83,7 +83,12 @@
     <Compile Include="Controllers\ProjectAdministrationController.cs" />
     <Compile Include="Controllers\SignUpController.cs" />
     <Compile Include="Infrastructure\ApplicationFramework.cs" />
-    <Compile Include="Infrastructure\Authorization\AjaxAuthorizationModule.cs" />
+    <Compile Include="Infrastructure\NHibernateRegistry.cs" />
+    <Compile Include="Infrastructure\SecurityRegistry.cs" />
+    <Compile Include="Infrastructure\Security\AjaxAuthorizationModule.cs" />
+    <Compile Include="Infrastructure\Security\ProjectSecurityDecorator.cs" />
+    <Compile Include="Infrastructure\Security\IssueSecurityDecorator.cs" />
+    <Compile Include="Infrastructure\Security\CurrentUser.cs" />
     <Compile Include="Infrastructure\DefaultConventionsRegistry.cs" />
     <Compile Include="Infrastructure\ModelMetadata\Filters\IModelMetadataFilter.cs" />
     <Compile Include="Infrastructure\ModelMetadata\Filters\PascalCaseToDisplayNameFilter.cs" />

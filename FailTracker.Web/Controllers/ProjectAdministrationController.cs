@@ -65,6 +65,8 @@ namespace FailTracker.Web.Controllers
 
 			var project = _projects.Query().Single(p => p.ID == form.ProjectID);
 
+			//TODO: Should this require the current user?  Is the domain rule "only owner of a project can add new members"? 
+			//TODO: We still want to prevent users who don't have access to an issue/project from even seeing it in the first place...
 			project.AddMember(targetUser);
 
 			return this.RedirectToAction(c => c.InviteMember(form.ProjectID))
