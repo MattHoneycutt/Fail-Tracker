@@ -6,7 +6,7 @@ using FailTracker.Core.Utility;
 
 namespace FailTracker.Web.Infrastructure.ModelMetadata.Filters
 {
-	public class PascalCaseToDisplayNameProvider : IModelMetadataFilter
+	public class PascalCaseToDisplayNameFilter : IModelMetadataFilter
 	{
 		public void TransformMetadata(System.Web.Mvc.ModelMetadata metadata, IEnumerable<Attribute> attributes)
 		{

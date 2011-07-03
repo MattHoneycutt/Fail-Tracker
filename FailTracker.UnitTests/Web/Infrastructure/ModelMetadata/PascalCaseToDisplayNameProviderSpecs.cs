@@ -40,7 +40,7 @@ namespace FailTracker.UnitTests.Web.Infrastructure.ModelMetadata
 
 		public static class given
 		{
-			public abstract class the_default_state : SpecsFor<PascalCaseToDisplayNameProvider>
+			public abstract class the_default_state : SpecsFor<PascalCaseToDisplayNameFilter>
 			{
 				protected System.Web.Mvc.ModelMetadata Metadata;
 

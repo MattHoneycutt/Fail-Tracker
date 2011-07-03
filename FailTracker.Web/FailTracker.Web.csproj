@@ -86,7 +86,7 @@
     <Compile Include="Infrastructure\Authorization\AjaxAuthorizationModule.cs" />
     <Compile Include="Infrastructure\DefaultConventionsRegistry.cs" />
     <Compile Include="Infrastructure\ModelMetadata\Filters\IModelMetadataFilter.cs" />
-    <Compile Include="Infrastructure\ModelMetadata\Filters\PascalCaseToDisplayNameProvider.cs" />
+    <Compile Include="Infrastructure\ModelMetadata\Filters\PascalCaseToDisplayNameFilter.cs" />
     <Compile Include="Infrastructure\ModelMetadata\Filters\RenderModeFilter.cs" />
     <Compile Include="Infrastructure\Startup\IRunAtStartup.cs" />
     <Compile Include="Infrastructure\MvcRegistry.cs" />
