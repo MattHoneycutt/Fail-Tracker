@@ -8,7 +8,7 @@ namespace FailTracker.Web
 		protected void Application_Start()
 		{
 			ApplicationFramework.Bootstrap();
-			ApplicationFramework.Start(this);
+			ApplicationFramework.Start();
 		}
 	}
 }

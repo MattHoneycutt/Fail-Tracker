@@ -5,7 +5,7 @@ using System.Web.Mvc;
 using AutoMapper;
 using FailTracker.Core.Domain;
 using FailTracker.Web.Infrastructure.Mapping;
-using FailTracker.Web.Infrastructure.ModelMetadata;
+using FailTracker.Web.Infrastructure.ModelMetadata.Attributes;
 
 namespace FailTracker.Web.Models.Issues
 {

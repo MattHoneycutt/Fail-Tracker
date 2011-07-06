@@ -1,9 +1,8 @@
 using System;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using FailTracker.Core.Domain;
-using FailTracker.Web.Infrastructure.ModelMetadata;
+using FailTracker.Web.Infrastructure.ModelMetadata.Attributes;
 
 namespace FailTracker.Web.Models.AddIssue
 {
@@ -18,7 +17,6 @@ namespace FailTracker.Web.Models.AddIssue
 		[Required]
 		public PointSize Size { get; set; }
 
-		[DisplayName("Assigned To")]
 		[UIHint("UserDropDown")]
 		public Guid? AssignedTo { get; set; }
 

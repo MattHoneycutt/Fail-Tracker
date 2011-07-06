@@ -1,5 +1,6 @@
 ﻿using FailTracker.Core.Domain;
 using FailTracker.Web.Infrastructure.ModelMetadata;
+using FailTracker.Web.Infrastructure.ModelMetadata.Attributes;
 
 namespace FailTracker.Web.Models.ProjectAdministration
 {

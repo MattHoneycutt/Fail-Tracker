@@ -10,12 +10,16 @@
 <thead>
 	<th>Project Name</th>
 	<th>Active Stories</th>
+	<th>Members</th>
+	<th>&nbsp;</th>
 </thead>
 @foreach (var p in Model)
 {
 	<tr>
 		<td>@p.Name</td>
 		<td>@p.ActiveStories</td>
+		<td>@p.Members</td>
+		<td>@(Html.ActionLink<ProjectAdministrationController>(c => c.InviteMember(p.ID), "Invite Members"))</td>
 	</tr>
 }
 </table>

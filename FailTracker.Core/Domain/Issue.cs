@@ -31,6 +31,8 @@ namespace FailTracker.Core.Domain
 
 		public virtual IEnumerable<Change> Changes { get; protected set; }
 
+		public virtual Project Project { get; protected set; }
+
 		public static Issue CreateNewIssue(Project project, string title, User creator, string body)
 		{
 			var issue = new Issue

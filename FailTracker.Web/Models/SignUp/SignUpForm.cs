@@ -9,7 +9,6 @@ namespace FailTracker.Web.Models.SignUp
 	{
 		[Required]
 		[EmailAddress]
-		[DisplayName("Email Address")]
 		public string EmailAddress { get; set; }
 
 		[Required]

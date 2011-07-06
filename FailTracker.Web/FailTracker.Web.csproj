@@ -83,8 +83,16 @@
     <Compile Include="Controllers\ProjectAdministrationController.cs" />
     <Compile Include="Controllers\SignUpController.cs" />
     <Compile Include="Infrastructure\ApplicationFramework.cs" />
-    <Compile Include="Infrastructure\Authorization\AjaxAuthorizationModule.cs" />
+    <Compile Include="Infrastructure\NHibernateRegistry.cs" />
+    <Compile Include="Infrastructure\SecurityRegistry.cs" />
+    <Compile Include="Infrastructure\Security\AjaxAuthorizationModule.cs" />
+    <Compile Include="Infrastructure\Security\ProjectSecurityDecorator.cs" />
+    <Compile Include="Infrastructure\Security\IssueSecurityDecorator.cs" />
+    <Compile Include="Infrastructure\Security\CurrentUser.cs" />
     <Compile Include="Infrastructure\DefaultConventionsRegistry.cs" />
+    <Compile Include="Infrastructure\ModelMetadata\Filters\IModelMetadataFilter.cs" />
+    <Compile Include="Infrastructure\ModelMetadata\Filters\PascalCaseToDisplayNameFilter.cs" />
+    <Compile Include="Infrastructure\ModelMetadata\Filters\RenderModeFilter.cs" />
     <Compile Include="Infrastructure\Startup\IRunAtStartup.cs" />
     <Compile Include="Infrastructure\MvcRegistry.cs" />
     <Compile Include="Infrastructure\Startup\NHibernateBootstrapperWrapper.cs" />
@@ -96,11 +104,12 @@
     <Compile Include="Infrastructure\Mapping\IMapFrom.cs" />
     <Compile Include="Infrastructure\Mapping\MappingBootstrapper.cs" />
     <Compile Include="Infrastructure\Mapping\UserToStringTypeConverter.cs" />
-    <Compile Include="Infrastructure\ModelMetadata\RenderMode.cs" />
+    <Compile Include="Infrastructure\ModelMetadata\Attributes\RenderMode.cs" />
     <Compile Include="Infrastructure\NHSessionModule.cs" />
     <Compile Include="Infrastructure\ModelMetadata\StructureMapModelMetadataProvider.cs" />
     <Compile Include="Infrastructure\ValueProviders\CurrentUserValueProvider.cs" />
     <Compile Include="Infrastructure\ValueProviders\StructureMapValueProviderFactory.cs" />
+    <Compile Include="ModelMetadataRegistry.cs" />
     <Compile Include="Models\Authentication\LogOnForm.cs" />
     <Compile Include="Controllers\UtilityController.cs" />
     <Compile Include="Infrastructure\StructureMapDependencyResolver.cs" />
@@ -115,8 +124,9 @@
     </Compile>
     <Compile Include="Models\AddIssue\AddIssueForm.cs" />
     <Compile Include="Models\Issues\IssueDetailsViewModel.cs" />
-    <Compile Include="Infrastructure\ModelMetadata\RenderModeAttribute.cs" />
+    <Compile Include="Infrastructure\ModelMetadata\Attributes\RenderModeAttribute.cs" />
     <Compile Include="Models\ProjectAdministration\AddProjectForm.cs" />
+    <Compile Include="Models\ProjectAdministration\InviteMemberForm.cs" />
     <Compile Include="Models\ProjectAdministration\ProjectSummaryViewModel.cs" />
     <Compile Include="Models\SignUp\SignUpForm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -275,6 +285,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\ProjectAdministration\AddProject.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ProjectAdministration\InviteMember.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
