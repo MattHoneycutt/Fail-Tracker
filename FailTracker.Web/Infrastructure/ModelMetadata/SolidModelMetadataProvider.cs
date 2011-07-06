@@ -6,11 +6,11 @@ using NHibernate.Linq;
 
 namespace FailTracker.Web.Infrastructure.ModelMetadata
 {
-	public class StructureMapModelMetadataProvider : DataAnnotationsModelMetadataProvider
+	public class SolidModelMetadataProvider : DataAnnotationsModelMetadataProvider
 	{
 		private readonly IModelMetadataFilter[] _metadataFilters;
 
-		public StructureMapModelMetadataProvider(IModelMetadataFilter[] metadataFilters)
+		public SolidModelMetadataProvider(IModelMetadataFilter[] metadataFilters)
 		{
 			_metadataFilters = metadataFilters;
 		}

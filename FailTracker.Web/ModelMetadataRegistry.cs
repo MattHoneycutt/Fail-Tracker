@@ -9,7 +9,7 @@ namespace FailTracker.Web
 	{
 		public ModelMetadataRegistry()
 		{
-			For<ModelMetadataProvider>().Use<StructureMapModelMetadataProvider>();
+			For<ModelMetadataProvider>().Use<SolidModelMetadataProvider>();
 
 			Scan(scan =>
 			     	{

@@ -106,7 +106,7 @@
     <Compile Include="Infrastructure\Mapping\UserToStringTypeConverter.cs" />
     <Compile Include="Infrastructure\ModelMetadata\Attributes\RenderMode.cs" />
     <Compile Include="Infrastructure\NHSessionModule.cs" />
-    <Compile Include="Infrastructure\ModelMetadata\StructureMapModelMetadataProvider.cs" />
+    <Compile Include="Infrastructure\ModelMetadata\SolidModelMetadataProvider.cs" />
     <Compile Include="Infrastructure\ValueProviders\CurrentUserValueProvider.cs" />
     <Compile Include="Infrastructure\ValueProviders\StructureMapValueProviderFactory.cs" />
     <Compile Include="ModelMetadataRegistry.cs" />
