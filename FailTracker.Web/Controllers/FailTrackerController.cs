@@ -18,15 +18,15 @@ namespace FailTracker.Web.Controllers
 			base.OnActionExecuting(filterContext);
 		}
 
+		private static bool ActionNeedsServerSideValidation(ActionExecutingContext filterContext)
+		{
+			return filterContext.ActionDescriptor.GetParameters().Any(p => p.ParameterType.Name.Contains("Form"));
+		}
+
 		private static void HandleModelValidationFailure(ActionExecutingContext filterContext)
 		{
 			var result = new ViewResult { ViewData = new ViewDataDictionary(filterContext.Controller.ViewData) { Model = filterContext.ActionParameters.Values.Single() }};
 			filterContext.Result = result;
-		}
-
-		private static bool ActionNeedsServerSideValidation(ActionExecutingContext filterContext)
-		{
-			return filterContext.ActionDescriptor.GetParameters().Any(p => p.ParameterType.Name.Contains("Form"));
 		}
 	}
 }
