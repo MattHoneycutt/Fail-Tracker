@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<publishData>
+  <publishProfile publishUrl="http://tcfaccelerator.cloudapp.net" deleteExistingFiles="False" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="failtracker" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="False" msdeployMarkAsApp="False" profileName="Azure" publishMethod="MSDeploy" replaceMatchingFiles="True" userName="mbhoneycutt" savePWD="False" userPWD="" SelectedForPublish="True" />
+</publishData>
