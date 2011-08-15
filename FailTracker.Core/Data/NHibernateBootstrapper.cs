@@ -1,6 +1,5 @@
 using FluentNHibernate.Automapping;
 using FluentNHibernate.Cfg;
-using FluentNHibernate.Cfg.Db;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Tool.hbm2ddl;
@@ -15,8 +14,11 @@ namespace FailTracker.Core.Data
 
 		public static void Bootstrap()
 		{
-			_configuration = Fluently.Configure()
-				.Database(MsSqlCeConfiguration.Standard.ConnectionString(c => c.FromConnectionStringWithKey("FailTrackerData")))
+			var stdConfig = new Configuration();
+			stdConfig.Configure();
+
+			_configuration = Fluently.Configure(stdConfig)
+				//.Database(MsSqlCeConfiguration.Standard.ConnectionString(c => c.FromConnectionStringWithKey("FailTrackerData")))
 				.Mappings(m => m.AutoMappings.Add(
 					AutoMap.AssemblyOf<Issue>(new FailTrackerConfig()).UseOverridesFromAssemblyOf<IssueOverrides>()
 					)

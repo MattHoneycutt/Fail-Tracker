@@ -96,6 +96,9 @@
     <Compile Include="ActionResults\StatusResult.cs" />
     <Compile Include="Controllers\ProjectAdministrationController.cs" />
     <Compile Include="Controllers\SignUpController.cs" />
+    <Content Include="hibernate.cfg.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Compile Include="Infrastructure\ApplicationFramework.cs" />
     <Compile Include="Infrastructure\NHibernateRegistry.cs" />
     <Compile Include="Infrastructure\SecurityRegistry.cs" />
