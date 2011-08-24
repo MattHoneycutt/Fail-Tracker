@@ -6,7 +6,7 @@ body {
 	background: white;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 12px;
-	color: #646464;
+	color: #333;
 }
 
 #wrapper {
@@ -44,12 +44,31 @@ h1 strong
 
 div.logon-status
 {
-	color: #888;
-	font-size: 1.2em;
+	float: right;
+	margin-top: 15px;
+	font-size: 120%;
+	font-weight: bold;
 	text-align: right;
-	padding: 0.5em;
-	margin-top: -2em;
 }
+
+#header {
+    margin-top: 5px;
+    border-bottom: 2px solid #b93026;
+}
+
+/* Links ---------------------------------------- */
+a,
+a:active,
+a:visited,
+a:hover {
+    color: #2854BB;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
 
 /* Main Navigation ---------------------------------------- */
 
@@ -57,7 +76,7 @@ div.logon-status
 	width: 918px;
 	height: 37px;
 	padding: 6px;
-	margin: 0 0 30px 0;
+	margin: 0 0 15px 0;
 	background: url(../img/top-menu-bg.gif) no-repeat left top; 
 	text-transform: uppercase;
 	/* We used a background image making the thick border and the thin one to keep the html structure simple */
@@ -86,7 +105,9 @@ div.logon-status
 	border-right: none;
 }
 
-#mainNav li a:hover { background: #fdfcf6; }
+#mainNav li a:hover {
+     background: #fdfcf6;
+}
 
 #mainNav li a.active, #mainNav li a.active {
 	background: #f0f0f0 url(../img/top-menu-item-bg.gif) repeat-x left top;
@@ -132,9 +153,14 @@ div.logon-status
 	vertical-align: middle;	
 }
 
-.sidebar .sideNav { width: 179px; }
+.sidebar .sideNav {
+     width: 179px;
+}
 
-.sidebar .sideNav li { border-bottom: 1px solid #ddd; width: 179px; }
+.sidebar .sideNav li {
+     border-bottom: 1px solid #ddd; 
+     width: 179px;
+}
 
 .sidebar .sideNav li a {
 	display: block;
@@ -147,7 +173,9 @@ div.logon-status
 	width: 141px;
 }
 
-.sidebar .sideNav li a:hover { background: #fdfcf6; }
+.sidebar .sideNav li a:hover {
+     background: #fdfcf6;
+}
 
 .sidebar .sideNav li a.active, #sidebar .sideNav li a.active:hover {
 	background: #f0f7fa;
@@ -173,9 +201,13 @@ div.logon-status
 	text-decoration: none;
 }
 
-#breadcrumbs a.active { color: #c66653; }
+#breadcrumbs a.active {
+     color: #c66653;
+}
 
-#breadcrumbs a:hover { text-decoration: underline; }
+#breadcrumbs a:hover {
+     text-decoration: underline;
+}
 
 /* Content ---------------------------------------- */
 
@@ -185,19 +217,21 @@ div.logon-status
 	display: table-cell;
 }
 
+h1,
+h2, 
+h3 {
+    color: #b93026;
+}
+
 h2 {
 	font-size: 18px;
 	line-height: 18px;
-	font-weight: bold;
-	color: #5494af;
 	line-height: 2em;
 }
 
 h3 {
 	font-size: 14px;
 	line-height: 14px;
-	font-weight: bold;
-	color: #5494af;
 	line-height: 2em;
 }
 
@@ -207,24 +241,29 @@ h3 {
 	width: 100%;
 }
 
-#main table tr td, #main table tr th {
+#main table tr td, 
+#main table tr th {
 	background: #f6f6f6;
-	padding: 0.5em;
+	padding: 8px 10px;
 	border-bottom: 1px solid #ddd;
 }
 
 #main table tr th
 {
-	background-color: #808080;
-	color: white;
-	font-size: 1.1em;
+	background-color: #333;
+	color: #fff;
+	font-weight: bold;
+	font-size: 110%;
+	padding: 9px 10px;
 }
 
 #main table tr.odd td {
 	background: #fbfbfb;
 }
 
-#main table tr:hover td { background: #fdfcf6; }
+#main table tr:hover td {
+     background: #e9f8fd;
+}
 
 #main table .action {
 	text-align: right;
@@ -330,6 +369,10 @@ p
 	padding: 0 0 0 5px;
 }
 
-#footer a { color: #9B9B9B; }
+#footer a {
+     color: #9B9B9B;
+}
 
-#footer a:hover { text-decoration: none; }
+#footer a:hover {
+     text-decoration: none;
+}
