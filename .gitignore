@@ -5,6 +5,7 @@ obj/
 bin/
 _Resharper*/
 _ReSharper*/
+*.sln.cache
 
 # Compiled source #
 ###################
