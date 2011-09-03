@@ -18,7 +18,6 @@ namespace FailTracker.Core.Data
 			stdConfig.Configure();
 
 			_configuration = Fluently.Configure(stdConfig)
-				//.Database(MsSqlCeConfiguration.Standard.ConnectionString(c => c.FromConnectionStringWithKey("FailTrackerData")))
 				.Mappings(m => m.AutoMappings.Add(
 					AutoMap.AssemblyOf<Issue>(new FailTrackerConfig()).UseOverridesFromAssemblyOf<IssueOverrides>()
 					)
