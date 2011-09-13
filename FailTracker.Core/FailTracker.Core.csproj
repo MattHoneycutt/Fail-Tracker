@@ -92,6 +92,8 @@
     <Compile Include="Data\IssueOverrides.cs" />
     <Compile Include="Data\NHibernateBootstrapper.cs" />
     <Compile Include="Data\NHibernateRepository.cs" />
+    <Compile Include="Data\ProjectOverrides.cs" />
+    <Compile Include="Data\UserOverrides.cs" />
     <Compile Include="Domain\Change.cs" />
     <Compile Include="Domain\Issue.cs" />
     <Compile Include="Domain\IssueType.cs" />
