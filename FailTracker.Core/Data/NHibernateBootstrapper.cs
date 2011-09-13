@@ -2,6 +2,7 @@ using FluentNHibernate.Automapping;
 using FluentNHibernate.Cfg;
 using NHibernate;
 using NHibernate.Cfg;
+using NHibernate.Mapping;
 using NHibernate.Tool.hbm2ddl;
 using FailTracker.Core.Domain;
 
@@ -16,6 +17,7 @@ namespace FailTracker.Core.Data
 		{
 			var stdConfig = new Configuration();
 			stdConfig.Configure();
+			stdConfig.AddAuxiliaryDatabaseObject(new SimpleAuxiliaryDatabaseObject("alter table UserToProject add constraint PK_UserToProject primary key (User_id, Project_id)", ""));
 
 			_configuration = Fluently.Configure(stdConfig)
 				.Mappings(m => m.AutoMappings.Add(
