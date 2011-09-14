@@ -8,7 +8,7 @@ using Microsoft.Web.Mvc;
 
 namespace FailTracker.Web.Controllers
 {
-    public class ProfileController : Controller
+    public class ProfileController : AuthorizedFailTrackerController
     {
     	private readonly CurrentUser _user;
     	private readonly IRepository<User> _users;
