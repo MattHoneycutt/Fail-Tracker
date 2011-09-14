@@ -20,7 +20,7 @@
 		@if (Request.IsAuthenticated)
 		{
 			<div class="logon-status">
-				Hello, @User.Identity.Name!</div>
+				Hello, @(Html.ActionLink<ProfileController>(c => c.MyProfile(), User.Identity.Name))!</div>
 			<ul id="mainNav">
 				<li>@(Html.ActionLink<DashboardController>(c => c.Index(), "Dashboard", new { @class = "active" }))</li>
 				<li>@(Html.ActionLink<ProjectAdministrationController>(c => c.Index(), "Manage Projects"))</li>

@@ -1,0 +1,14 @@
+﻿@using FailTracker.Web.Models.Profile
+@model ProfileViewModel
+
+@{
+	ViewBag._Title = "Profile";
+}
+
+<h2>Profile</h2>
+@using(Html.BeginForm())
+{
+	<p>@Model.EmailAddress</p>
+	@Html.EditorForModel()
+	@MyHelpers.ControlBox("Save")
+}

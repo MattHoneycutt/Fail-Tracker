@@ -9,6 +9,7 @@ namespace FailTracker.Web.Infrastructure.Security
 	{
 		private readonly IRepository<User> _users;
 		private readonly IIdentity _currentUser;
+		private User _user;
 
 		public CurrentUser(IRepository<User> users, IIdentity currentUser)
 		{
@@ -16,9 +17,14 @@ namespace FailTracker.Web.Infrastructure.Security
 			_currentUser = currentUser;
 		}
 
+		internal CurrentUser(User user)
+		{
+			_user = user;
+		}
+
 		public User Instance
 		{
-			get { return _users.Query().Single(u => u.EmailAddress == _currentUser.Name); }
+			get { return _user ?? (_user = _users.Query().Single(u => u.EmailAddress == _currentUser.Name)); }
 		}
 	}
 }

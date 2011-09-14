@@ -17,6 +17,10 @@ namespace FailTracker.Web.Infrastructure.ModelMetadata.Filters
 						metadata.ShowForDisplay = false;
 						metadata.ShowForEdit = false;
 						break;
+					case RenderMode.Display:
+						metadata.ShowForDisplay = true;
+						metadata.ShowForEdit = false;
+						break;
 				}
 			}
 		}
