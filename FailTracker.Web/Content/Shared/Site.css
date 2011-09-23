@@ -1,8 +1,8 @@
 body
 {
-    font-size: 75%;
-    font-family: Verdana, Tahoma, Arial, "Helvetica Neue", Helvetica, Sans-Serif;
-    color: #232323;
+    font-size: 12px;
+    font-family: Arial, Sans-Serif;
+    color: #333;
     background-color: #fff;
 }
 
@@ -39,6 +39,8 @@ label
 {
 	display: block;
 	font-weight: bold;
+	font-size: 110%;
+	margin: 3px 0;
 }
 
 label:after
@@ -48,12 +50,14 @@ label:after
 
 input, textarea, select
 {
-	border: 1px solid rgb(140, 138, 138);
-	padding: 0.25em;
-	border-radius: 0.25em;
+	border: 1px solid #bbb;
+	padding: 5px;
+	border-radius: 3px;
 }
 
-input[type=text], input[type=password], select
+input[type=text], 
+input[type=password], 
+select
 {
     width: 25em;
 }
@@ -68,8 +72,8 @@ textarea
 
 div.control-box
 {
-	padding-left: 10em;
-	width: 20em;
+    border-top: 2px solid #eee;
+    padding: 10px 0;
 }
 
 /* Styles for validation helpers
@@ -138,7 +142,7 @@ div.control-box
 -----------------------------------------------------------*/
 div.bug-details
 {
-	padding: 1em;
+	padding: 15px;
 }
 
 div.bug-details label
@@ -157,19 +161,18 @@ div.bug-details label:first-child
 
 div.bug-notes
 {
-	background-color: #EFEFEF;
-	padding: 1em;
-	border-radius: 1em;
+	background-color: #eee;
+	padding: 15px;
 }
 
 div.bug-notes h4
 {
 	margin-bottom: 1em;
+	font-size: 110%;
 }
 
 div.bug-notes div
 {
-	padding: 0 1em 0 1em;
 }
 
 /* Display Issue

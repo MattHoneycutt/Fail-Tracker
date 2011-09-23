@@ -13,10 +13,23 @@
 </head>
 <body>
 	<div id="wrapper">
-		<h1>
-			@(Html.ActionLink<DashboardController>(c => c.Index(), "Fail Tracker"))
-			<strong>Because failure is everywhere...</strong>
-		</h1>
+		
+        <div id="header">
+            @if (Request.IsAuthenticated)
+            {
+                <div class="logon-status">
+				    Welcome, <br/> @User.Identity.Name!
+                </div>
+            }
+        
+            <img src="../../Content/Shared/images/logo.jpg" alt="Fail-Tracker" />
+            @*
+                - Wasn't sure how to wrap the image with an anchor tag
+                @(Html.ActionLink<DashboardController>(c => c.Index(), "Fail Tracker"))
+			    <strong>Because failure is everywhere...</strong>
+            *@
+        </div>
+
 		@if (Request.IsAuthenticated)
 		{
 			<div class="logon-status">
@@ -51,7 +64,6 @@
 				</div>
 			</div>
 		</div>
-		<p id="footer">Based on the Transdmin Theme: <a href="http://www.perspectived.com">Perspectived</a></p>
 	</div>
     <div class="dialog" id="session-timeout-dialog">
         <h3>You have been logged out...</h3>
