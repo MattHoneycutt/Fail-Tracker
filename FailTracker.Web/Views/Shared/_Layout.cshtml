@@ -13,32 +13,18 @@
 </head>
 <body>
 	<div id="wrapper">
-		
-        <div id="header">
-            @if (Request.IsAuthenticated)
-            {
-                <div class="logon-status">
-				    Welcome, <br/> @User.Identity.Name!
-                </div>
-            }
-        
-            <img src="../../Content/Shared/images/logo.jpg" alt="Fail-Tracker" />
-            @*
-                - Wasn't sure how to wrap the image with an anchor tag
-                @(Html.ActionLink<DashboardController>(c => c.Index(), "Fail Tracker"))
-			    <strong>Because failure is everywhere...</strong>
-            *@
-        </div>
+        		
+		@(Html.ImageLink<DashboardController>(c => c.Index(), "~/Content/Shared/images/logo.jpg"))
 
 		@if (Request.IsAuthenticated)
 		{
 			<div class="logon-status">
-				Hello, @(Html.ActionLink<ProfileController>(c => c.MyProfile(), User.Identity.Name))!</div>
+				Hello, @(Html.ActionLink<ProfileController>(c => c.MyProfile(), User.Identity.Name))!
+			</div>
 			<ul id="mainNav">
 				<li>@(Html.ActionLink<DashboardController>(c => c.Index(), "Dashboard", new { @class = "active" }))</li>
 				<li>@(Html.ActionLink<ProjectAdministrationController>(c => c.Index(), "Manage Projects"))</li>
 				<li class="right">@(Html.ActionLink<AuthenticationController>(c => c.LogOff(), "Log Off"))</li>
-				@*<li class="right">@(Html.ActionLink<AddIssueController>(c => c.Index((Guid) TODO), "Add Issue"))</li>*@
 			</ul>
 		}
 		<div id="containerHolder">

@@ -40,7 +40,7 @@ label
 	display: block;
 	font-weight: bold;
 	font-size: 110%;
-	margin: 3px 0;
+	margin: 0.25em 0;
 }
 
 label:after
@@ -51,7 +51,7 @@ label:after
 input, textarea, select
 {
 	border: 1px solid #bbb;
-	padding: 5px;
+	padding: 0.25em;
 	border-radius: 3px;
 }
 
@@ -73,7 +73,7 @@ textarea
 div.control-box
 {
     border-top: 2px solid #eee;
-    padding: 10px 0;
+    padding: 1em 0 0 10em;
 }
 
 /* Styles for validation helpers
@@ -142,7 +142,7 @@ div.control-box
 -----------------------------------------------------------*/
 div.bug-details
 {
-	padding: 15px;
+	padding: 1em;
 }
 
 div.bug-details label
@@ -162,7 +162,7 @@ div.bug-details label:first-child
 div.bug-notes
 {
 	background-color: #eee;
-	padding: 15px;
+	padding: 1em;
 }
 
 div.bug-notes h4
