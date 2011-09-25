@@ -1,7 +1,7 @@
 ﻿@using FailTracker.Web.Models.Dashboard
 @model ProjectDashboardViewModel
 		   
-<h3>@Model.Name</h3>
+<h3>@Model.Name - Active Issues</h3>
 <table>
 	<thead>
 		<tr>
@@ -14,7 +14,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		@foreach(var issue in Model.CurrentIssues){
+		@foreach(var issue in Model.ActiveIssues){
 		<tr>
 			<td><span class="ui-icon ui-icon-search issue-preview button" data-issue-id="@issue.ID"></span></td>
 			<td>@issue.Type</td>

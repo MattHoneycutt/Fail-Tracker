@@ -6,6 +6,7 @@ using FailTracker.Web.Models.Dashboard;
 using MvcContrib.TestHelper;
 using NUnit.Framework;
 using Should;
+using NHibernate.Linq;
 
 namespace FailTracker.UnitTests.Web.Controllers
 {
@@ -27,12 +28,30 @@ namespace FailTracker.UnitTests.Web.Controllers
 			}
 
 			[Test]
-			public void then_each_view_has_issues()
+			public void then_each_project_has_issues()
 			{
 				var result = (ViewResult)_result;
 				var model = (ProjectDashboardViewModel[]) result.Model;
 
-				model.Any(m => m.CurrentIssues.Count() > 0).ShouldBeTrue();
+				model.Any(m => m.ActiveIssues.Count() > 0).ShouldBeTrue();
+			}
+		}
+
+		public class when_a_project_has_completed_issues : given.project_has_completed_issues
+		{
+			private ActionResult _result;
+
+			protected override void When()
+			{
+				_result = SUT.Index();
+			}
+
+			[Test]
+			public void then_no_issues_are_returned()
+			{
+				_result.AssertViewRendered()
+					.WithViewData<ProjectDashboardViewModel[]>()[1]
+					.ActiveIssues.ShouldBeEmpty();
 			}
 		}
 
@@ -40,6 +59,16 @@ namespace FailTracker.UnitTests.Web.Controllers
 		{
 			public abstract class the_default_state : SpecsForWithData<DashboardController>
 			{
+			}
+
+			public abstract class project_has_completed_issues : the_default_state
+			{
+				protected override void Given()
+				{
+					base.Given();
+
+					TestProject.CurrentIssues.ForEach(i => i.Complete(TestUser, "Blah"));
+				}
 			}
 		}
 	}

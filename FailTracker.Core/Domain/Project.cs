@@ -9,6 +9,8 @@ namespace FailTracker.Core.Domain
 
 		public virtual string Name { get; private set; }
 
+		//TODO: At some point, we need to rework this property so that it only returns 
+		//		the issues that are not completed. 
 		public virtual IEnumerable<Issue> CurrentIssues { get; private set; }
 
 		public virtual User Creator { get; private set; }
