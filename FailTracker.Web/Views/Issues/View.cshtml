@@ -1,4 +1,5 @@
-﻿@model FailTracker.Web.Models.Issues.IssueDetailsViewModel
+﻿@using FailTracker.Core.Domain
+@model FailTracker.Web.Models.Issues.IssueDetailsViewModel
 
 @{
     ViewBag._Title = Model.Title;
@@ -7,6 +8,8 @@
 @section SideBarLeft
 {
 	<div class="bug-details">
+		@Html.LabelFor(m => m.Status)
+		@Html.DisplayFor(m => m.Status)
 		@Html.LabelFor(m => m.Type)
 		@Html.DisplayFor(m => m.Type)
 		@Html.LabelFor(m => m.AssignedToEmailAddress)
@@ -21,12 +24,22 @@
 	<h4>Created by @Html.DisplayFor(m => m.CreatedBy) at @Model.CreatedAt</h4>
 	<div>@Model.Description</div>
 </div>
-<p>@(Html.ActionLink<IssuesController>(c => c.Edit(Model.ID), "Edit", new{@class="button"}))</p>
+<p>
+	@if (Model.Status != Status.Complete)
+	{
+		@(Html.ActionLink<IssuesController>(c => c.Edit(Model.ID), "Edit", new { @class = "button" }))
+	 	@(Html.ActionLink<CompleteIssueController>(c => c.Complete(Model.ID), "Complete", new { @class = "button" }))
+	}
+	else
+	{
+		@(Html.ActionLink<ReactivateIssueController>(c => c.Reactivate(Model.ID), "Reactivate", new { @class = "button" }))	
+	}
+</p>
 @foreach (var change in Model.Changes)
 {
 	<hr />
 	<div class="bug-notes">
-		<h4>Edited by @Html.DisplayFor(m => change.EditedBy) at @change.ChangedAt</h4>
+		<h4>@change.Type by @Html.DisplayFor(m => change.EditedBy) at @change.ChangedAt</h4>
 		<div>@change.Comments</div>
 	</div>
 }

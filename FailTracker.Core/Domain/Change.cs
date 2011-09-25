@@ -26,6 +26,8 @@ namespace FailTracker.Core.Domain
 
 		public virtual bool IsDescriptionChanged { get; protected internal set; }
 
+		public virtual ChangeType Type { get; set; }
+
 		public static Change For(Issue issue, User editingUser, string comment)
 		{
 			return new Change

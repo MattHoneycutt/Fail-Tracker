@@ -13,5 +13,7 @@ namespace FailTracker.Web.Models.Issues
 		public DateTime ChangedAt { get; set; }
 
 		public string Comments { get; set; }
+
+		public ChangeType Type { get; set; }
 	}
 }

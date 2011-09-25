@@ -33,6 +33,8 @@ namespace FailTracker.Core.Domain
 
 		public virtual Project Project { get; protected set; }
 
+		public virtual Status Status { get; protected set; }
+
 		public static Issue CreateNewIssue(Project project, string title, User creator, string body)
 		{
 			var issue = new Issue
@@ -131,6 +133,36 @@ namespace FailTracker.Core.Domain
 		public virtual void EndEdit()
 		{
 			_activeChange = null;
+		}
+
+		public virtual void Complete(User completedBy, string comments)
+		{
+			if (Status == Status.Complete)
+			{
+				throw new InvalidOperationException("You cannot complete an issue that is already complete.  You must reactivate the issue first.");
+			}
+
+			Status = Status.Complete;
+
+			var change = Change.For(this, completedBy, comments);
+			change.Type = ChangeType.Completed;
+
+			((IList<Change>) Changes).Add(change);
+		}
+
+		public virtual void Reactivate(User reactivatedBy, string comments)
+		{
+			if (Status != Status.Complete)
+			{
+				throw new InvalidOperationException("You cannot reactivate an issue that is not complete.");
+			}
+
+			Status = Status.NotStarted;
+
+			var change = Change.For(this, reactivatedBy, comments);
+			change.Type = ChangeType.Reactivated;
+
+			((IList<Change>)Changes).Add(change);
 		}
 
 		#region Equals Implementation 

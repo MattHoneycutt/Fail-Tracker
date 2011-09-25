@@ -51,6 +51,12 @@ namespace FailTracker.UnitTests.Core.Domain
 			{
 				Assert.DoesNotThrow(() => SUT.ReassignTo(User.CreateNewUser("other@user.com", "pass")));
 			}
+
+			[Test]
+			public void then_the_status_is_not_started()
+			{
+				SUT.Status.ShouldEqual(Status.NotStarted);
+			}
 		}
 
 		public class when_editing_an_issue : given.issue_is_not_being_edited
@@ -237,6 +243,96 @@ namespace FailTracker.UnitTests.Core.Domain
 			}
 		}
 
+		public class when_completing_an_issue : given.issue_is_not_being_edited
+		{
+			protected override void When()
+			{
+				SUT.Complete(TestUser, "Story is complete.");
+			}
+
+			[Test]
+			public void then_it_sets_the_status_to_complete()
+			{
+				SUT.Status.ShouldEqual(Status.Complete);
+			}
+
+			[Test]
+			public void then_it_stores_the_notes()
+			{
+				SUT.Changes.Last().Comments.ShouldEqual("Story is complete.");
+			}
+
+			[Test]
+			public void then_it_stores_the_completer()
+			{
+				SUT.Changes.Last().EditedBy.ShouldEqual(TestUser);
+			}
+
+			[Test]
+			public void then_the_change_shows_the_story_was_completed()
+			{
+				SUT.Changes.Last().Type.ShouldEqual(ChangeType.Completed);
+			}
+		}
+
+		public class when_completing_an_issue_that_is_already_completed : given.issue_is_complete
+		{
+			private InvalidOperationException _exception;
+
+			protected override void When()
+			{
+				_exception = Assert.Throws<InvalidOperationException>(() => SUT.Complete(TestUser, "Blah"));
+			}
+
+			[Test]
+			public void then_it_throws_an_exception()
+			{
+				_exception.ShouldNotBeNull();
+			}
+		}
+
+		public class when_reactivating_an_issue : given.issue_is_complete
+		{
+			protected override void When()
+			{
+				SUT.Reactivate(CreatorUser, "Issue was not fixed.");
+			}
+
+			[Test]
+			public void then_it_changes_the_issues_status()
+			{
+				SUT.Status.ShouldEqual(Status.NotStarted);
+			}
+
+			[Test]
+			public void then_it_captures_the_reactivater()
+			{
+				SUT.Changes.Last().EditedBy.ShouldEqual(CreatorUser);
+			}
+
+			[Test]
+			public void then_it_marks_the_issue_as_reactivated()
+			{
+				SUT.Changes.Last().Type.ShouldEqual(ChangeType.Reactivated);
+			}
+		}
+
+		public class when_reactivating_an_issue_that_is_not_complete : given.issue_is_not_being_edited
+		{
+			private InvalidOperationException _exception;
+
+			protected override void When()
+			{
+				_exception = Assert.Throws<InvalidOperationException>(() => SUT.Reactivate(TestUser, "Blah"));
+			}
+
+			[Test]
+			public void then_it_throws_an_exception()
+			{
+				_exception.ShouldNotBeNull();
+			}
+		}
+
 		public static class given
 		{
 			public abstract class an_issue_has_been_created : SpecsFor<Issue>
@@ -265,6 +361,16 @@ namespace FailTracker.UnitTests.Core.Domain
 				{
 					base.Given();
 					SUT.EndEdit();
+				}
+			}
+
+			public abstract class issue_is_complete : issue_is_not_being_edited
+			{
+				protected override void Given()
+				{
+					base.Given();
+
+					SUT.Complete(TestUser, "Completed by context.");
 				}
 			}
 		}

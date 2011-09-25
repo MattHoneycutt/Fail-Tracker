@@ -1,8 +1,6 @@
 using System;
 using System.Web.Mvc;
 using FailTracker.UnitTests.Web.Controllers.Contexts;
-using FailTracker.Web.Models.AddIssue;
-using Moq;
 using NUnit.Framework;
 using SpecsFor;
 using FailTracker.Core.Data;

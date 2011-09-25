@@ -72,11 +72,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Web\AssemblySetup.cs" />
     <Compile Include="Web\Controllers\AddIssueControllerSpecs.cs" />
+    <Compile Include="Web\Controllers\CompleteIssueControllerSpecs.cs" />
     <Compile Include="Web\Controllers\Contexts\SpecsForWithData.cs" />
     <Compile Include="Web\Controllers\DashboardControllerSpecs.cs" />
     <Compile Include="Web\Controllers\FailTrackerControllerSpecs.cs" />
     <Compile Include="Web\Controllers\ProfileControllerSpecs.cs" />
     <Compile Include="Web\Controllers\ProjectAdministrationControllerSpecs.cs" />
+    <Compile Include="Web\Controllers\ReactivateIssueControllerSpecs.cs" />
     <Compile Include="Web\Controllers\SignUpControllerSpecs.cs" />
     <Compile Include="Web\ConventionChecks.cs" />
     <Compile Include="Web\Controllers\AuthenticationControllerSpecs.cs" />

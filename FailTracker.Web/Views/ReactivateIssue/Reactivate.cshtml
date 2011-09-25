@@ -1,0 +1,17 @@
+﻿@using FailTracker.Web.Models.ReactivateIssue
+@model ReactivateIssueForm
+
+@{
+	ViewBag._Title = "Reactivating Issue - '" + Model.Title + "'";
+}
+
+<h2>Reactivating Issue - @Model.Title</h2>
+<div class="bug-notes">
+	<div>@Model.Description</div>
+</div>
+
+@using(Html.BeginForm())
+{
+	@Html.EditorForModel()
+	@MyHelpers.ControlBox("Reactivate")
+}
