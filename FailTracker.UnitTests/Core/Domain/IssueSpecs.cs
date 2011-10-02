@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Threading;
 using FailTracker.Core.Domain;
 using NUnit.Framework;
 using SpecsFor;
@@ -57,12 +58,20 @@ namespace FailTracker.UnitTests.Core.Domain
 			{
 				SUT.Status.ShouldEqual(Status.NotStarted);
 			}
+
+			[Test]
+			public void then_it_sets_the_last_modified_date()
+			{
+				SUT.LastChanged.ShouldEqual(SUT.CreatedAt);
+			}
 		}
 
 		public class when_editing_an_issue : given.issue_is_not_being_edited
 		{
 			protected override void When()
 			{
+				//Sleep to make sure the clock actually advances after the issue is created. 
+				Thread.Sleep(TimeSpan.FromMilliseconds(100));
 				SUT.BeginEdit(TestUser, "Edited!");
 			}
 
@@ -76,6 +85,12 @@ namespace FailTracker.UnitTests.Core.Domain
 			public void then_it_stores_the_comment()
 			{
 				SUT.Changes.Last().Comments.ShouldEqual("Edited!");
+			}
+
+			[Test]
+			public void then_it_stores_the_date_the_story_was_edited()
+			{
+				SUT.LastChanged.ShouldNotEqual(SUT.CreatedAt);
 			}
 		}
 

@@ -106,6 +106,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <Compile Include="Helpers\HtmlTagExtensions.cs" />
     <Compile Include="Helpers\ImageExtensions.cs" />
     <Compile Include="Infrastructure\ApplicationFramework.cs" />
     <Compile Include="Infrastructure\NHibernateRegistry.cs" />

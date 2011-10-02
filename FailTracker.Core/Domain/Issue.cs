@@ -31,6 +31,8 @@ namespace FailTracker.Core.Domain
 
 		public virtual IEnumerable<Change> Changes { get; protected set; }
 
+		public virtual DateTime LastChanged { get; set; }
+
 		public virtual Project Project { get; protected set; }
 
 		public virtual Status Status { get; protected set; }
@@ -43,7 +45,8 @@ namespace FailTracker.Core.Domain
 			       		CreatedBy = creator,
 			       		Description = body,
 			       		Type = IssueType.Story,
-			       		CreatedAt = DateTime.Now
+			       		CreatedAt = DateTime.Now,
+						LastChanged = DateTime.Now,
 			       	};
 
 			//This allows a newly-created story to be edited.
@@ -126,6 +129,7 @@ namespace FailTracker.Core.Domain
 		public virtual void BeginEdit(User editingUser, string comments)
 		{
 			_activeChange = Change.For(this, editingUser, comments);
+			LastChanged = DateTime.Now;
 
 			((IList<Change>)Changes).Add(_activeChange);
 		}

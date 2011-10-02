@@ -4,7 +4,7 @@ namespace FailTracker.Core.Domain
 {
 	public class Change
 	{
-		public static Change Empty = new Change();
+		public static readonly Change Empty = new Change();
 
 		public virtual Guid ID { get; protected set; }
 

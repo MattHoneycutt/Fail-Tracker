@@ -3,7 +3,16 @@ var ViewBag = {};
 
 $(function () {
 	//Apply defaults
-	$("input[type=button], input[type=submit], a.button, span.button").button();
+	$("input[type=button], input[type=submit], a.button, span.button").each(function () {
+		var el = $(this);
+		var options = {};
+
+		if (el.attr("data-icon")) {
+			options.icons = { primary: el.attr("data-icon") };
+		}
+
+		el.button(options);
+	});
 
 	$.extend($.ui.dialog.prototype.options, {
 		width: 500,
@@ -33,10 +42,10 @@ $(function () {
 				of: container
 			});
 
-		statusTimeout = setTimeout(function () { 
+		statusTimeout = setTimeout(function () {
 			status.fadeOut(1500);
 		}, 5000);
-			
+
 	};
 
 	Site.confirm = function (options) {
