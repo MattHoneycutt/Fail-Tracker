@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using FailTracker.Core.Domain;
 using FailTracker.Web.Infrastructure.Mapping;
 
-namespace FailTracker.Web.Models.Dashboard
+namespace FailTracker.Web.Models.Shared
 {
 	public class IssueSummaryViewModel : IMapFrom<Issue>
 	{

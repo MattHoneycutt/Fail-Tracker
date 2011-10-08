@@ -40,6 +40,10 @@ namespace FailTracker.Web.Infrastructure.Startup
 			                 "Issue/{targetIssueID}/Reactivate",
 			                 new {controller = "ReactivateIssue", Action = "Reactivate"});
 
+			_routes.MapRoute("Backlog",
+			                 "{projectID}/Backlog",
+			                 new {controller = "Backlog", action = "Index"});
+
 			_routes.MapRoute(
 				"Default", // Route name
 				"{controller}/{action}/{id}", // URL with parameters

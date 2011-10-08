@@ -1,0 +1,25 @@
+﻿@using FailTracker.Web.Models.Backlog
+@model ProjectBacklogViewModel
+
+@{
+	ViewBag._Title = "Backlog for " + Model.ProjectName;
+}
+
+<h2>Backlog - @Model.ProjectName</h2>
+<table>
+	<thead>
+		<tr>
+			<th>&nbsp;</th>
+			<th>Type</th>
+			<th>Title</th>
+			<th>Size</th>
+			<th>Assigned To</th>
+			<th>&nbsp;</th>
+		</tr>
+	</thead>
+@foreach (var issue in Model.Issues)
+{
+	@Html.DisplayFor(m => issue)
+}
+</table>
+@Html.ProjectToolbarFor(Model.ProjectID)

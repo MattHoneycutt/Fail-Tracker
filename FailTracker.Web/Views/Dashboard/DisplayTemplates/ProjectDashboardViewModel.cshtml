@@ -15,19 +15,8 @@
 	</thead>
 	<tbody>
 		@foreach(var issue in Model.ActiveIssues){
-		<tr>
-			<td><span class="ui-icon ui-icon-search issue-preview button" data-issue-id="@issue.ID"></span></td>
-			<td>@issue.Type</td>
-			<td>@(Html.ActionLink<IssuesController>(c => c.View(issue.ID), issue.Title))</td>
-			<td>@issue.Size</td>
-			<td>@Html.DisplayFor(m => issue.AssignedTo)</td>
-			<td><span class="ui-icon ui-icon-trash issue-delete button" data-issue-id="@issue.ID"></span></td>
-		</tr>
+			@Html.DisplayFor(m => issue)
 		}
 	</tbody>
 </table>
-<p>
-	@(Html.Tag().LinkTo<AddIssueController>(c => c.Index(Model.ID), "View Backlog").AsButton(Icon.FolderOpen))
-	@(Html.Tag().LinkTo<AddIssueController>(c => c.Index(Model.ID), "View Completed").AsButton(Icon.Check))
-	@(Html.Tag().LinkTo<AddIssueController>(c => c.Index(Model.ID), "Add New Issues").AsButton(Icon.CirclePlus))
-</p>
+@Html.ProjectToolbarFor(Model.ID)

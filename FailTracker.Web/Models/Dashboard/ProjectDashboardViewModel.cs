@@ -4,6 +4,7 @@ using AutoMapper;
 using FailTracker.Core.Domain;
 using FailTracker.Web.Infrastructure.Mapping;
 using System.Linq;
+using FailTracker.Web.Models.Shared;
 
 namespace FailTracker.Web.Models.Dashboard
 {

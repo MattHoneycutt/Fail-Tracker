@@ -1,0 +1,9 @@
+﻿@using FailTracker.Web.Models.Shared
+@model ProjectToolbarViewModel
+
+<p>
+	@(Html.Tag().LinkTo<AddIssueController>(c => c.Index(Model.ProjectID), "View Sprint").AsButton(Icon.Signal))
+	@(Html.Tag().LinkTo<BacklogController>(c => c.Index(Model.ProjectID), "View Backlog").AsButton(Icon.FolderOpen))
+	@(Html.Tag().LinkTo<AddIssueController>(c => c.Index(Model.ProjectID), "View Completed").AsButton(Icon.Check))
+	@(Html.Tag().LinkTo<AddIssueController>(c => c.Index(Model.ProjectID), "Add New Issues").AsButton(Icon.CirclePlus))
+</p>

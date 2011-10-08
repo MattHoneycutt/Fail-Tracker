@@ -51,6 +51,7 @@ namespace FailTracker.Web.Helpers
 		public static readonly Icon FolderOpen = new Icon("folder-open");
 		public static readonly Icon Check = new Icon("check");
 		public static readonly Icon CirclePlus = new Icon("circle-plus");
+		public static readonly Icon Signal = new Icon("signal");
 
 		private readonly string _iconName;
 
