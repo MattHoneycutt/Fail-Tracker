@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
+using FailTracker.Core.Domain;
 using FailTracker.UnitTests.Web.Controllers.Contexts;
 using FailTracker.Web.Controllers;
 using FailTracker.Web.Models.Dashboard;
@@ -67,7 +68,7 @@ namespace FailTracker.UnitTests.Web.Controllers
 				{
 					base.Given();
 
-					TestProject.CurrentIssues.ForEach(i => i.Complete(TestUser, "Blah"));
+					TestProject.CurrentIssues.Where(i => i.Status != Status.Complete).ForEach(i => i.Complete(TestUser, "Blah"));
 				}
 			}
 		}
