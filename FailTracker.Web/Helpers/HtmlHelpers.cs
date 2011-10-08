@@ -7,10 +7,10 @@ namespace FailTracker.Web.Helpers
 {
 	public static class HtmlHelpers
 	{
-		 public static MvcHtmlString ProjectToolbarFor<TModel>(this HtmlHelper<TModel> helper, Guid projectID)
-		 {
-		 	var model = new ProjectToolbarViewModel(projectID);
-		 	return helper.DisplayFor(_ => model);
-		 }
+		public static MvcHtmlString ProjectToolbarFor<TModel>(this HtmlHelper<TModel> helper, Guid projectID)
+		{
+			var model = new ProjectToolbarViewModel(projectID);
+			return helper.DisplayFor(_ => model);
+		}
 	}
 }

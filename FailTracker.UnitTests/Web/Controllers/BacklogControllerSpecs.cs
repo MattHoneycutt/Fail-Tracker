@@ -17,7 +17,7 @@ namespace FailTracker.UnitTests.Web.Controllers
 
 			protected override void When()
 			{
-				_result = SUT.Index(TestProject.ID);
+				_result = SUT.Active(TestProject.ID);
 			}
 
 			[Test]
@@ -27,11 +27,35 @@ namespace FailTracker.UnitTests.Web.Controllers
 			}
 
 			[Test]
-			public void then_the_view_contains_a_list_of_all_active_issues()
+			public void then_the_view_contains_only_active_issues()
 			{
 				_result.AssertViewRendered()
-					.WithViewData<ProjectBacklogViewModel>()
-					.Issues.Length.ShouldEqual(TestProject.CurrentIssues.Count());
+					.WithViewData<BacklogStoriesViewModel>()
+					.Issues.Select(i => i.ID).ToArray().ShouldEqual(new[] { ActiveIssue.ID} );
+			}
+		}
+
+		public class when_viewing_completed_stories : given.the_default_state
+		{
+			private ActionResult _result;
+
+			protected override void When()
+			{
+				_result = SUT.Completed(TestProject.ID);
+			}
+
+			[Test]
+			public void then_it_returns_a_view()
+			{
+				_result.AssertViewRendered();
+			}
+
+			[Test]
+			public void then_it_returns_only_completed_issues()
+			{
+				_result.AssertViewRendered()
+					.WithViewData<CompletedStoriesViewModel>()
+					.Issues.Select(i => i.ID).ToArray().ShouldEqual(new[] { CompletedIssue.ID });
 			}
 		}
 

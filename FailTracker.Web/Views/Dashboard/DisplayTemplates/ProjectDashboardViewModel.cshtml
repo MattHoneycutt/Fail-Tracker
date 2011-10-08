@@ -14,9 +14,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		@foreach(var issue in Model.ActiveIssues){
-			@Html.DisplayFor(m => issue)
-		}
+		@Html.DisplayFor(m => m.ActiveIssues)
 	</tbody>
 </table>
 @Html.ProjectToolbarFor(Model.ID)

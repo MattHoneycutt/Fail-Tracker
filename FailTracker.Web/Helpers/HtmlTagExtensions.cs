@@ -44,6 +44,19 @@ namespace FailTracker.Web.Helpers
 
 			return tag;
 		}
+
+		public static HtmlTag ButtonTo<TController>(this HtmlTagHelper helper, Expression<Action<TController>> action, Icon icon) where TController : Controller
+		{
+			var target = helper.HtmlHelper.BuildUrlFromExpression(action);
+
+			var linkTag = new HtmlTag("a").Attr("href", target);
+			linkTag.Add("span")
+				.AddClass("button")
+				.AddClass("ui-icon")
+				.AddClass(icon.ToString());
+
+			return linkTag;
+		}
 	}
 
 	public class Icon
@@ -52,9 +65,10 @@ namespace FailTracker.Web.Helpers
 		public static readonly Icon Check = new Icon("check");
 		public static readonly Icon CirclePlus = new Icon("circle-plus");
 		public static readonly Icon Signal = new Icon("signal");
+		public static readonly Icon Search = new Icon("search");
 
 		private readonly string _iconName;
-
+	
 		private Icon(string iconName)
 		{
 			_iconName = iconName;

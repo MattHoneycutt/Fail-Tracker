@@ -1,12 +1,4 @@
 ﻿$(function () {
-	$("span.issue-preview").click(function () {
-		var id = $(this).attr("data-issue-id");
-		$("#issue-preview-dialog")
-				.html("<em>Loading...</em>")
-				.dialog({ modal: true })
-				.load(ViewBag.buildDetailsUrl(id));
-	});
-
 	$("span.issue-delete").click(function () {
 		var id = $(this).attr("data-issue-id");
 

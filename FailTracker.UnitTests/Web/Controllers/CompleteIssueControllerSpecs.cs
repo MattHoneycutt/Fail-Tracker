@@ -18,7 +18,7 @@ namespace FailTracker.UnitTests.Web.Controllers
 
 			protected override void When()
 			{
-				_result = SUT.Complete(TestIssue.ID);
+				_result = SUT.Complete(ActiveIssue.ID);
 			}
 
 			[Test]
@@ -26,7 +26,7 @@ namespace FailTracker.UnitTests.Web.Controllers
 			{
 				_result.AssertViewRendered()
 					.WithViewData<CompleteIssueForm>()
-					.Title.ShouldEqual(TestIssue.Title);
+					.Title.ShouldEqual(ActiveIssue.Title);
 			}
 		}
 
@@ -36,19 +36,19 @@ namespace FailTracker.UnitTests.Web.Controllers
 
 			protected override void When()
 			{
-				_result = SUT.Complete(new CompleteIssueForm {ID = TestIssue.ID, Comments = "Issue is fixed"});
+				_result = SUT.Complete(new CompleteIssueForm {ID = ActiveIssue.ID, Comments = "Issue is fixed"});
 			}
 
 			[Test]
 			public void then_it_marks_the_issue_as_complete()
 			{
-				TestIssue.Status.ShouldEqual(Status.Complete);
+				ActiveIssue.Status.ShouldEqual(Status.Complete);
 			}
 
 			[Test]
 			public void then_it_redirects_to_the_view_page()
 			{
-				_result.AssertActionRedirect().ToAction<IssuesController>(c => c.View(TestIssue.ID));
+				_result.AssertActionRedirect().ToAction<IssuesController>(c => c.View(ActiveIssue.ID));
 			}
 		}
 

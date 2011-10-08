@@ -1,6 +1,8 @@
 var Site = {};
 var ViewBag = {};
 
+//TODO: Consider breaking this monstrosity up!
+
 $(function () {
 	//Apply defaults
 	$("input[type=button], input[type=submit], a.button, span.button").each(function () {
@@ -12,6 +14,16 @@ $(function () {
 		}
 
 		el.button(options);
+	});
+
+	//Any link decorated with the preview class will open in a dialog. 
+	$("a.preview").click(function (e) {
+		e.preventDefault();
+		
+		$("#preview-dialog")
+			.html("<em>Loading...</em>")
+			.dialog({ modal: true })
+			.load($(this).attr("href"));
 	});
 
 	$.extend($.ui.dialog.prototype.options, {

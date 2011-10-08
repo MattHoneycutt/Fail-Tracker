@@ -18,7 +18,7 @@ namespace FailTracker.UnitTests.Web.Controllers
 
 			protected override void When()
 			{
-				_result = SUT.Reactivate(TestIssue.ID);
+				_result = SUT.Reactivate(ActiveIssue.ID);
 			}
 
 			[Test]
@@ -26,7 +26,7 @@ namespace FailTracker.UnitTests.Web.Controllers
 			{
 				_result.AssertViewRendered()
 					.WithViewData<ReactivateIssueForm>()
-					.Title.ShouldEqual(TestIssue.Title);
+					.Title.ShouldEqual(ActiveIssue.Title);
 			}
 		}
 
@@ -36,19 +36,19 @@ namespace FailTracker.UnitTests.Web.Controllers
 
 			protected override void When()
 			{
-				_result = SUT.Reactivate(new ReactivateIssueForm {ID = TestIssue.ID, Comments = "Issue wasn't fixed."});
+				_result = SUT.Reactivate(new ReactivateIssueForm {ID = ActiveIssue.ID, Comments = "Issue wasn't fixed."});
 			}
 
 			[Test]
 			public void then_it_changes_the_issues_status_to_active()
 			{
-				TestIssue.Status.ShouldEqual(Status.NotStarted);
+				ActiveIssue.Status.ShouldEqual(Status.NotStarted);
 			}
 
 			[Test]
 			public void then_it_redirects_to_the_issue()
 			{
-				_result.AssertActionRedirect().ToAction<IssuesController>(c => c.View(TestIssue.ID));
+				_result.AssertActionRedirect().ToAction<IssuesController>(c => c.View(ActiveIssue.ID));
 			}
 		}
 
@@ -60,7 +60,7 @@ namespace FailTracker.UnitTests.Web.Controllers
 				{
 					base.Given();
 
-					TestIssue.Complete(TestUser, "Completed by default_state");
+					ActiveIssue.Complete(TestUser, "Completed by default_state");
 				}
 			}
 		}

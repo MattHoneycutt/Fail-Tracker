@@ -42,7 +42,11 @@ namespace FailTracker.Web.Infrastructure.Startup
 
 			_routes.MapRoute("Backlog",
 			                 "{projectID}/Backlog",
-			                 new {controller = "Backlog", action = "Index"});
+			                 new {controller = "Backlog", action = "Active"});
+
+			_routes.MapRoute("Completed",
+			                 "{projectID}/Completed",
+							 new { controller = "Backlog", action = "Completed" });
 
 			_routes.MapRoute(
 				"Default", // Route name

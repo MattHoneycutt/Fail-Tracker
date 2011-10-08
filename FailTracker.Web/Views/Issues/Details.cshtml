@@ -13,7 +13,7 @@
 {
 	<hr />
 	<div class="bug-notes">
-		<h4>Edited by @Html.DisplayFor(m => change.EditedBy) at @change.ChangedAt</h4>
+		<h4>@change.Type by @Html.DisplayFor(m => change.EditedBy) at @change.ChangedAt</h4>
 		<div>@change.Comments</div>
 	</div>
 }

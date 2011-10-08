@@ -17,9 +17,16 @@ namespace FailTracker.Web.Controllers
 			_projects = projects;
 		}
 
-		public ActionResult Index(Guid projectID)
+		public ActionResult Active(Guid projectID)
 		{
-			var model = Mapper.Map<Project, ProjectBacklogViewModel>(_projects.Query().Single(p => p.ID == projectID));
+			var model = Mapper.Map<Project, BacklogStoriesViewModel>(_projects.Query().Single(p => p.ID == projectID));
+
+			return View(model);
+		}
+
+		public ActionResult Completed(Guid projectID)
+		{
+			var model = Mapper.Map<Project, CompletedStoriesViewModel>(_projects.Query().Single(p => p.ID == projectID));
 
 			return View(model);
 		}

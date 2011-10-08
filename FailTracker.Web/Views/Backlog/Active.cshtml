@@ -1,5 +1,5 @@
 ﻿@using FailTracker.Web.Models.Backlog
-@model ProjectBacklogViewModel
+@model BacklogStoriesViewModel
 
 @{
 	ViewBag._Title = "Backlog for " + Model.ProjectName;
@@ -17,9 +17,8 @@
 			<th>&nbsp;</th>
 		</tr>
 	</thead>
-@foreach (var issue in Model.Issues)
-{
-	@Html.DisplayFor(m => issue)
-}
+	<tbody>
+		@Html.DisplayFor(m => m.Issues)
+	</tbody>
 </table>
 @Html.ProjectToolbarFor(Model.ProjectID)

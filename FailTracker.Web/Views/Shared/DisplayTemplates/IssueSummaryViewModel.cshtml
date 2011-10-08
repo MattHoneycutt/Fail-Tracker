@@ -2,7 +2,7 @@
 @model IssueSummaryViewModel
 		   
 		<tr>
-			<td><span class="ui-icon ui-icon-search issue-preview button" data-issue-id="@Model.ID"></span></td>
+			<td>@(Html.Tag().ButtonTo<IssuesController>(c => c.Details(Model.ID), Icon.Search).AddClass("preview"))</td>
 			<td>@Model.Type</td>
 			<td>@(Html.ActionLink<IssuesController>(c => c.View(Model.ID), Model.Title))</td>
 			<td>@Model.Size</td>

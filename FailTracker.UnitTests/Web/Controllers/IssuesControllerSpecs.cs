@@ -73,7 +73,7 @@ namespace FailTracker.UnitTests.Web.Controllers
 
 			protected override void When()
 			{
-				_result = SUT.Edit(TestIssue.ID);
+				_result = SUT.Edit(ActiveIssue.ID);
 			}
 
 			[Test]
@@ -86,7 +86,7 @@ namespace FailTracker.UnitTests.Web.Controllers
 			public void then_it_returns_the_expected_model()
 			{
 				var model = _result.AssertViewRendered().WithViewData<EditIssueForm>();
-				model.AssignedToID.ShouldEqual(TestIssue.AssignedTo.ID);
+				model.AssignedToID.ShouldEqual(ActiveIssue.AssignedTo.ID);
 			}
 		}
 
@@ -98,7 +98,7 @@ namespace FailTracker.UnitTests.Web.Controllers
 			{
 				_result =SUT.Edit(new EditIssueForm
 				         	{
-				         		ID = TestIssue.ID,
+				         		ID = ActiveIssue.ID,
 				         		AssignedToID = CreatorUser.ID,
 				         		Size = PointSize.OneHundred,
 				         		Type = IssueType.Bug,
@@ -112,49 +112,49 @@ namespace FailTracker.UnitTests.Web.Controllers
 			[Test]
 			public void then_it_redirects_to_the_view_page()
 			{
-				_result.AssertActionRedirect().ToAction<IssuesController>(c => c.View(TestIssue.ID));
+				_result.AssertActionRedirect().ToAction<IssuesController>(c => c.View(ActiveIssue.ID));
 			}
 
 			[Test]
 			public void then_it_changes_the_owner()
 			{
-				TestIssue.AssignedTo.ShouldEqual(CreatorUser);
+				ActiveIssue.AssignedTo.ShouldEqual(CreatorUser);
 			}
 
 			[Test]
 			public void then_it_changes_the_point_size()
 			{
-				TestIssue.Size.ShouldEqual(PointSize.OneHundred);
+				ActiveIssue.Size.ShouldEqual(PointSize.OneHundred);
 			}
 
 			[Test]
 			public void then_it_changes_the_type()
 			{
-				TestIssue.Type.ShouldEqual(IssueType.Bug);
+				ActiveIssue.Type.ShouldEqual(IssueType.Bug);
 			}
 
 			[Test]
 			public void then_it_changes_the_title()
 			{
-				TestIssue.Title.ShouldEqual("Edited!");
+				ActiveIssue.Title.ShouldEqual("Edited!");
 			}
 
 			[Test]
 			public void then_it_changes_the_description()
 			{
-				TestIssue.Description.ShouldEqual("New Description");
+				ActiveIssue.Description.ShouldEqual("New Description");
 			}
 
 			[Test]
 			public void then_it_adds_a_comment()
 			{
-				TestIssue.Changes.Last().Comments.ShouldEqual("Edited Comments!");
+				ActiveIssue.Changes.Last().Comments.ShouldEqual("Edited Comments!");
 			}
 
 			[Test]
 			public void then_it_captures_the_editor()
 			{
-				TestIssue.Changes.Last().EditedBy.ShouldEqual(TestUser);
+				ActiveIssue.Changes.Last().EditedBy.ShouldEqual(TestUser);
 			}
 		}
 
@@ -164,7 +164,7 @@ namespace FailTracker.UnitTests.Web.Controllers
 
 			protected override void When()
 			{
-				_result = SUT.Details(TestIssue.ID);
+				_result = SUT.Details(ActiveIssue.ID);
 			}
 
 			[Test]

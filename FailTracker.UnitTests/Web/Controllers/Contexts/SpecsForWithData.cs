@@ -10,8 +10,9 @@ namespace FailTracker.UnitTests.Web.Controllers.Contexts
 	{
 		protected User TestUser;
 		protected User CreatorUser;
-		protected Issue TestIssue;
+		protected Issue ActiveIssue;
 		protected Project TestProject;
+		protected Issue CompletedIssue;
 
 		protected override void Given()
 		{
@@ -34,13 +35,17 @@ namespace FailTracker.UnitTests.Web.Controllers.Contexts
 
 		private void CreateIssues()
 		{
-			TestIssue = Issue.CreateNewIssue(TestProject, "Test Issue", CreatorUser, "This is a test");
-			TestIssue.ReassignTo(TestUser);
-			TestIssue.ID = Guid.NewGuid();
+			ActiveIssue = Issue.CreateNewIssue(TestProject, "Test Issue", CreatorUser, "This is a test");
+			ActiveIssue.ReassignTo(TestUser);
+			ActiveIssue.ID = Guid.NewGuid();
+
+			CompletedIssue = Issue.CreateNewIssue(TestProject, "Completed", CreatorUser, "This is a completed issue.");
+			CompletedIssue.Complete(TestUser, "Finished!");
+			CompletedIssue.ID = Guid.NewGuid();
 
 			GetMockFor<IRepository<Issue>>()
 				.Setup(r => r.Query())
-				.Returns((new[] { TestIssue }).AsQueryable());
+				.Returns((new[] { ActiveIssue, CompletedIssue }).AsQueryable());
 		}
 
 		private void CreateUsers()
