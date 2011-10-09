@@ -8,7 +8,7 @@ namespace FailTracker.Core.Data
 	{
 		public void Override(AutoMapping<Project> mapping)
 		{
-			mapping.HasManyToMany<User>(p => p.Members);
+			mapping.HasManyToMany(p => p.Members);
 		}
 	}
 }

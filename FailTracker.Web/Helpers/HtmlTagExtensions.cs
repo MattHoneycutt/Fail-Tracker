@@ -50,7 +50,7 @@ namespace FailTracker.Web.Helpers
 			var target = helper.HtmlHelper.BuildUrlFromExpression(action);
 
 			var linkTag = new HtmlTag("a").Attr("href", target);
-			linkTag.Add("span")
+			linkTag
 				.AddClass("button")
 				.AddClass("ui-icon")
 				.AddClass(icon.ToString());

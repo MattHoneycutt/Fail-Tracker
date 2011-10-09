@@ -2,19 +2,4 @@
 @model ProjectDashboardViewModel
 		   
 <h3>Recent changes in @Model.Name</h3>
-<table>
-	<thead>
-		<tr>
-			<th>&nbsp;</th>
-			<th>Type</th>
-			<th>Title</th>
-			<th>Size</th>
-			<th>Assigned To</th>
-			<th>&nbsp;</th>
-		</tr>
-	</thead>
-	<tbody>
-		@Html.DisplayFor(m => m.ActiveIssues)
-	</tbody>
-</table>
-@Html.ProjectToolbarFor(Model.ID)
+@Html.DisplayIssueGrid(Model.ActiveIssues).WithProjectToolBar(Model.ID)

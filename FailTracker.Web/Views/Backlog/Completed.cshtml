@@ -6,19 +6,4 @@
 }
 
 <h2>Completed Stories - @Model.ProjectName</h2>
-<table>
-	<thead>
-		<tr>
-			<th>&nbsp;</th>
-			<th>Type</th>
-			<th>Title</th>
-			<th>Size</th>
-			<th>Assigned To</th>
-			<th>&nbsp;</th>
-		</tr>
-	</thead>
-	<tbody>
-		@Html.DisplayFor(m => m.Issues)
-	</tbody>
-</table>
-@Html.ProjectToolbarFor(Model.ProjectID)
+@Html.DisplayIssueGrid(Model.Issues).WithProjectToolBar(Model.ProjectID)

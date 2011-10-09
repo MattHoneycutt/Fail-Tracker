@@ -1,6 +1,6 @@
 using System;
 
-namespace FailTracker.Web.Models.Shared
+namespace FailTracker.Web.Models.Helpers
 {
 	public class ProjectToolbarViewModel
 	{
