@@ -53,6 +53,7 @@ namespace FailTracker.Core.Domain
 			issue._activeChange = Change.Empty;
 
 			project.AttachIssue(issue);
+			issue.Project = project;
 
 			return issue;
 		}

@@ -12,6 +12,13 @@
 				});
 
 				return helper;
+			},
+			update: function (e, ui) {
+				var moved = $(ui.item);
+				var next = moved.next();
+
+				//TODO: Post the IDs to the server!
+				
 			}
 		});
 	})
@@ -30,7 +37,7 @@
 	<tbody>
 		@foreach (var issue in Model.Issues)
 		{
-			<tr>
+			<tr data-issue-id="@issue.ID">
 				<td>
 					@if (Model.AllowReordering)
 					{

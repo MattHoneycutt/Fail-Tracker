@@ -1,4 +1,6 @@
-﻿using FailTracker.Core.Domain;
+﻿using System;
+using System.Linq;
+using FailTracker.Core.Domain;
 using NUnit.Framework;
 using Should;
 using SpecsFor;
@@ -44,7 +46,7 @@ namespace FailTracker.UnitTests.Core.Domain
 			}
 		}
 
-		public class when_attaching_an_issue_to_a_story : given.project_exists
+		public class when_attaching_an_issue_to_a_project : given.project_exists
 		{
 			private Issue TestIssue;
 
@@ -61,6 +63,52 @@ namespace FailTracker.UnitTests.Core.Domain
 			}
 		}
 
+		public class when_moving_an_issue_to_the_top_of_the_backlog : given.there_are_multiple_issues_in_the_project
+		{
+			protected override void When()
+			{
+				SUT.MoveIssue(LastIssue, FirstIssue);
+			}
+
+			[Test]
+			public void then_the_order_of_issues_is_updated()
+			{
+				SUT.CurrentIssues.ToArray().ShouldEqual(new[] { LastIssue, FirstIssue});
+			}
+		}
+
+		public class when_moving_an_issue_that_does_not_belong_to_the_backlog : given.there_are_multiple_issues_in_the_project
+		{
+			private InvalidOperationException _exception;
+
+			protected override void When()
+			{
+				_exception = Assert.Throws<InvalidOperationException>(() => SUT.MoveIssue(Issue.CreateNewIssue(Project.Create("Other", Creator), "Not In Project", Creator, "Test"), FirstIssue));
+			}
+
+			[Test]
+			public void then_it_throws_an_exception_that_explains_how_to_fix_the_problem()
+			{
+				_exception.Message.ShouldEqual("The issue you are attempting to move does not belong to the project.  Attach it to the project first, then try moving it.");
+			}
+		}
+
+		public class when_moving_an_issue_before_a_target_that_is_not_in_the_backlog : given.there_are_multiple_issues_in_the_project
+		{
+			private InvalidOperationException _exception;
+
+			protected override void When()
+			{
+				_exception = Assert.Throws<InvalidOperationException>(() => SUT.MoveIssue(LastIssue, Issue.CreateNewIssue(Project.Create("Other", Creator), "Not In Project", Creator, "Test")));
+			}
+
+			[Test]
+			public void then_it_throws_an_exception_that_explains_how_to_fix_the_problem()
+			{
+				_exception.Message.ShouldEqual("The target issue does not belong to the project.  Attach it to the project first, then try moving an issue before it.");
+			}
+		}
+
 		public static class given
 		{
 			public abstract class project_exists : SpecsFor<Project>
@@ -73,6 +121,21 @@ namespace FailTracker.UnitTests.Core.Domain
 					SUT = Project.Create("Test Project", Creator);
 				}
 			}
+
+			public abstract class there_are_multiple_issues_in_the_project : project_exists
+			{
+				protected Issue FirstIssue;
+				protected Issue LastIssue;
+
+				protected override void Given()
+				{
+					base.Given();
+
+					FirstIssue = Issue.CreateNewIssue(SUT, "An Issue", Creator, "Test");
+					LastIssue = Issue.CreateNewIssue(SUT, "Another Issue", Creator, "Test");
+				}
+			}
+
 		}
 	}
 }
