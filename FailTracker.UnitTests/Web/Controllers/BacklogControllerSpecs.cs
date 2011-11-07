@@ -1,4 +1,7 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
+using FailTracker.Core.Data;
+using FailTracker.Core.Domain;
 using FailTracker.UnitTests.Web.Controllers.Contexts;
 using FailTracker.Web.Controllers;
 using FailTracker.Web.Models.Backlog;
@@ -31,7 +34,7 @@ namespace FailTracker.UnitTests.Web.Controllers
 			{
 				_result.AssertViewRendered()
 					.WithViewData<BacklogStoriesViewModel>()
-					.Issues.Select(i => i.ID).ToArray().ShouldEqual(new[] { ActiveIssue.ID} );
+					.Issues.Select(i => i.ID).ToArray().ShouldEqual(new[] { ActiveIssue.ID, LastIssue.ID } );
 			}
 		}
 
@@ -59,11 +62,45 @@ namespace FailTracker.UnitTests.Web.Controllers
 			}
 		}
 
+		public class when_reordering_the_backlog : given.the_default_state
+		{
+			private ActionResult _result;
+
+			protected override void When()
+			{
+				_result = SUT.Reorder(new ReorderForm {MovedID = LastIssue.ID, RelativeToID = ActiveIssue.ID, ProjectID = TestProject.ID});
+			}
+
+			[Test]
+			public void then_it_returns_success()
+			{
+				_result.ShouldBeType<JsonResult>();
+			}
+
+			[Test]
+			public void then_it_puts_the_last_issue_at_the_top_of_the_backlog()
+			{
+				TestProject.CurrentIssues.First().ShouldBeSameAs(LastIssue);
+			}
+		}
+
 		public static class given
 		{
 			public abstract class the_default_state : SpecsForWithData<BacklogController>
 			{
-				
+				protected Issue LastIssue;
+
+				protected override void Given()
+				{
+					base.Given();
+
+					LastIssue = Issue.CreateNewIssue(TestProject, "Last Issue", CreatorUser, "Test");
+					LastIssue.ID = Guid.NewGuid();
+
+					GetMockFor<IRepository<Issue>>()
+						.Setup(r => r.Query())
+						.Returns((new[] {ActiveIssue, CompletedIssue, LastIssue}).AsQueryable());
+				}
 			}
 		}
 	}

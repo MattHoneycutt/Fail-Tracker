@@ -67,7 +67,7 @@ namespace FailTracker.UnitTests.Core.Domain
 		{
 			protected override void When()
 			{
-				SUT.MoveIssue(LastIssue, FirstIssue);
+				SUT.MoveIssue(LastIssue, MoveType.Before, FirstIssue);
 			}
 
 			[Test]
@@ -83,7 +83,8 @@ namespace FailTracker.UnitTests.Core.Domain
 
 			protected override void When()
 			{
-				_exception = Assert.Throws<InvalidOperationException>(() => SUT.MoveIssue(Issue.CreateNewIssue(Project.Create("Other", Creator), "Not In Project", Creator, "Test"), FirstIssue));
+				var newIssue = Issue.CreateNewIssue(Project.Create("Other", Creator), "Not In Project", Creator, "Test");
+				_exception = Assert.Throws<InvalidOperationException>(() => SUT.MoveIssue(newIssue, MoveType.Before, FirstIssue));
 			}
 
 			[Test]
@@ -99,13 +100,28 @@ namespace FailTracker.UnitTests.Core.Domain
 
 			protected override void When()
 			{
-				_exception = Assert.Throws<InvalidOperationException>(() => SUT.MoveIssue(LastIssue, Issue.CreateNewIssue(Project.Create("Other", Creator), "Not In Project", Creator, "Test")));
+				var newIssue = Issue.CreateNewIssue(Project.Create("Other", Creator), "Not In Project", Creator, "Test");
+				_exception = Assert.Throws<InvalidOperationException>(() => SUT.MoveIssue(LastIssue, MoveType.Before, newIssue));
 			}
 
 			[Test]
 			public void then_it_throws_an_exception_that_explains_how_to_fix_the_problem()
 			{
 				_exception.Message.ShouldEqual("The target issue does not belong to the project.  Attach it to the project first, then try moving an issue before it.");
+			}
+		}
+
+		public class when_moving_the_first_issue_to_the_bottom_of_the_backlog : given.there_are_multiple_issues_in_the_project
+		{
+			protected override void When()
+			{
+				SUT.MoveIssue(FirstIssue, MoveType.After, LastIssue);
+			}
+
+			[Test]
+			public void then_it_reorders_the_backlog()
+			{
+				SUT.CurrentIssues.ToArray().ShouldEqual(new[] {LastIssue, FirstIssue});
 			}
 		}
 

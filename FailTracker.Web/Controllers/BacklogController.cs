@@ -30,5 +30,17 @@ namespace FailTracker.Web.Controllers
 
 			return View(model);
 		}
+
+		public ActionResult Reorder(ReorderForm model)
+		{
+			var project = _projects.Query().Single(p => p.ID == model.ProjectID);
+
+			var moved = project.CurrentIssues.Single(i => i.ID == model.MovedID);
+			var relativeTo = project.CurrentIssues.Single(i => i.ID == model.RelativeToID);
+
+			project.MoveIssue(moved, model.MoveType, relativeTo);
+
+			return new JsonResult();
+		}
 	}
 }

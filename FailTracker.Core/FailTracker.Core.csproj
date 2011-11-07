@@ -99,6 +99,7 @@
     <Compile Include="Domain\ChangeType.cs" />
     <Compile Include="Domain\Issue.cs" />
     <Compile Include="Domain\IssueType.cs" />
+    <Compile Include="Domain\MoveType.cs" />
     <Compile Include="Domain\PointSize.cs" />
     <Compile Include="Domain\Project.cs" />
     <Compile Include="Domain\Status.cs" />

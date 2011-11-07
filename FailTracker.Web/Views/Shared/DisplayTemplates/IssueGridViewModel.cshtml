@@ -1,4 +1,5 @@
 ﻿@using FailTracker.Web.Models.Helpers
+@using Microsoft.Web.Mvc
 @model IssueGridViewModel
 <script type="text/javascript">
 	$(function () {
@@ -15,10 +16,21 @@
 			},
 			update: function (e, ui) {
 				var moved = $(ui.item);
-				var next = moved.next();
+				var relativeTo = moved.next();
+				var moveType = "Before";
 
-				//TODO: Post the IDs to the server!
-				
+				console.log(moved, relativeTo);
+
+				if (relativeTo.length === 0) {
+					moveType = "After";
+					relativeTo = moved.prev();
+				}
+				console.log(moved, relativeTo);
+
+				var movedID = moved.data("issueId");
+				var relativeToID = relativeTo.data("issueId");
+
+				$.post("@(Html.BuildUrlFromExpression<BacklogController>(c => c.Reorder(null)))", { movedID: movedID, moveType: moveType, relativeToID: relativeToID, projectID: "@Model.ProjectID" });
 			}
 		});
 	})

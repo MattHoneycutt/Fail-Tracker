@@ -24,7 +24,7 @@ namespace FailTracker.Web.Helpers
 
 		public string ToHtmlString()
 		{
-			var model = new IssueGridViewModel(_issues) {AllowReordering = _allowReorder};
+			var model = new IssueGridViewModel(_projectID, _issues) {AllowReordering = _allowReorder};
 
 			var builder = new StringBuilder(_helper.DisplayFor(_ => model).ToHtmlString());
 

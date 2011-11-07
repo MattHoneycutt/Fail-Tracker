@@ -209,6 +209,7 @@
     <Compile Include="Infrastructure\Startup\RouteBootstrapper.cs" />
     <Compile Include="Models\Backlog\CompletedStoriesViewModel.cs" />
     <Compile Include="Models\Backlog\BacklogStoriesViewModel.cs" />
+    <Compile Include="Models\Backlog\ReorderForm.cs" />
     <Compile Include="Models\CompleteIssue\CompleteIssueForm.cs" />
     <Compile Include="Models\Dashboard\ProjectDashboardViewModel.cs" />
     <Compile Include="Models\Helpers\IssueGridViewModel.cs" />

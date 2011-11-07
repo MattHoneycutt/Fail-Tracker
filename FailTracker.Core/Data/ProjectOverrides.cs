@@ -9,6 +9,7 @@ namespace FailTracker.Core.Data
 		public void Override(AutoMapping<Project> mapping)
 		{
 			mapping.HasManyToMany(p => p.Members);
+			mapping.HasMany(p => p.CurrentIssues).AsList(index => index.Column("Priority"));
 		}
 	}
 }

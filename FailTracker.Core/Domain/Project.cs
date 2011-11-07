@@ -42,7 +42,7 @@ namespace FailTracker.Core.Domain
 			((IList<Issue>) CurrentIssues).Add(issue);
 		}
 
-		public virtual void MoveIssue(Issue toMove, Issue target)
+		public virtual void MoveIssue(Issue toMove, MoveType moveType,  Issue target)
 		{
 			var issues = ((IList<Issue>) CurrentIssues);
 
@@ -51,14 +51,19 @@ namespace FailTracker.Core.Domain
 				throw new InvalidOperationException("The issue you are attempting to move does not belong to the project.  Attach it to the project first, then try moving it.");
 			}
 
-			var index = issues.IndexOf(target);
-
-			if (index < 0)
+			if (!issues.Contains(target))
 			{
 				throw new InvalidOperationException("The target issue does not belong to the project.  Attach it to the project first, then try moving an issue before it.");
 			}
 
 			issues.Remove(toMove);
+
+			var index = issues.IndexOf(target);
+
+			if (moveType == MoveType.After)
+			{
+				index++;
+			}
 
 			issues.Insert(index, toMove);
 		}
