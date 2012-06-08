@@ -50,7 +50,7 @@ namespace FailTracker.UnitTests.Core.Domain
 			[Test]
 			public void then_the_issue_is_editable()
 			{
-				Assert.DoesNotThrow(() => SUT.ReassignTo(User.CreateNewUser("other@user.com", "pass")));
+				Assert.DoesNotThrow(() => SUT.ChangeSizeTo(PointSize.One));
 			}
 
 			[Test]
