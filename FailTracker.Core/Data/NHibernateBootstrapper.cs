@@ -1,5 +1,6 @@
 using FluentNHibernate.Automapping;
 using FluentNHibernate.Cfg;
+using FluentNHibernate.Cfg.Db;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Mapping;
@@ -15,16 +16,14 @@ namespace FailTracker.Core.Data
 
 		public static void Bootstrap()
 		{
-			var stdConfig = new Configuration();
-			stdConfig.Configure();
-			stdConfig.AddAuxiliaryDatabaseObject(new SimpleAuxiliaryDatabaseObject("alter table UserToProject add constraint PK_UserToProject primary key (User_id, Project_id)", ""));
-
-			_configuration = Fluently.Configure(stdConfig)
-				.Mappings(m => m.AutoMappings.Add(
+			_configuration = Fluently.Configure()
+					.Database(MsSqlCeConfiguration.Standard.ConnectionString(c => c.FromConnectionStringWithKey("FailTrackerData")))
+					.Mappings(m => m.AutoMappings.Add(
 					AutoMap.AssemblyOf<Issue>(new FailTrackerConfig()).UseOverridesFromAssemblyOf<IssueOverrides>()
 					)
 				)
 				.BuildConfiguration();
+			_configuration.AddAuxiliaryDatabaseObject(new SimpleAuxiliaryDatabaseObject("alter table UserToProject add constraint PK_UserToProject primary key (User_id, Project_id)", ""));
 
 			_sessionFactory = _configuration.BuildSessionFactory();
 		}
