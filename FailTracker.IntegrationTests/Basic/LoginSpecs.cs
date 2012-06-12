@@ -9,6 +9,29 @@ namespace FailTracker.IntegrationTests.Basic
 {
 	public class LoginSpecs
 	{
+		public class when_logging_in_with_no_credentials : SpecsFor<MvcWebApp>
+		{
+			protected override void When()
+			{
+				SUT.NavigateTo<AuthenticationController>(c => c.LogOn());
+				SUT.FindFormFor<LogOnForm>().Submit();
+			}
+
+			[Test]
+			public void then_it_displays_a_validation_error_on_the_email_address()
+			{
+				SUT.FindFormFor<LogOnForm>()
+					.Field(f => f.EmailAddress).ShouldBeInvalid();
+			}
+
+			[Test]
+			public void then_it_displays_a_validation_error_on_the_password()
+			{
+				SUT.FindFormFor<LogOnForm>()
+					.Field(f => f.Password).ShouldBeInvalid();
+			}
+		}
+
 		public class when_logging_in_with_invalid_credentials : SpecsFor<MvcWebApp>
 		{
 			protected override void When()
