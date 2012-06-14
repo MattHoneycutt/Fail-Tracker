@@ -113,9 +113,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Authentication\LoginSpecs.cs" />
+    <Compile Include="General\AuthenticationSpecs.cs" />
     <Compile Include="Config.cs" />
+    <Compile Include="General\DashboardSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RawSelenium\AuthenticationSpecs.cs" />
     <Compile Include="RegularUserAuthenticator.cs" />
     <Compile Include="TestSeedData.cs" />
   </ItemGroup>

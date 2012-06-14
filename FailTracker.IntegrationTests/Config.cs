@@ -1,4 +1,5 @@
-﻿using FailTracker.Web.Infrastructure.Startup;
+﻿using System;
+using FailTracker.Web.Infrastructure.Startup;
 using NUnit.Framework;
 using SpecsFor.Mvc;
 using Project = SpecsFor.Mvc.Project;
@@ -23,6 +24,8 @@ namespace FailTracker.IntegrationTests
 			config.Use<TestSeedData>();
 
 			config.AuthenticateBeforeEachTestUsing<RegularUserAuthenticator>();
+
+			//config.PostOperationDelay(TimeSpan.FromSeconds(1));
 
 			_host = new SpecsForIntegrationHost(config);
 			_host.Start();

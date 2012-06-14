@@ -1,14 +1,13 @@
-﻿using System;
-using FailTracker.Web.Controllers;
+﻿using FailTracker.Web.Controllers;
 using FailTracker.Web.Models.Authentication;
 using NUnit.Framework;
 using SpecsFor;
 using SpecsFor.Mvc;
 using MvcContrib.TestHelper;
 
-namespace FailTracker.IntegrationTests.Authentication
+namespace FailTracker.IntegrationTests.General
 {
-	public class LoginSpecs
+	public class AuthenticationSpecs
 	{
 		public abstract class given_the_user_is_unauthenticated : SpecsFor<MvcWebApp>
 		{
@@ -89,6 +88,20 @@ namespace FailTracker.IntegrationTests.Authentication
 				{
 					SUT.Route.ShouldMapTo<DashboardController>(c => c.Index());
 				}
+			}
+		}
+
+		public class when_logging_out : SpecsFor<MvcWebApp>
+		{
+			protected override void When()
+			{
+				SUT.NavigateTo<AuthenticationController>(c => c.LogOff());
+			}
+
+			[Test]
+			public void then_it_takes_the_user_to_the_login_page()
+			{
+				SUT.Route.ShouldMapTo<AuthenticationController>(c => c.LogOn());
 			}
 		}
 	}
