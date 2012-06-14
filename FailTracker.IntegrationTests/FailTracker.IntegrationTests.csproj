@@ -113,9 +113,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Basic\LoginSpecs.cs" />
+    <Compile Include="Authentication\LoginSpecs.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegularUserAuthenticator.cs" />
+    <Compile Include="TestSeedData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
