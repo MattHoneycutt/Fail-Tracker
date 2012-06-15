@@ -9,10 +9,13 @@ namespace FailTracker.IntegrationTests
 	{
 		public void Authenticate(MvcWebApp app)
 		{
+			app.Browser.Manage().Cookies.DeleteAllCookies();
+			
 			app.NavigateTo<AuthenticationController>(c => c.LogOn());
-			app.FindFormFor<LogOnForm>()
-				.Field(f => f.EmailAddress).SetValueTo("test@user.com")
-				.Field(f => f.Password).SetValueTo("TestPassword01")
+			
+			app.FindFormFor<LogOnForm>().Field(f => f.EmailAddress)
+				.SetValueTo("test@user.com").Field(f => f.Password)
+				.SetValueTo("TestPassword01")
 				.Submit();
 		}
 	}

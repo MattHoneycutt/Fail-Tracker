@@ -18,8 +18,8 @@ namespace FailTracker.IntegrationTests
 
 			using (var session = NHibernateBootstrapper.GetSession())
 			{
-				var user = User.CreateNewUser("test@user.com", "TestPassword01");
-				session.Save(user);
+				session.Save(User.CreateNewUser("test@user.com", "TestPassword01"));
+				session.Save(User.CreateNewUser("other@user.com", "TestPassword01"));
 
 				session.Flush();
 			}

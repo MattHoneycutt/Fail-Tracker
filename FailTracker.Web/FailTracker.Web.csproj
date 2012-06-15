@@ -225,6 +225,7 @@
     <Compile Include="Models\Issues\ChangeViewModel.cs" />
     <Compile Include="Models\Issues\EditIssueForm.cs" />
     <Compile Include="Infrastructure\Mapping\IHaveCustomMappings.cs" />
+    <Compile Include="Models\ProjectAdministration\ProjectListViewModel.cs" />
     <Compile Include="Models\Shared\IssueSummaryViewModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -409,6 +410,45 @@
       <DependentUpon>Web.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\DisplayTemplates\Url.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\DisplayTemplates\Text.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\DisplayTemplates\String.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\DisplayTemplates\Object.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\DisplayTemplates\Html.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\DisplayTemplates\HiddenInput.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\DisplayTemplates\Float.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\DisplayTemplates\EmailAddress.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\DisplayTemplates\Double.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\DisplayTemplates\Decimal.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\DisplayTemplates\Collection.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\DisplayTemplates\Boolean.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\DisplayTemplates\_Layout.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

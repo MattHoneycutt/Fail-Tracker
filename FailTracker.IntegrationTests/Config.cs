@@ -25,6 +25,8 @@ namespace FailTracker.IntegrationTests
 
 			config.AuthenticateBeforeEachTestUsing<RegularUserAuthenticator>();
 
+			config.InterceptEmailMessagesOnPort(49999);
+
 			//config.PostOperationDelay(TimeSpan.FromSeconds(1));
 
 			_host = new SpecsForIntegrationHost(config);

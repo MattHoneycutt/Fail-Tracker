@@ -26,7 +26,7 @@ namespace FailTracker.UnitTests.Web.Controllers
 			[Test]
 			public void then_it_returns_the_projects()
 			{
-				_result.AssertViewRendered().WithViewData<ProjectSummaryViewModel[]>().ShouldNotBeEmpty();
+				_result.AssertViewRendered().WithViewData<ProjectListViewModel>().Summaries.ShouldNotBeEmpty();
 			}
 		}
 
