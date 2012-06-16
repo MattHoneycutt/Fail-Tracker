@@ -180,7 +180,6 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
-    <Compile Include="Controllers\SupportRequestController.cs" />
     <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Helpers\HtmlTagExtensions.cs" />
     <Compile Include="Helpers\ImageExtensions.cs" />
@@ -242,8 +241,6 @@
     <Compile Include="Models\ReactivateIssue\ReactivateIssueForm.cs" />
     <Compile Include="Models\Helpers\ProjectToolbarViewModel.cs" />
     <Compile Include="Models\SignUp\SignUpForm.cs" />
-    <Compile Include="Models\SupportRequest\SubmitSupportRequestForm.cs" />
-    <Compile Include="Models\SupportRequest\SupportAcknowledgementViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helpers\EnumExtensions.cs" />
     <Content Include="Content\Account\LogOn.css" />
@@ -453,12 +450,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\DisplayTemplates\_Layout.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\SupportRequest\Submit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\SupportRequest\ThankYou.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

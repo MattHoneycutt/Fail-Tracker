@@ -20,9 +20,7 @@ namespace FailTracker.IntegrationTests.RawSelenium
 	[Explicit]
 	public class AuthenticationSpecs
 	{
-		//TODO: Switch back to 
-		//private const string TargetAppUrl = "URL GOES HERE!";
-		private const string TargetAppUrl = "http://localhost:65140";
+        private const string TargetAppUrl = "URL GOES HERE!";
 
 		[Test]
 		public void unauthorized_user_cannot_access_dashboard()
