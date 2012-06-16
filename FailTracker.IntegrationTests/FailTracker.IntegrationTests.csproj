@@ -114,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contexts\ProjectExists.cs" />
+    <Compile Include="Contexts\UserIsUnauthenticated.cs" />
     <Compile Include="General\AuthenticationSpecs.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="ProjectManagement\AddNewProject.cs" />
@@ -123,6 +124,7 @@
     <Compile Include="RegularUserAuthenticator.cs" />
     <Compile Include="SpecsForMvcExt\FakeViewDataContainer.cs" />
     <Compile Include="SpecsForMvcExt\MvcWebAppExtensions.cs" />
+    <Compile Include="SupportRequests\SubmitNewRequest.cs" />
     <Compile Include="TestSeedData.cs" />
   </ItemGroup>
   <ItemGroup>

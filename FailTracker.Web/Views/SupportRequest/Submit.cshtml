@@ -1,0 +1,8 @@
+﻿@model FailTracker.Web.Models.SupportRequest.SubmitSupportRequestForm
+
+<h2>Need help?</h2>
+@using(Html.BeginForm())
+{
+	@Html.EditorForModel()
+    @MyHelpers.ControlBox("Contact Us")
+}
