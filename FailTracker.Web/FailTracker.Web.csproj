@@ -220,6 +220,7 @@
     <Compile Include="Models\Backlog\BacklogStoriesViewModel.cs" />
     <Compile Include="Models\Backlog\ReorderForm.cs" />
     <Compile Include="Models\CompleteIssue\CompleteIssueForm.cs" />
+    <Compile Include="Models\DashboardViewModel.cs" />
     <Compile Include="Models\Dashboard\ProjectDashboardViewModel.cs" />
     <Compile Include="Models\Helpers\IssueGridViewModel.cs" />
     <Compile Include="Models\Issues\ChangeViewModel.cs" />

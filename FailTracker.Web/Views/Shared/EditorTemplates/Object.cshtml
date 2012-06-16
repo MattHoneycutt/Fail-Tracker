@@ -1,6 +1,7 @@
 ﻿@{
     Layout = null;
 }
+@Html.ValidationSummary()
 <ul>
 @foreach (var prop in ViewData.ModelMetadata.Properties.Where(pm => pm.ShowForEdit))
 {

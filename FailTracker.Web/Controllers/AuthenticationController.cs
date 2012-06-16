@@ -31,6 +31,7 @@ namespace FailTracker.Web.Controllers
 
 			if (user == null || !user.IsThisTheUsersPassword(form.Password))
 			{
+				ModelState.AddModelError("*", "The user name or password provided is incorrect.");
 				return View(new LogOnForm {EmailAddress = form.EmailAddress})
 						.WithErrorMessage("Invalid username or password.");
 			}

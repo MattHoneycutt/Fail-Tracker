@@ -116,7 +116,6 @@
     <Compile Include="Contexts\ProjectExists.cs" />
     <Compile Include="General\AuthenticationSpecs.cs" />
     <Compile Include="Config.cs" />
-    <Compile Include="General\DashboardSpecs.cs" />
     <Compile Include="ProjectManagement\AddNewProject.cs" />
     <Compile Include="ProjectManagement\InviteMember.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

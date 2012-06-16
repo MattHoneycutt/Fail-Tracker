@@ -1,6 +1,6 @@
 ﻿@using FailTracker.Web.Models.Dashboard
 @using System.Web.Mvc.Html
-@model IEnumerable<ProjectDashboardViewModel>
+@model FailTracker.Web.Models.DashboardViewModel
 @{
     ViewBag._Title = "Your Dashboard";
 }
@@ -8,7 +8,7 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/Issues/Dashboard.js")"></script>
 
 <h2>Your Projects</h2>
-@foreach (var project in Model)
+@foreach (var project in Model.Projects)
 {
 	@Html.DisplayFor(m => project)
 }

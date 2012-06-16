@@ -1,88 +1,126 @@
-﻿using MvcContrib.TestHelper;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using OpenQA.Selenium;
-using SpecsFor;
-using SpecsFor.Mvc;
+using OpenQA.Selenium.IE;
+using OpenQA.Selenium.Remote;
 using Should;
 
 namespace FailTracker.IntegrationTests.RawSelenium
 {
+	/*
+	 * NOTE: To run these tests, you must do the following:
+	 * 1) Debug FailTracker.Web, and note it's URL.
+	 * 1a) Change your web.config's connection string to point to the FailTrackerTest database.  Ask Steve for the script.
+	 * 2) Copy and paste that URL into TargetAppUrl constant below.
+	 * 3) Make sure the test@user.com's password is really "TestPassword01"
+	 * 4) Add one project named "Test"
+	 * 5) Add a user named "other@user.com"
+	 * 6) Cross your fingers...
+	 */
+	[TestFixture]
+	[Explicit]
 	public class AuthenticationSpecs
 	{
-		public abstract class given_the_user_is_unauthenticated : SpecsFor<MvcWebApp>
+		//TODO: Switch back to 
+		//private const string TargetAppUrl = "URL GOES HERE!";
+		private const string TargetAppUrl = "http://localhost:65140";
+
+		[Test]
+		public void unauthorized_user_cannot_access_dashboard()
 		{
-			protected override void Given()
+			var capabilities = new DesiredCapabilities();
+			capabilities.SetCapability(InternetExplorerDriver.IntroduceInstabilityByIgnoringProtectedModeSettings, true);
+
+			var driver = new InternetExplorerDriver(capabilities);
+			driver.Navigate().GoToUrl(TargetAppUrl + "/Authentication/LogOff");
+
+			try
 			{
-				SUT.Browser.Navigate().GoToUrl(MvcWebApp.BaseUrl + "/Authentication/LogOff");
+				driver.Navigate().GoToUrl(TargetAppUrl + "/Dashboard");
+
+				driver.Url.ShouldEqual(TargetAppUrl + "/LogOn?ReturnUrl=%2fDashboard");
 			}
-
-			public class when_trying_to_access_the_dashboard_controller : given_the_user_is_unauthenticated
+			finally
 			{
-				protected override void When()
-				{
-					SUT.Browser.Navigate().GoToUrl(MvcWebApp.BaseUrl + "/Dashboard");
-				}
-
-				[Test]
-				public void then_it_redirects_to_the_login_page()
-				{
-					SUT.Browser.Url.ShouldEqual(MvcWebApp.BaseUrl + "/LogOn?ReturnUrl=%2fDashboard");
-				}
+				driver.Close();
 			}
+		}
 
-			public class when_logging_in_with_no_credentials : given_the_user_is_unauthenticated
+		[Test]
+		public void logging_in_with_no_credentials_displays_validation_error()
+		{
+			var capabilities = new DesiredCapabilities();
+			capabilities.SetCapability(InternetExplorerDriver.IntroduceInstabilityByIgnoringProtectedModeSettings, true);
+
+			var driver = new InternetExplorerDriver(capabilities);
+			driver.Navigate().GoToUrl(TargetAppUrl + "/Authentication/LogOff");
+
+			try
 			{
-				protected override void When()
-				{
-					SUT.Browser.Navigate().GoToUrl(MvcWebApp.BaseUrl + "/LogOn");
-					SUT.Browser.FindElement(By.TagName("form")).Submit();
-				}
+				driver.Navigate().GoToUrl(TargetAppUrl + "/LogOn");
 
-				[Test]
-				public void then_it_displays_a_validation_error_on_the_email_address()
-				{
-					SUT.Browser.FindElements(By.CssSelector("span.field-validation-error[data-valmsg-for=\"EmailAddress\"]")).ShouldNotBeEmpty();
-				}
+				driver.FindElement(By.TagName("form")).Submit();
 
-				[Test]
-				public void then_it_displays_a_validation_error_on_the_password()
-				{
-					SUT.Browser.FindElements(By.CssSelector("span.field-validation-error[data-valmsg-for=\"Password\"]")).ShouldNotBeEmpty();
-				}
+				driver.Url.ShouldEqual(TargetAppUrl + "/LogOn");
+
+				driver.FindElements(By.CssSelector("span.field-validation-error[data-valmsg-for=\"EmailAddress\"]")).ShouldNotBeEmpty();
+				driver.FindElements(By.CssSelector("span.field-validation-error[data-valmsg-for=\"Password\"]")).ShouldNotBeEmpty();
 			}
-
-			public class when_logging_in_with_invalid_credentials : given_the_user_is_unauthenticated
+			finally
 			{
-				protected override void When()
-				{
-					SUT.Browser.Navigate().GoToUrl(MvcWebApp.BaseUrl + "/LogOn");
-					SUT.Browser.FindElement(By.Id("EmailAddress")).SendKeys("Blah@test.com");
-					SUT.Browser.FindElement(By.Id("Password")).SendKeys("Blah");
-					SUT.Browser.FindElement(By.TagName("form")).Submit();
-				}
-
-				[Test]
-				public void then_it_should_not_log_you_in()
-				{
-					SUT.Browser.Url.ShouldEqual(MvcWebApp.BaseUrl + "/LogOn");
-				}
+				driver.Close();
 			}
+		}
 
-			public class when_logging_in_with_valid_credentials : given_the_user_is_unauthenticated
+		[Test]
+		public void logging_in_with_invalid_credentials()
+		{
+			var capabilities = new DesiredCapabilities();
+			capabilities.SetCapability(InternetExplorerDriver.IntroduceInstabilityByIgnoringProtectedModeSettings, true);
+
+			var driver = new InternetExplorerDriver(capabilities);
+			driver.Navigate().GoToUrl(TargetAppUrl + "/Authentication/LogOff");
+
+			try
 			{
-				protected override void When()
-				{
-					SUT.Browser.Navigate().GoToUrl(MvcWebApp.BaseUrl + "/LogOn");
-					SUT.Browser.FindElement(By.Id("EmailAddress")).SendKeys("test@user.com");
-					SUT.Browser.FindElement(By.Id("Password")).SendKeys("TestPassword01");
-					SUT.Browser.FindElement(By.TagName("form")).Submit();
-				}
+				driver.Navigate().GoToUrl(TargetAppUrl + "/LogOn");
 
-				[Test]
-				public void then_it_should_redirect_to_the_home_page()
-				{
-					SUT.Browser.Url.ShouldEqual(MvcWebApp.BaseUrl + "/");
-				}
+				driver.FindElement(By.Name("EmailAddrss")).SendKeys("bad@user.com");
+				driver.FindElement(By.Name("Password")).SendKeys("BadPass");
+				driver.FindElement(By.TagName("form")).Submit();
+
+				driver.Url.ShouldEqual(TargetAppUrl + "/LogOn");
+
+				driver.FindElement(By.ClassName("validation-summary-errors")).Text.ShouldContain(
+					"The user name or password provided is incorrect.");
+			}
+			finally
+			{
+				driver.Close();
+			}
+		}
+
+		[Test]
+		public void logging_in_with_valid_credentials_redirects_to_the_dashboard()
+		{
+			var capabilities = new DesiredCapabilities();
+			capabilities.SetCapability(InternetExplorerDriver.IntroduceInstabilityByIgnoringProtectedModeSettings, true);
+
+			var driver = new InternetExplorerDriver(capabilities);
+			driver.Navigate().GoToUrl(TargetAppUrl + "/Authentication/LogOff");
+
+			try
+			{
+				driver.Navigate().GoToUrl(TargetAppUrl + "/LogOn");
+
+				driver.FindElement(By.Name("EmailAddress")).SendKeys("test@user.com");
+				driver.FindElement(By.Name("Password")).SendKeys("TestPassword01");
+				driver.FindElement(By.TagName("form")).Submit();
+
+				driver.Url.ShouldEqual(TargetAppUrl + "/");
+			}
+			finally
+			{
+				driver.Close();
 			}
 		}
 	}

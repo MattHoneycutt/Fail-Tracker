@@ -9,9 +9,8 @@ namespace FailTracker.IntegrationTests
 	{
 		public void Authenticate(MvcWebApp app)
 		{
-			app.Browser.Manage().Cookies.DeleteAllCookies();
-			
 			app.NavigateTo<AuthenticationController>(c => c.LogOn());
+			app.Browser.Manage().Cookies.DeleteAllCookies();
 			
 			app.FindFormFor<LogOnForm>().Field(f => f.EmailAddress)
 				.SetValueTo("test@user.com").Field(f => f.Password)

@@ -37,26 +37,26 @@ $(function () {
 	var statusTimeout = setTimeout(function () { }, 1);
 	Site.showStatus = function (message, type) {
 
-		clearTimeout(statusTimeout);
+		//clearTimeout(statusTimeout);
 
-		var statusMessage = $("#status-message");
-		var container = statusMessage.parent();
-		var status = $("#status-message");
+		//var statusMessage = $("#status-message");
+		//var container = statusMessage.parent();
+		//var status = $("#status-message");
 
-		status.stop(true, true)
-			.removeClass()
-			.addClass(type)
-			.text(message)
-			.show()
-			.position({
-				my: "center top",
-				at: "center top",
-				of: container
-			});
+		//status.stop(true, true)
+		//	.removeClass()
+		//	.addClass(type)
+		//	.text(message)
+		//	.show()
+		//	.position({
+		//		my: "center top",
+		//		at: "center top",
+		//		of: container
+		//	});
 
-		statusTimeout = setTimeout(function () {
-			status.fadeOut(1500);
-		}, 5000);
+		//statusTimeout = setTimeout(function () {
+		//	status.fadeOut(1500);
+		//}, 5000);
 
 	};
 

@@ -16,7 +16,6 @@ namespace FailTracker.IntegrationTests.General
 				SUT.NavigateTo<AuthenticationController>(c => c.LogOff());
 			}
 
-			//NOTE: Good one to show
 			public class when_trying_to_access_the_dashboard_controller : given_the_user_is_unauthenticated
 			{
 				protected override void When()
@@ -84,7 +83,7 @@ namespace FailTracker.IntegrationTests.General
 				}
 
 				[Test]
-				public void then_it_should_redirect_to_the_home_page()
+				public void then_it_should_redirect_to_the_dashboard()
 				{
 					SUT.Route.ShouldMapTo<DashboardController>(c => c.Index());
 				}

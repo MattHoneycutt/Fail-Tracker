@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using AutoMapper;
 using FailTracker.Core.Data;
 using FailTracker.Core.Domain;
+using FailTracker.Web.Models;
 using FailTracker.Web.Models.Dashboard;
 
 namespace FailTracker.Web.Controllers
@@ -21,7 +22,7 @@ namespace FailTracker.Web.Controllers
 			var projects = (from p in _projects.Query()
 			                select Mapper.Map<Project,ProjectDashboardViewModel>(p)).ToArray();
 
-			return View(projects);
+			return View(new DashboardViewModel{Projects = projects});
 		}
 	}
 }
