@@ -122,7 +122,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RawSelenium\AuthenticationSpecs.cs" />
     <Compile Include="RegularUserAuthenticator.cs" />
-    <Compile Include="SupportRequests\SubmitNewRequest.cs" />
     <Compile Include="TestSeedData.cs" />
   </ItemGroup>
   <ItemGroup>

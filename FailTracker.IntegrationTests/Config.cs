@@ -6,7 +6,7 @@ using Project = SpecsFor.Mvc.Project;
 
 namespace FailTracker.IntegrationTests
 {
-	[SetUpFixture]
+	//[SetUpFixture]
 	public class Config
 	{
 		private SpecsForIntegrationHost _host;
