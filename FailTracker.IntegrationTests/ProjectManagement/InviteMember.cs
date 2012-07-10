@@ -5,8 +5,8 @@ using FailTracker.Web.Models.ProjectAdministration;
 using NUnit.Framework;
 using SpecsFor;
 using SpecsFor.Mvc;
-using FailTracker.IntegrationTests.SpecsForMvcExt;
 using Should;
+using SpecsFor.Mvc.SeleniumExtensions;
 using SpecsFor.Mvc.Smtp;
 
 namespace FailTracker.IntegrationTests.ProjectManagement

@@ -84,9 +84,9 @@
     <Reference Include="SpecsFor">
       <HintPath>..\packages\SpecsFor.2.6.0\lib\net40\SpecsFor.dll</HintPath>
     </Reference>
-    <Reference Include="SpecsFor.Mvc, Version=1.3.1.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="SpecsFor.Mvc, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\SpecsFor.Mvc.1.3.1\lib\net40\SpecsFor.Mvc.dll</HintPath>
+      <HintPath>..\packages\SpecsFor.Mvc.1.4.0\lib\net40\SpecsFor.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="StructureMap">
       <HintPath>..\packages\structuremap.2.6.3\lib\StructureMap.dll</HintPath>
@@ -122,8 +122,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RawSelenium\AuthenticationSpecs.cs" />
     <Compile Include="RegularUserAuthenticator.cs" />
-    <Compile Include="SpecsForMvcExt\FakeViewDataContainer.cs" />
-    <Compile Include="SpecsForMvcExt\MvcWebAppExtensions.cs" />
     <Compile Include="SupportRequests\SubmitNewRequest.cs" />
     <Compile Include="TestSeedData.cs" />
   </ItemGroup>

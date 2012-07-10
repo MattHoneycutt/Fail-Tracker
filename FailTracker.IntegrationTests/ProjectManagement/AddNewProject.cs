@@ -1,11 +1,11 @@
-﻿using FailTracker.IntegrationTests.SpecsForMvcExt;
-using FailTracker.Web.Controllers;
+﻿using FailTracker.Web.Controllers;
 using FailTracker.Web.Models.ProjectAdministration;
 using NUnit.Framework;
 using SpecsFor;
 using SpecsFor.Mvc;
 using MvcContrib.TestHelper;
 using Should;
+using SpecsFor.Mvc.SeleniumExtensions;
 
 namespace FailTracker.IntegrationTests.ProjectManagement
 {
