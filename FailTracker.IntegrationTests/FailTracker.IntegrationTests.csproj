@@ -117,8 +117,8 @@
     <Compile Include="Contexts\UserIsUnauthenticated.cs" />
     <Compile Include="General\AuthenticationSpecs.cs" />
     <Compile Include="Config.cs" />
-    <Compile Include="ProjectManagement\AddNewProject.cs" />
-    <Compile Include="ProjectManagement\InviteMember.cs" />
+    <Compile Include="ProjectManagement\AddNewProjectSpecs.cs" />
+    <Compile Include="ProjectManagement\InviteMemberSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RawSelenium\AuthenticationSpecs.cs" />
     <Compile Include="RegularUserAuthenticator.cs" />

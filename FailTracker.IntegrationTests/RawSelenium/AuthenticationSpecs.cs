@@ -84,7 +84,7 @@ namespace FailTracker.IntegrationTests.RawSelenium
 			{
 				driver.Navigate().GoToUrl(TargetAppUrl + "/LogOn");
 
-				driver.FindElement(By.Name("EmailAddrss")).SendKeys("bad@user.com");
+				driver.FindElement(By.Name("EmailAddress")).SendKeys("bad@user.com");
 				driver.FindElement(By.Name("Password")).SendKeys("BadPass");
 				driver.FindElement(By.TagName("form")).Submit();
 

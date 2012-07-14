@@ -9,7 +9,7 @@ using SpecsFor.Mvc.SeleniumExtensions;
 
 namespace FailTracker.IntegrationTests.ProjectManagement
 {
-	public class AddNewProject
+	public class AddNewProjectSpecs
 	{
 		public class when_adding_a_new_project : SpecsFor<MvcWebApp>
 		{

@@ -11,24 +11,29 @@ using SpecsFor.Mvc.Smtp;
 
 namespace FailTracker.IntegrationTests.ProjectManagement
 {
-	public class InviteMember
+	public class InviteMemberSpecs
 	{
 		public class when_inviting_a_user_to_a_project : SpecsFor<MvcWebApp>
 		{
+			private string _projectId;
+
 			protected override void Given()
 			{
-				Given(new ProjectExists("Dummy Project"));
+				Given(new ProjectExists("Dummy Project"));				
 				base.Given();
+
+				SUT.NavigateTo<ProjectAdministrationController>(c => c.Index());
+				_projectId = SUT.FindDisplayFor<ProjectListViewModel>().DisplayFor(m => m.Summaries[0].ID).Value();
 			}
 
 			protected override void When()
 			{
-				SUT.NavigateTo<ProjectAdministrationController>(c => c.Index());
-				var projectId = SUT.FindDisplayFor<ProjectListViewModel>().DisplayFor(m => m.Summaries[0].ID).Value();
-				SUT.FindLinkTo<ProjectAdministrationController>(c => c.InviteMember(new Guid(projectId))).ClickButton();
+				SUT.FindLinkTo<ProjectAdministrationController>(c => c.InviteMember(new Guid(_projectId))).ClickButton();
+
 				SUT.FindFormFor<InviteMemberForm>()
 					.Field(f => f.EmailAddress).SetValueTo("other@user.com")
 					.Submit();
+
 				SUT.NavigateTo<ProjectAdministrationController>(c => c.Index());
 			}
 
