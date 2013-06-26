@@ -44,7 +44,8 @@ namespace FailTracker.UnitTests.Web
 			                             where c.BaseType != typeof (AuthorizedFailTrackerController) &&
 			                                   c != typeof (AuthenticationController) &&
 											   c != typeof (SignUpController) &&
-											   c != typeof (UtilityController)
+											   c != typeof (UtilityController) &&
+											   c != typeof (SupportRequestController)
 			                             select c.Name;
 
 			if (unprotectedControllers.Any())

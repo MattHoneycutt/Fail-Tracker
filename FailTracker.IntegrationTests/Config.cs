@@ -17,6 +17,8 @@ namespace FailTracker.IntegrationTests
 				.With(Project.Named("FailTracker.Web"))
 				.ApplyWebConfigTransformForConfig("Test");
 
+			config.UseBrowser(BrowserDriver.InternetExplorer);
+
 			config.BuildRoutesUsing(r => new RouteBootstrapper(r).Execute());
 
 			config.Use<TestSeedData>();

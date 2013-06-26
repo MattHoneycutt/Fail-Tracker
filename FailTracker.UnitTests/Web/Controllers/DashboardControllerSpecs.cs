@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using FailTracker.Core.Domain;
 using FailTracker.UnitTests.Web.Controllers.Contexts;
 using FailTracker.Web.Controllers;
+using FailTracker.Web.Models;
 using FailTracker.Web.Models.Dashboard;
 using MvcContrib.TestHelper;
 using NUnit.Framework;
@@ -25,16 +26,16 @@ namespace FailTracker.UnitTests.Web.Controllers
 			[Test]
 			public void then_it_returns_a_view()
 			{
-				_result.AssertViewRendered().WithViewData<ProjectDashboardViewModel[]>().ShouldNotBeEmpty();
+				_result.AssertViewRendered().WithViewData<DashboardViewModel>().ShouldNotBeNull();
 			}
 
 			[Test]
 			public void then_each_project_has_issues()
 			{
 				var result = (ViewResult)_result;
-				var model = (ProjectDashboardViewModel[]) result.Model;
+				var model = (DashboardViewModel)result.Model;
 
-				model.Any(m => m.ActiveIssues.Count() > 0).ShouldBeTrue();
+				model.Projects.Any(m => m.ActiveIssues.Count() > 0).ShouldBeTrue();
 			}
 		}
 
@@ -51,7 +52,7 @@ namespace FailTracker.UnitTests.Web.Controllers
 			public void then_no_issues_are_returned()
 			{
 				_result.AssertViewRendered()
-					.WithViewData<ProjectDashboardViewModel[]>()[1]
+					.WithViewData<DashboardViewModel>().Projects[1]
 					.ActiveIssues.ShouldBeEmpty();
 			}
 		}

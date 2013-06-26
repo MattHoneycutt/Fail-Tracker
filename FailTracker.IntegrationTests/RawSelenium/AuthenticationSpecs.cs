@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.IE;
-using OpenQA.Selenium.Remote;
 using Should;
 
 namespace FailTracker.IntegrationTests.RawSelenium
@@ -27,10 +26,10 @@ namespace FailTracker.IntegrationTests.RawSelenium
 		[Test]
 		public void unauthorized_user_cannot_access_dashboard()
 		{
-			var capabilities = new DesiredCapabilities();
-			capabilities.SetCapability(InternetExplorerDriver.IntroduceInstabilityByIgnoringProtectedModeSettings, true);
-
-			var driver = new InternetExplorerDriver(capabilities);
+			var options = new InternetExplorerOptions();
+			options.IntroduceInstabilityByIgnoringProtectedModeSettings = true;
+			
+			var driver = new InternetExplorerDriver(options);
 			driver.Navigate().GoToUrl(TargetAppUrl + "/Authentication/LogOff");
 
 			try
@@ -48,10 +47,10 @@ namespace FailTracker.IntegrationTests.RawSelenium
 		[Test]
 		public void logging_in_with_no_credentials_displays_validation_error()
 		{
-			var capabilities = new DesiredCapabilities();
-			capabilities.SetCapability(InternetExplorerDriver.IntroduceInstabilityByIgnoringProtectedModeSettings, true);
+			var options = new InternetExplorerOptions();
+			options.IntroduceInstabilityByIgnoringProtectedModeSettings = true;
 
-			var driver = new InternetExplorerDriver(capabilities);
+			var driver = new InternetExplorerDriver(options);
 			driver.Navigate().GoToUrl(TargetAppUrl + "/Authentication/LogOff");
 
 			try
@@ -74,10 +73,10 @@ namespace FailTracker.IntegrationTests.RawSelenium
 		[Test]
 		public void logging_in_with_invalid_credentials()
 		{
-			var capabilities = new DesiredCapabilities();
-			capabilities.SetCapability(InternetExplorerDriver.IntroduceInstabilityByIgnoringProtectedModeSettings, true);
+			var options = new InternetExplorerOptions();
+			options.IntroduceInstabilityByIgnoringProtectedModeSettings = true;
 
-			var driver = new InternetExplorerDriver(capabilities);
+			var driver = new InternetExplorerDriver(options);
 			driver.Navigate().GoToUrl(TargetAppUrl + "/Authentication/LogOff");
 
 			try
@@ -102,10 +101,10 @@ namespace FailTracker.IntegrationTests.RawSelenium
 		[Test]
 		public void logging_in_with_valid_credentials_redirects_to_the_dashboard()
 		{
-			var capabilities = new DesiredCapabilities();
-			capabilities.SetCapability(InternetExplorerDriver.IntroduceInstabilityByIgnoringProtectedModeSettings, true);
+			var options = new InternetExplorerOptions();
+			options.IntroduceInstabilityByIgnoringProtectedModeSettings = true;
 
-			var driver = new InternetExplorerDriver(capabilities);
+			var driver = new InternetExplorerDriver(options);
 			driver.Navigate().GoToUrl(TargetAppUrl + "/Authentication/LogOff");
 
 			try

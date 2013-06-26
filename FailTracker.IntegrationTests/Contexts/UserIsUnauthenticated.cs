@@ -6,7 +6,7 @@ namespace FailTracker.IntegrationTests.Contexts
 {
 	public class UserIsUnauthenticated : IContext<MvcWebApp>
 	{
-		public void Initialize(ITestState<MvcWebApp> state)
+		public void Initialize(ISpecs<MvcWebApp> state)
 		{
 			state.SUT.NavigateTo<AuthenticationController>(c => c.LogOff());
 		}

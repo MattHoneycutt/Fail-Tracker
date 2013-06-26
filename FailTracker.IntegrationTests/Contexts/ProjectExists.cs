@@ -14,7 +14,7 @@ namespace FailTracker.IntegrationTests.Contexts
 			_projectName = projectName;
 		}
 
-		public void Initialize(ITestState<MvcWebApp> state)
+		public void Initialize(ISpecs<MvcWebApp> state)
 		{
 			state.SUT.NavigateTo<ProjectAdministrationController>(c => c.AddProject());
 			state.SUT.FindFormFor<AddProjectForm>()
