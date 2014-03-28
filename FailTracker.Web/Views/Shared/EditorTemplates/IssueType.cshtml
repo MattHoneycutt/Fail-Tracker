@@ -1,5 +1,16 @@
-﻿@using FailTracker.Core.Domain;
+﻿@using FailTracker.Web.Domain
+@model FailTracker.Web.Domain.IssueType
 @{
-    Layout = "~/Views/Shared/EditorTemplates/_FieldLayout.cshtml";
+    var options = Enum.GetValues(typeof(IssueType))
+    .Cast<IssueType>()
+    .Select(t => new SelectListItem
+    {
+        Text = t.ToString(),
+        Value = t.ToString(),
+        Selected = t == Model
+    })
+    .ToArray();
+
 }
-@Html.DropDownList("", ((IssueType?)Model ?? IssueType.Story).ToSelectList())
+
+@Html.DropDownList("", options, new { @class = "form-control" })

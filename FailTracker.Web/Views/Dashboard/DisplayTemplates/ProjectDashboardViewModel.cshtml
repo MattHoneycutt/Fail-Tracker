@@ -1,5 +1,0 @@
-﻿@using FailTracker.Web.Models.Dashboard
-@model ProjectDashboardViewModel
-		   
-<h3>Recent changes in @Html.DisplayFor(m => m.Name)</h3>
-@Html.DisplayIssueGrid(Model.ActiveIssues).WithProjectToolBar(Model.ID)

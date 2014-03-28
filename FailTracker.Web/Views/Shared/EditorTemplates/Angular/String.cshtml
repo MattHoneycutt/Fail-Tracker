@@ -1,0 +1,8 @@
+﻿@model string
+@Html.TextBox("", ViewData.TemplateInfo.FormattedModelValue,
+        new
+        {
+	        @class = "form-control", 
+			placeholder = ViewData.ModelMetadata.Watermark,
+			ng_model = Html.AngularBindingForModel()
+        })

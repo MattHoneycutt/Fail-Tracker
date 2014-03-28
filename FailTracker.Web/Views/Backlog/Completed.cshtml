@@ -1,9 +1,0 @@
-﻿@using FailTracker.Web.Models.Backlog
-@model CompletedStoriesViewModel
-
-@{
-	ViewBag._Title = "Completed Stories for " + Model.ProjectName;
-}
-
-<h2>Completed Stories - @Model.ProjectName</h2>
-@Html.DisplayIssueGrid(Model.Issues).WithProjectToolBar(Model.ProjectID)

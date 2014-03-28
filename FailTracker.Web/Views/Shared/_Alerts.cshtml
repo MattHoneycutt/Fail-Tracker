@@ -1,0 +1,17 @@
+﻿@using FailTracker.Web.Infrastructure.Alerts
+@if (TempData.GetAlerts().Any())
+{
+	<script type="text/javascript">
+		$(function() {
+			@foreach (var alert in TempData.GetAlerts())
+			{
+				<text>
+				window.alerts.showAlert({
+					message: '@alert.Message.Replace("'", "\\'")',
+					alertClass: '@alert.AlertClass'
+				});
+				</text>
+			}			
+		});
+	</script>
+}

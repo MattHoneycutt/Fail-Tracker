@@ -1,0 +1,24 @@
+﻿@model FailTracker.Web.Models.Issue.IssueSummaryViewModel[]
+
+<h3>Assigned To You</h3>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Subject</th>
+            <th>Type</th>
+            <th>Created At</th>
+            <th>Created By</th>
+        </tr>
+    </thead>
+    <tbody class="row-link" data-link="row">
+        @foreach (var issue in Model)
+        {
+            <tr>
+                <td>@Html.ActionLink(@issue.Subject, "View", "Issue", routeValues:new{id=@issue.IssueID}, htmlAttributes:null)</td>
+                <td>@issue.IssueType</td>
+                <td>@issue.CreatedAt.ToShortDateString()</td>
+                <td>@issue.CreatorUserName</td>
+            </tr>   
+        }
+    </tbody>
+</table>

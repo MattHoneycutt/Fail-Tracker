@@ -1,4 +1,3 @@
-﻿@{
-    Layout = "~/Views/Shared/EditorTemplates/_FieldLayout.cshtml";
-}
-@Html.TextArea("", ViewData.TemplateInfo.FormattedModelValue)
+﻿@model string
+@Html.TextArea("", ViewData.TemplateInfo.FormattedModelValue.ToString(),
+    new { @class = "form-control", rows=7 })

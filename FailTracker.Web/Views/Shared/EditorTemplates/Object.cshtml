@@ -1,10 +1,20 @@
-﻿@{
-    Layout = null;
-}
-@Html.ValidationSummary()
-<ul>
-@foreach (var prop in ViewData.ModelMetadata.Properties.Where(pm => pm.ShowForEdit))
+﻿@model dynamic
+
+@foreach (var prop in ViewData.ModelMetadata.Properties
+    .Where(p => p.ShowForEdit))
 {
-	<li>@Html.Editor(prop.PropertyName)</li>
+    if (prop.TemplateHint == "HiddenInput")
+    {
+        @Html.Hidden(prop.PropertyName)
+    }
+    else
+    {
+        <div class="form-group">
+            @Html.BootstrapLabel(prop.PropertyName)
+            <div class="col-md-10">
+                @Html.Editor(prop.PropertyName)
+                @Html.ValidationMessage(prop.PropertyName)
+            </div>
+        </div>
+    }
 }
-</ul>

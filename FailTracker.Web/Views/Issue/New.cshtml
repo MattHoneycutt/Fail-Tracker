@@ -1,0 +1,18 @@
+﻿@model FailTracker.Web.Models.Issue.NewIssueForm
+
+@{
+    ViewBag.Title = "New Issue";
+}
+
+<h2>New Issue</h2>
+@using (Html.BeginForm("New", "Issue", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.EditorForModel()
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Add Issue" class="btn btn-default" />
+        </div>
+    </div>
+}

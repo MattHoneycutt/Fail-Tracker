@@ -1,0 +1,16 @@
+﻿@model dynamic
+
+<h3>Angular!</h3>
+@foreach (var prop in ViewData.ModelMetadata.Properties
+	.Where(p => p.ShowForEdit))
+{
+	<div class="form-group">
+		@Html.BootstrapLabel(prop.PropertyName)
+		<div class="col-md-10">
+			@Html.Editor(prop.PropertyName,
+				AngularTemplateHelper.GetTemplateForProperty(prop),
+				new { Prefix = ViewBag.Prefix })
+			@Html.ValidationMessage(prop.PropertyName)
+		</div>
+	</div>
+}

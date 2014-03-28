@@ -1,0 +1,8 @@
+﻿@model string
+@Html.TextArea("", ViewData.TemplateInfo.FormattedModelValue.ToString(),
+    new
+    {
+	    @class = "form-control", 
+		rows=7,
+		ng_model = Html.AngularBindingForModel()
+    })

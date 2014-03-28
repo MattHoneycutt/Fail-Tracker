@@ -1,0 +1,18 @@
+﻿@using FailTracker.Web.Data
+@using FailTracker.Web.Infrastructure
+@model string
+@{
+    var dbContext = Context.GetContainer().GetInstance<ApplicationDbContext>();
+
+    var availableUsers = dbContext.Users.Select(u => new SelectListItem
+    {
+        Text = u.UserName,
+        Value = u.UserName,
+    }).ToArray();
+}
+
+@Html.DropDownList("", availableUsers, new
+{
+	@class = "form-control",
+	ng_model = Html.AngularBindingForModel()
+})

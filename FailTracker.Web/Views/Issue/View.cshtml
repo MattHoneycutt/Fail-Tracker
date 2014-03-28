@@ -1,0 +1,75 @@
+﻿@using System.Linq
+@using FailTracker.Web.Data
+@using FailTracker.Web.Domain
+@using FailTracker.Web.Infrastructure
+@model FailTracker.Web.Models.Issue.IssueDetailsViewModel
+
+@{
+    ViewBag.Title = Model.Subject;
+
+    var issueTypeOptions = Enum.GetValues(typeof(IssueType)).Cast<IssueType>()
+        .Select(t => new SelectListItem
+        {
+            Text = t.ToString(),
+            Value = t.ToString()
+        })
+        .ToArray();
+
+    var dbContext = Context.GetContainer().GetInstance<ApplicationDbContext>();
+
+    var availableUserOptions = dbContext.Users.Select(u => new SelectListItem
+    {
+        Text = u.UserName,
+        Value = u.UserName
+    }).ToArray();
+}
+
+<div ng-controller="editIssueController"
+     ng-init='init(@Html.Json(Model))'>
+    
+    <div ng-cloak ng-hide="editing">
+        <h2>
+            <img ng-src="~/Content/IssueTypes/{{issue.issueType}}.png" /> {{issue.subject}}
+            <small class="pull-right">Received {{issue.createdAt}} from {{issue.creatorUserName}}</small>
+        </h2>
+        <h4>Currently assigned to {{issue.assignedToUserName}}</h4>
+        <div class="well">
+            <p class="lead">
+                {{issue.body}}
+            </p>
+        </div>
+        <div>
+            @using (Html.BeginForm("Delete", "Issue", new { id = Model.IssueID }, FormMethod.Post, new { id = "delete-form" }))
+            {
+                @Html.AntiForgeryToken()
+                <a class="btn btn-primary" ng-click="edit()">Edit</a>
+                <button type="submit" class="btn btn-warning">Delete Issue</button>
+            }
+        </div>
+    </div>
+
+    <div class="form-horizontal" ng-cloak ng-hide="!editing">
+        <h2>Edit Issue</h2>
+
+		@Html.AngularEditorForModel("issue")
+
+	    <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button class="btn btn-primary" ng-click="save()">Save Changes</button>
+                <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section scripts
+{
+    <script>
+        $(function() {
+            $("#delete-form").on("submit", function () {
+                return confirm("Are you sure you wish to delete this issue?  You cannot undo this action.");
+            });
+        });
+    </script>
+}

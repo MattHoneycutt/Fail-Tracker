@@ -1,64 +1,50 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-	<title>@ViewBag._Title - Fail Tracker</title>
-	<link href="@Url.Content("~/Content/themes/base/jquery-ui.css")" rel="stylesheet" type="text/css" />
-	<link href="@Url.Content("~/Content/Shared/TransdminTheme/css/transdmin.css")" rel="stylesheet" type="text/css" />
-	<link href="@Url.Content("~/Content/Shared/Site.css")" rel="stylesheet" type="text/css" />
-	<script src="@Url.Content("~/Scripts/jquery-1.7.min.js")" type="text/javascript"></script>
-	<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
-	<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
-	<script src="@Url.Content("~/Scripts/jquery-ui-1.8.16.min.js")" type="text/javascript"></script>
-	<script src="@Url.Content("~/Scripts/Shared/Site.js")" type="text/javascript"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/angular")
 </head>
-<body>
-	<div id="wrapper">
-        		
-		@(Html.ImageLink<DashboardController>(c => c.Index(), "~/Content/Shared/images/logo.jpg"))
-
-		@if (Request.IsAuthenticated)
-		{
-			<div class="logon-status">
-				Hello, @(Html.ActionLink<ProfileController>(c => c.MyProfile(), User.Identity.Name))!
+<body ng-app="failtrackerApp">
+	<div class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				@Html.ActionLink("Fail Tracker", "Index", "Home", null, new { @class = "navbar-brand" })
 			</div>
-			<ul id="mainNav">
-				<li>@(Html.ActionLink<DashboardController>(c => c.Index(), "Dashboard", new { @class = "active" }))</li>
-				<li>@(Html.ActionLink<ProjectAdministrationController>(c => c.Index(), "Manage Projects"))</li>
-				<li class="right">@(Html.ActionLink<AuthenticationController>(c => c.LogOff(), "Log Off"))</li>
-			</ul>
-		}
-		<div id="containerHolder">
-			<div id="container">
-				@if (IsSectionDefined("SideBarLeft"))
-				{
-					<div class="sidebar left">
-						@RenderSection("SideBarLeft")
-					</div>    
-				}
-				<div id="main">
-					@Html.Partial("StatusMessage")
-					@RenderBody()
-				</div>
-				@if (IsSectionDefined("SideBarRight"))
-				{
-					<div class="sidebar right">
-						@RenderSection("SideBarRight")
-					</div>
-				}
-				<!-- // #main -->
-				<div class="clear">
-				</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					@if (Request.IsAuthenticated)
+					{
+						<li>@Html.ActionLink("Home", "Index", "Home")</li>
+						<li>@Html.ActionLink("New Issue", "New", "Issue")</li>
+					}
+				</ul>
+				@Html.Partial("_LoginPartial")
 			</div>
 		</div>
 	</div>
-	<div class="dialog" id="preview-dialog"></div>
-    <div class="dialog" id="session-timeout-dialog">
-        <h3>You have been logged out...</h3>
-        <p>You have been logged out of the system due to inactivity.  
-        Please @(Html.ActionLink<AuthenticationController>(c => c.LogOn(), "login")) again.</p>
-    </div>
-	<div class="dialog" id="dialog-confirm" title="">
-		<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span><span class="text"></span></p>
+	<div class="container body-content">
+		<div class="container alert-container"></div>
+		@RenderBody()
+		<hr />
+		<footer>
+			<p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+		</footer>
 	</div>
-	</body>
+
+	@Scripts.Render("~/bundles/libraries")
+	@Scripts.Render("~/bundles/bootstrap")
+	@Scripts.Render("~/bundles/app")
+	@Html.Partial("_Alerts")
+	@RenderSection("scripts", required: false)
+</body>
+
 </html>

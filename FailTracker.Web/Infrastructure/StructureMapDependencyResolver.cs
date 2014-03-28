@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -8,31 +8,30 @@ namespace FailTracker.Web.Infrastructure
 {
 	public class StructureMapDependencyResolver : IDependencyResolver
 	{
-		private readonly IContainer _container;
+		private readonly Func<IContainer> _factory;
 
-		public StructureMapDependencyResolver(IContainer container)
+		public StructureMapDependencyResolver(Func<IContainer> factory)
 		{
-			_container = container;
+			_factory = factory;
 		}
 
 		public object GetService(Type serviceType)
 		{
-			if (serviceType == null) return null;
-			try
-			{
-				return serviceType.IsAbstract || serviceType.IsInterface
-						 ? _container.TryGetInstance(serviceType)
-						 : _container.GetInstance(serviceType);
-			}
-			catch
+			if (serviceType == null)
 			{
 				return null;
 			}
+
+			var factory = _factory();
+
+			return serviceType.IsAbstract || serviceType.IsInterface
+				? factory.TryGetInstance(serviceType)
+				: factory.GetInstance(serviceType);
 		}
 
 		public IEnumerable<object> GetServices(Type serviceType)
 		{
-			return _container.GetAllInstances(serviceType).Cast<object>();
+			return _factory().GetAllInstances(serviceType).Cast<object>();
 		}
 	}
 }
