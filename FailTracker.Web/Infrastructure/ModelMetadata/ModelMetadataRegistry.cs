@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using StructureMap.Configuration.DSL;
+using StructureMap.Graph;
 
 namespace FailTracker.Web.Infrastructure.ModelMetadata
 {

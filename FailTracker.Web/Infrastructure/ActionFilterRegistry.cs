@@ -13,7 +13,7 @@ namespace FailTracker.Web.Infrastructure
 			For<IFilterProvider>().Use(
 				new StructureMapFilterProvider(containerFactory));
 
-			SetAllProperties(x =>
+			Policies.SetAllProperties(x =>
 				x.Matching(p =>
 					p.DeclaringType.CanBeCastTo(typeof(ActionFilterAttribute)) &&
 					p.DeclaringType.Namespace.StartsWith("FailTracker") &&
