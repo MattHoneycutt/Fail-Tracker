@@ -8,7 +8,7 @@ namespace FailTracker.Web.Infrastructure
 		public static IContainer GetContainer(this HttpContextBase context)
 		{
 			return (IContainer) HttpContext.Current.Items["_Container"] 
-				?? ObjectFactory.Container;
+				?? IoC.Container;
 		}
 	}
 }

@@ -37,20 +37,20 @@ namespace FailTracker.Web
 			Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, Configuration>());
 
 	        DependencyResolver.SetResolver(
-				new StructureMapDependencyResolver(() => Container ?? ObjectFactory.Container));
+				new StructureMapDependencyResolver(() => Container ?? IoC.Container));
 
-	        ObjectFactory.Configure(cfg =>
+			IoC.Container.Configure(cfg =>
 	        {
 		        cfg.AddRegistry(new StandardRegistry());
 				cfg.AddRegistry(new ControllerRegistry());
 		        cfg.AddRegistry(new ActionFilterRegistry(
-					() => Container ?? ObjectFactory.Container));
+					() => Container ?? IoC.Container));
 				cfg.AddRegistry(new MvcRegistry());
 				cfg.AddRegistry(new TaskRegistry());
 				cfg.AddRegistry(new ModelMetadataRegistry());
 			});
 
-	        using (var container = ObjectFactory.Container.GetNestedContainer())
+	        using (var container = IoC.Container.GetNestedContainer())
 	        {
 		        foreach (var task in container.GetAllInstances<IRunAtInit>())
 		        {
@@ -66,7 +66,7 @@ namespace FailTracker.Web
 
 	    public void Application_BeginRequest()
 	    {
-		    Container = ObjectFactory.Container.GetNestedContainer();
+		    Container = IoC.Container.GetNestedContainer();
 
 		    foreach (var task in Container.GetAllInstances<IRunOnEachRequest>())
 		    {
