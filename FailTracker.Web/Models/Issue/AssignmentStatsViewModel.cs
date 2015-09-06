@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using AutoMapper;
 using FailTracker.Web.Domain;
-using FailTracker.Web.Infrastructure.Mapping;
+using Heroic.AutoMapper;
 
 namespace FailTracker.Web.Models.Issue
 {

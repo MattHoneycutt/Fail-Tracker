@@ -8,6 +8,7 @@ using FailTracker.Web.Infrastructure;
 using FailTracker.Web.Infrastructure.ModelMetadata;
 using FailTracker.Web.Infrastructure.Tasks;
 using FailTracker.Web.Migrations;
+using Heroic.Web.IoC;
 using StructureMap;
 using StructureMap.TypeRules;
 
@@ -15,40 +16,18 @@ namespace FailTracker.Web
 {
     public class MvcApplication : System.Web.HttpApplication
     {
-	    public IContainer Container
-	    {
-		    get
-		    {
-			    return (IContainer) HttpContext.Current.Items["_Container"];
-		    }
-		    set
-		    {
-			    HttpContext.Current.Items["_Container"] = value;
-		    }
-	    }
+	    public IContainer Container => StructureMapContainerPerRequestModule.Container;
 
-        protected void Application_Start()
-        {
-            AreaRegistration.RegisterAllAreas();
+	    protected void Application_Start()
+	    {
+		    StructureMapContainerPerRequestModule.PreDisposeContainer += ExecuteEndTasks;
+
+			AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
 			Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, Configuration>());
-
-	        DependencyResolver.SetResolver(
-				new StructureMapDependencyResolver(() => Container ?? IoC.Container));
-
-			IoC.Container.Configure(cfg =>
-	        {
-		        cfg.AddRegistry(new StandardRegistry());
-				cfg.AddRegistry(new ControllerRegistry());
-		        cfg.AddRegistry(new ActionFilterRegistry(
-					() => Container ?? IoC.Container));
-				cfg.AddRegistry(new MvcRegistry());
-				cfg.AddRegistry(new TaskRegistry());
-				cfg.AddRegistry(new ModelMetadataRegistry());
-			});
 
 	        using (var container = IoC.Container.GetNestedContainer())
 	        {
@@ -66,8 +45,6 @@ namespace FailTracker.Web
 
 	    public void Application_BeginRequest()
 	    {
-		    Container = IoC.Container.GetNestedContainer();
-
 		    foreach (var task in Container.GetAllInstances<IRunOnEachRequest>())
 		    {
 			    task.Execute();
@@ -82,20 +59,11 @@ namespace FailTracker.Web
 		    }
 	    }
 
-	    public void Application_EndRequest()
+	    public void ExecuteEndTasks(IContainer nestedContainer)
 	    {
-		    try
-		    {
-			    foreach (var task in 
-					Container.GetAllInstances<IRunAfterEachRequest>())
-			    {
-				    task.Execute();
-			    }
-		    }
-		    finally
-		    {
-				Container.Dispose();
-				Container = null;
+			foreach (var task in nestedContainer.GetAllInstances<IRunAfterEachRequest>())
+			{
+				task.Execute();
 			}
 	    }
     }

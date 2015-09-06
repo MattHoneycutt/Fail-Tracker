@@ -1,5 +1,6 @@
 ﻿@using FailTracker.Web.Data
 @using FailTracker.Web.Infrastructure
+@using Heroic.Web.IoC
 @model string
 @{
     var dbContext = Context.GetContainer().GetInstance<ApplicationDbContext>();
@@ -9,7 +10,7 @@
         Text = u.UserName,
         Value = u.Id,
         Selected = u.Id == Model
-    }).ToArray();
+    }).ToArray(); 
 }
 
 @Html.DropDownList("", availableUsers, new { @class = "form-control" })

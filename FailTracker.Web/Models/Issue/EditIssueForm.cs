@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using FailTracker.Web.Domain;
 using FailTracker.Web.Filters;
-using FailTracker.Web.Infrastructure.Mapping;
+using Heroic.AutoMapper;
 
 namespace FailTracker.Web.Models.Issue
 {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using FailTracker.Web.Domain;
-using FailTracker.Web.Infrastructure.Mapping;
+using Heroic.AutoMapper;
 using FailTracker.Web.Infrastructure.ModelMetadata;
 
 namespace FailTracker.Web.Models.Issue

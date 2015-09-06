@@ -1,5 +1,6 @@
 ﻿@using FailTracker.Web.Data
 @using FailTracker.Web.Infrastructure
+@using Heroic.Web.IoC
 @model string
 @{
     var dbContext = Context.GetContainer().GetInstance<ApplicationDbContext>();
@@ -7,7 +8,7 @@
     var availableUsers = dbContext.Users.Select(u => new SelectListItem
     {
         Text = u.UserName,
-        Value = u.UserName,
+        Value = u.UserName, 
     }).ToArray();
 }
 
